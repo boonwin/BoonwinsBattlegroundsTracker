@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="BoonwinsBattlegroundTracker.BgMatchOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BoonwinsBattlegroundTracker"
+             mc:Ignorable="d" Width="300" Height="500"  VerticalAlignment="Center" HorizontalAlignment="Right">
+    <Grid x:Name="panel" HorizontalAlignment="Right" VerticalAlignment="Center" Width="300" >
+        <Label x:Name="lbRankTitle"  Content="Placements of the day" Margin="24,0,77,0" FontSize="17" FontFamily="Arial" FontWeight="Bold" Foreground="White" Background="Transparent" BorderBrush="Transparent" Height="32" VerticalAlignment="Top" HorizontalAlignment="Center" Width="199" Visibility="Hidden">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                    Color="DarkBlue"
+                    Opacity="1"
+                    BlurRadius="5"/>
+            </Label.Effect>
+        </Label>
+        <controls:MetroProgressBar x:Name="pbRank1" HorizontalAlignment="Left" Height="26" Margin="64,46,0,0" VerticalAlignment="Top" Width="139" Minimum="0" Maximum="100" Foreground="Lime" Background="GhostWhite" BorderBrush="White" />
+        <controls:MetroProgressBar x:Name="pbRank2" HorizontalAlignment="Left" Height="27" Margin="64,77,0,0" VerticalAlignment="Top" Width="139" Minimum="0" Maximum="100" Foreground="LawnGreen" Background="GhostWhite" BorderBrush="White"/>
+        <controls:MetroProgressBar x:Name="pbRank3" HorizontalAlignment="Left" Height="25" Margin="64,109,0,0" VerticalAlignment="Top" Width="139" Minimum="0" Maximum="100" Foreground="GreenYellow" Background="GhostWhite" BorderBrush="White"/>
+        <controls:MetroProgressBar x:Name="pbRank4" HorizontalAlignment="Left" Height="25" Margin="64,140,0,0" VerticalAlignment="Top" Width="139" Minimum="0" Maximum="100" Foreground="Yellow" Background="GhostWhite" BorderBrush="White"/>
+        <controls:MetroProgressBar x:Name="pbRank5" HorizontalAlignment="Left" Height="25" Margin="64,171,0,0" VerticalAlignment="Top" Width="139" Minimum="0" Maximum="100" Foreground="Gold" Background="GhostWhite" BorderBrush="White"/>
+        <controls:MetroProgressBar x:Name="pbRank6" HorizontalAlignment="Left" Height="26" Margin="64,202,0,0" VerticalAlignment="Top" Width="139" Minimum="0" Maximum="100" Foreground="Orange" Background="GhostWhite" BorderBrush="White"/>
+        <controls:MetroProgressBar x:Name="pbRank7" HorizontalAlignment="Left" Height="26" Margin="64,233,0,0" VerticalAlignment="Top" Width="139" Minimum="0" Maximum="100" Foreground="OrangeRed" Background="GhostWhite" BorderBrush="White"/>
+        <controls:MetroProgressBar x:Name="pbRank8" HorizontalAlignment="Left" Height="26" Margin="64,264,0,0" VerticalAlignment="Top" Width="139" Minimum="0" Maximum="100" Foreground="Red" Background="GhostWhite" BorderBrush="White"/>
+        <Label x:Name="lbRank1" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,48,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
+        <Label x:Name="lbRank2" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,78,0,0" VerticalAlignment="Top" Height="26" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
+        <Label x:Name="lbRank3" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,109,0,0" VerticalAlignment="Top" Height="24" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
+        <Label x:Name="lbRank4" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,140,0,0" VerticalAlignment="Top" Height="24" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
+        <Label x:Name="lbRank5" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,172,0,0" VerticalAlignment="Top" Height="24" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
+        <Label x:Name="lbRank6" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,203,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
+        <Label x:Name="lbRank7" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,233,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
+        <Label x:Name="lbRank8" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,265,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
+        <Image x:Name="imgTheme" HorizontalAlignment="Left" VerticalAlignment="Top"  Source="Themes/baseTheme.png" />
+
+
+        <Label x:Name="tbAvgRankText" Margin="105,291,43,0" Content="Ø-Rank: 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="White" Background="Transparent" Height="33" VerticalAlignment="Top">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                    Color="DarkBlue"
+                    Opacity="1"
+                    BlurRadius="5"/>
+            </Label.Effect>
+        </Label>
+        <Label x:Name="tbMmrText" Margin="0,327,150,0" Content="MMR: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="24" FontWeight="Bold" Foreground="White" Background="Transparent" Height="52" VerticalAlignment="Top">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                    Color="DarkBlue"
+                    Opacity="1"
+                    BlurRadius="5"/>
+            </Label.Effect>
+        </Label>
+        <Label x:Name="tbMmrValueText" Margin="115,336,77,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="24" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                    Color="DarkBlue"
+                    Opacity="1"
+                    BlurRadius="5"/>
+            </Label.Effect>
+        </Label>
+        <Label x:Name="tbTotalGames" Margin="0,291,162,0" Content="Games: 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="White" Background="Transparent" Height="33" VerticalAlignment="Top">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                    Color="DarkBlue"
+                    Opacity="1"
+                    BlurRadius="5"/>
+            </Label.Effect>
+        </Label>
+        <Label x:Name="tbAvgRankSmallText" Margin="129,276,138,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Franklin Gothic Demi Cond" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top" FontStyle="Italic" Visibility="Hidden"/>
+
+
+        <Label x:Name="tbTotalGamesSmallText" Margin="170,276,97,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Franklin Gothic Demi Cond" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top" FontStyle="Italic" Visibility="Hidden" />
+        <Label x:Name="tbMmrValueCangeText" Margin="170,317,64,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="Transparent" Height="39" VerticalAlignment="Top" Visibility="Hidden">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                    Color="DarkBlue"
+                    Opacity="1"
+                    BlurRadius="5"/>
+            </Label.Effect>
+        </Label>
+        <Label x:Name="tbMmrValueNegativeCange" Margin="170,358,64,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="Transparent" Height="39" VerticalAlignment="Top" Visibility="Hidden">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                    Color="DarkBlue"
+                    Opacity="1"
+                    BlurRadius="5"/>
+            </Label.Effect>
+        </Label>
+    </Grid>
+</UserControl>

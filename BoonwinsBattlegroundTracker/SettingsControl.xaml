@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="BoonwinsBattlegroundTracker.SettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BoonwinsBattlegroundTracker"                            
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"            
+             mc:Ignorable="d" >
+
+    <StackPanel x:Name="panel" HorizontalAlignment="Left">
+        <DockPanel Margin="10"/>
+        <Label x:Name="lbSettings" Content="Settings, this is not done yet" FontSize="16" Foreground="White" FontWeight="Bold" Width="350"></Label>
+
+        <DockPanel Margin="10"/>
+        <Separator></Separator>
+        <Label Content="Set colors" FontSize="16" Foreground="White" Width="350"></Label>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Pick a Text-Color:" Foreground="White" FontSize="16" Width="150" HorizontalContentAlignment="Left"/>
+            <xctk:ColorPicker x:Name="cpPickerTextColor" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPicker_SelectedColorChanged" HorizontalContentAlignment="Left"/>
+        </DockPanel>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Pick +MMR Color:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <xctk:ColorPicker  x:Name="cpPickerPlusMMR" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPickerPlusMMR_SelectedColorChanged" HorizontalContentAlignment="Left"/>
+            <CheckBox x:Name="mmrPlus" Width="54" Content="Show" Foreground="White" Checked="mmrPlus_Checked" Unchecked="mmrPlus_Unchecked" ></CheckBox>
+        </DockPanel>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Pick -MMR Color:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <xctk:ColorPicker  x:Name="cpPickerMinusMMR" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPickerMinusMMR_SelectedColorChanged" HorizontalContentAlignment="Left"/>
+            <CheckBox x:Name="mmrMinus" Width="54" Content="Show" Foreground="White" Checked="mmrMinus_Checked" Unchecked="mmrMinus_Unchecked" ></CheckBox>
+        </DockPanel>
+
+        <Separator></Separator>
+        <Label Content="Set Background" FontSize="16" Foreground="White" Width="350"></Label>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Set Image:" Foreground="White" FontSize="16" Width="149" HorizontalContentAlignment="Left"/>
+            <Button x:Name="btnOpenBGImage" Content="Open File" Width="70" Height="30" Click="btnOpenBGImage_Click"></Button>
+        </DockPanel>
+        
+      
+
+        <Separator></Separator>
+        <Label Content="Set location" FontSize="16" Foreground="White" Width="350"></Label>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Screenwidth:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <ComboBox x:Name="cbScreenwidth" IsEditable="False" IsReadOnly="True" Width="61" SelectionChanged="cbScreenwidth_SelectionChanged">
+                <ComboBoxItem>1980</ComboBoxItem>
+                <ComboBoxItem>1600</ComboBoxItem>
+                <ComboBoxItem>1280</ComboBoxItem>
+            </ComboBox>
+        </DockPanel>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <CheckBox x:Name="cbIsRight" Width="69" Content="Set right" Foreground="White" Checked="cbIsRight_Checked" Unchecked="cbIsRight_Unchecked" IsEnabled="False" Height="18"></CheckBox>
+        </DockPanel>
+    </StackPanel>
+</UserControl>
