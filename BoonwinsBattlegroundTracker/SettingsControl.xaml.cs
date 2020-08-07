@@ -64,7 +64,7 @@ namespace BoonwinsBattlegroundTracker
 
         private void cpPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-            BgMatchData.Overlay.lbRankTitle.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
+     
             BgMatchData.Overlay.tbAvgRankText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
             BgMatchData.Overlay.tbMmrText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
             BgMatchData.Overlay.tbTotalGames.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);

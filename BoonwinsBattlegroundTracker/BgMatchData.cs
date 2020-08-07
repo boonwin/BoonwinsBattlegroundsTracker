@@ -87,8 +87,8 @@ namespace BoonwinsBattlegroundTracker
            
             Core.OverlayCanvas.Children.Remove(Overlay);
             View.SetAvgRank(_avgRank);
-            View.SetMMR(_rating);         
-
+            View.SetMMR(_rating);
+            View.SetisBannedGameStart();
         }
 
 

@@ -47,7 +47,6 @@ namespace BoonwinsBattlegroundTracker
 
                  SolidColorBrush brush = (SolidColorBrush)new BrushConverter().ConvertFromString(config.TrackerFontColor);
 
-                lbRankTitle.Foreground = brush;
                 tbAvgRankText.Foreground = brush;
                 tbMmrText.Foreground = brush;
                 tbTotalGames.Foreground = brush;
