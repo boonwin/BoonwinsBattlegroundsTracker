@@ -163,7 +163,7 @@ namespace BoonwinsBattlegroundTracker
             else return "";
         }
 
-        public void SetTextBoxValue(Ranks rank)
+        public void SetTextBoxValue(Ranks rank, string avgRank)
         {
             lbRank1.Content = rank.rank1Amount.ToString() + "x";
             lbRank2.Content = rank.rank2Amount.ToString() + "x";
@@ -200,11 +200,11 @@ namespace BoonwinsBattlegroundTracker
 
             if (tbAvgRankText.Visibility == Visibility.Visible)
             {
-                tbAvgRankText.Content = "Ø-Rank: " + SetAvgRankValue(rank);
+                tbAvgRankText.Content = "Ø-Rank: " + avgRank;
             }
             if (tbAvgRankSmallText.Visibility == Visibility.Visible)
             {
-                tbAvgRankSmallText.Content = SetAvgRankValue(rank);
+                tbAvgRankSmallText.Content = avgRank;
             }
         }
     }

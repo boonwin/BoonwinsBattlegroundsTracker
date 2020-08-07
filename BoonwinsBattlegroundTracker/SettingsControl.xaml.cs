@@ -135,22 +135,6 @@ namespace BoonwinsBattlegroundTracker
             _config.save();
         }
 
-        private void btnOpenBGImage_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.DefaultExt = ".png";
-            openFileDialog.Filter = ".PNG-Files (*.png)|*.png";
-             
-            if(openFileDialog.ShowDialog() == true)
-            {
-                _config.backgroundImage = Path.GetFileName(openFileDialog.FileName);      
-                _config.save();
-
-                bgFileName = Path.GetFileName(openFileDialog.FileName);
-                         
-            }         
-
-        }
+       
     }
 }

@@ -16,6 +16,7 @@ namespace BoonwinsBattlegroundTracker
     {
         private Config config;
         private BgMatchOverlay _overlay;
+        private View _view;
         private Flyout _settingsFlyout;
         private SettingsControl _settingsControl;
 
@@ -23,7 +24,9 @@ namespace BoonwinsBattlegroundTracker
         {
             // create overlay and insert into HDT overlay
             _overlay = new BgMatchOverlay();
+            _view = new View();
             BgMatchData.Overlay = _overlay;
+            BgMatchData.View = _view;
             Core.OverlayCanvas.Children.Add(_overlay);
 
 
@@ -47,6 +50,10 @@ namespace BoonwinsBattlegroundTracker
 
 
             BgMatchData.OnLoad(config);
+            if(config.showStatsOverlay)
+            {
+                MountOverlay();
+            }
 
             _settingsFlyout = new Flyout();
             _settingsFlyout.Name = "BgSettingsFlyout";
@@ -60,6 +67,8 @@ namespace BoonwinsBattlegroundTracker
             //    config.save();
             //};
             Core.MainWindow.Flyouts.Items.Add(_settingsFlyout);
+       
+
 
         }
 
@@ -69,7 +78,7 @@ namespace BoonwinsBattlegroundTracker
 
 
             StackPanel BgsTopBar = (StackPanel)Core.OverlayWindow.FindName("BgsTopBar");
-            BgsTopBar.Children.Insert(1, _overlay);
+            BgsTopBar.Children.Insert(1, _view);
 
         }
 
@@ -77,7 +86,7 @@ namespace BoonwinsBattlegroundTracker
         public void UnmountOverlay()
         {
             StackPanel BgsTopBar = (StackPanel)Core.OverlayWindow.FindName("BgsTopBar");
-            BgsTopBar.Children.Remove(_overlay);
+            BgsTopBar.Children.Remove(_view);
 
         }
 
@@ -114,10 +123,6 @@ namespace BoonwinsBattlegroundTracker
                 SetWindowLeft();
             }
 
-            if (String.IsNullOrEmpty(config.backgroundImage) != true && _settingsControl.bgFileName != null)
-            {
-                _overlay.SetImgPathes();
-            }
 
         }
 
