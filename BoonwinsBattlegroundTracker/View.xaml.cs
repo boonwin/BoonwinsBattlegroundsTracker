@@ -38,9 +38,9 @@ namespace BoonwinsBattlegroundTracker
             lbrMMR.Content = "MMR: " + rating;
         }
 
-        internal void isBanned()
+        internal void SetisBanned(string type)
         {
-
+            lbbannedMinion.Content = type;
         }
     }
 

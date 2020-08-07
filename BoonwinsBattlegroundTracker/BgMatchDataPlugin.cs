@@ -34,6 +34,8 @@ namespace BoonwinsBattlegroundTracker
             GameEvents.OnGameStart.Add(BgMatchData.GameStart);
             GameEvents.OnGameEnd.Add(BgMatchData.GameEnd);
             GameEvents.OnGameEnd.Add(BgMatchData.InMenu);
+            GameEvents.OnPlayerMulligan.Add(BgMatchData.OnPlayerMulligan);
+
 
 
             if (File.Exists(Config._configLocation))

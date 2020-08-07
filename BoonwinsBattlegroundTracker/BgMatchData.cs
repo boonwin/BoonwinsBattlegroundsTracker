@@ -55,12 +55,19 @@ namespace BoonwinsBattlegroundTracker
             lastRank = 0;
         }
 
+        internal static void OnPlayerMulligan(Card obj)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static void GameStart()
         {
             //if (!InBgMode("Game Start")) return;
             Core.OverlayCanvas.Children.Remove(Overlay);
             View.SetAvgRank(_avgRank);
             View.SetMMR(_rating);
+            SetMissingRace();
+
         }
 
         internal static void GameEnd()
@@ -75,6 +82,55 @@ namespace BoonwinsBattlegroundTracker
             lastRank = hero.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE);
 
             Log.Info($"Game ended Player Position is: { _record.Position }");
+        }
+
+        internal static void SetMissingRace()
+        {
+            
+            var gameID = Core.Game.CurrentGameStats.GameId;            
+            GetMissingRaceString(gameID);
+
+        }
+
+        internal static void GetMissingRaceString(Guid? gameID)
+        {          
+
+            var races = BattlegroundsUtils.GetAvailableRaces(gameID);
+            var total = 113;
+
+            foreach (var race in races)
+            {
+                total -= (int)race;
+            }
+
+            if (total == 14)
+            {
+                View.SetisBanned("Murlocs");
+            }
+            else if (total == 15)
+            {
+                View.SetisBanned("Demons");
+            }
+            else if (total == 17)
+            {
+                View.SetisBanned("Mechs");
+            }
+            else if (total == 20)
+            {
+                View.SetisBanned("Beasts");
+            }
+            else if (total == 23)
+            {
+                View.SetisBanned("Pirates");
+            }
+            else if (total == 24)
+            {
+                View.SetisBanned("Dragons");
+            }
+            else
+            {
+                View.SetisBanned("N/A");
+            }
         }
 
         internal static void SetRank(int rank)
