@@ -130,7 +130,7 @@ namespace BoonwinsBattlegroundTracker
                     tbMmrValueNegativeCange.Content = mmr;
                     if (mmrplus == null)
                     {
-                        tbMmrValueNegativeCange.Foreground = Brushes.Red;
+                        tbMmrValueNegativeCange.Foreground = Brushes.Orange;
                     }
                     else { tbMmrValueNegativeCange.Foreground = mmrminus; }
                   
