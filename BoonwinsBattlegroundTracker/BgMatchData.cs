@@ -28,12 +28,14 @@ namespace BoonwinsBattlegroundTracker
         private static Ranks _ranks;
         private static string _avgRank;
         private static SettingsControl _settings;
+        private static bool isInBattle = false;
+        private static int lastBattleTurn = 0;
 
 
         public static BgMatchOverlay Overlay;
         public static View View;
 
-        internal static bool InBgMode(string currentMethod)
+        internal static bool InBgMenu(string currentMethod)
         {
             if (Core.Game.CurrentMode != Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
             {
@@ -43,8 +45,31 @@ namespace BoonwinsBattlegroundTracker
 
             return true;
         }
+        internal static bool InBgMode(string currentMethod)
+        {
+            if (Core.Game.CurrentGameMode != GameMode.Battlegrounds)
+            {
+                Log.Info($"{currentMethod} - Not in Battlegrounds Mode.");
+                return false;
+            }
+            return true;
+        }
 
+        internal static bool MulliganDone(string currentMethod)
+        {
+           if(Core.Game.IsMulliganDone != true) {
+                Log.Info($"{currentMethod} - Shits not ready yet.");
+                return false;
+            } return true;
+        }
 
+        internal static void TurnStart(ActivePlayer player)
+        {
+            if (!InBgMode("Turn Start")) return;
+            int turn = Core.Game.GetTurnNumber();
+            if (turn == 1) SetMissingRace();
+            
+        }
 
         public static void OnLoad(Config config)
         {
@@ -55,20 +80,18 @@ namespace BoonwinsBattlegroundTracker
             lastRank = 0;
         }
 
-        internal static void OnPlayerMulligan(Card obj)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         internal static void GameStart()
         {
-            //if (!InBgMode("Game Start")) return;
+           
             Core.OverlayCanvas.Children.Remove(Overlay);
             View.SetAvgRank(_avgRank);
-            View.SetMMR(_rating);
-            SetMissingRace();
+            View.SetMMR(_rating);         
 
         }
+
+
 
         internal static void GameEnd()
         {
@@ -205,7 +228,7 @@ namespace BoonwinsBattlegroundTracker
 
             // rating is only updated after we have passed the menu
 
-            if (!InBgMode("Update")) return;
+            if (!InBgMenu("Update")) return;
 
             int latestRating = Core.Game.BattlegroundsRatingInfo.Rating;
 

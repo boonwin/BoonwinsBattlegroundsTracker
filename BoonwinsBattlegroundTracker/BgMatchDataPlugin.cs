@@ -32,9 +32,11 @@ namespace BoonwinsBattlegroundTracker
 
             // Triggered upon startup and when the user ticks the plugin on            
             GameEvents.OnGameStart.Add(BgMatchData.GameStart);
+            GameEvents.OnTurnStart.Add(BgMatchData.TurnStart);
             GameEvents.OnGameEnd.Add(BgMatchData.GameEnd);
             GameEvents.OnGameEnd.Add(BgMatchData.InMenu);
-            GameEvents.OnPlayerMulligan.Add(BgMatchData.OnPlayerMulligan);
+
+            
 
 
 
