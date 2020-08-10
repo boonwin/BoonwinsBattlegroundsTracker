@@ -22,7 +22,8 @@ To get to the options you need first open up HDT, click on "plugins" then click 
 ![https://i.imgur.com/t05nXsz.png](https://i.imgur.com/t05nXsz.png)
 
 To change the location please enter first your screen width and then click right, so far I only added three different sizes, since i developed the plugin for 1080p this would be max so far.
-if everything worked you will see this in the Hearthstone-menu : ![enter image description here](https://i.imgur.com/fuiGhUS.png)
+if everything worked you will see this in the Hearthstone-menu :
+![enter image description here](https://i.imgur.com/fuiGhUS.png)
 
 As soon as you go into Battlegrounds-menu it will load your MMR and set it as the start-value for the day. If the game and HDT crashes, it will reset the MMR start-value! So far I dont safe this data, might add this in the future.
 In-game it will add the average rank, the current mmr and the banned class to the top panel of "Bobs Buddy"
