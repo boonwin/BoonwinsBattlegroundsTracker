@@ -39,8 +39,11 @@ namespace BoonwinsBattlegroundTracker
         {
             if (Core.Game.CurrentMode != Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
             {
-             
+                Core.OverlayCanvas.Children.Remove(Overlay);
                 return false;
+            }
+            if (Core.OverlayCanvas.Children.Contains(Overlay) == false) { 
+            Core.OverlayCanvas.Children.Add(Overlay);
             }
 
             return true;
@@ -230,6 +233,7 @@ namespace BoonwinsBattlegroundTracker
 
             if (!InBgMenu("Update")) return;
 
+            
             int latestRating = Core.Game.BattlegroundsRatingInfo.Rating;
 
             if (_isStart)

@@ -27,7 +27,9 @@ namespace BoonwinsBattlegroundTracker
             _view = new View();
             BgMatchData.Overlay = _overlay;
             BgMatchData.View = _view;
-            Core.OverlayCanvas.Children.Add(_overlay);
+            
+            
+            
 
 
             // Triggered upon startup and when the user ticks the plugin on            

@@ -28,7 +28,7 @@
         <Image x:Name="imgTheme" HorizontalAlignment="Left" VerticalAlignment="Top"  Source="Themes/baseTheme.png" />
 
 
-        <Label x:Name="tbAvgRankText" Margin="105,291,43,0" Content="Ø-Rank: 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="White" Background="Transparent" Height="33" VerticalAlignment="Top"/>
+        <Label x:Name="tbAvgRankText" Margin="108,291,40,0" Content="Ø-Rank: 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="33" VerticalAlignment="Top"/>
 
         <Label x:Name="tbMmrText" Margin="0,327,150,0" Content="MMR: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="24" FontWeight="Bold" Foreground="White" Background="Transparent" Height="52" VerticalAlignment="Top"/>
 
@@ -36,7 +36,7 @@
         <Label x:Name="tbMmrValueText" Margin="115,336,77,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="24" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top"/>
 
 
-        <Label x:Name="tbTotalGames" BorderBrush="Black" Margin="0,291,162,0" Content="Games: 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="White" Background="Transparent" Height="33" VerticalAlignment="Top"/>
+        <Label x:Name="tbTotalGames" BorderBrush="Black" Margin="-3,291,165,0" Content="Games: 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" Foreground="White" Background="Transparent" Height="33" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label x:Name="tbAvgRankSmallText" BorderBrush="Black" Margin="129,276,138,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Franklin Gothic Demi Cond" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top" FontStyle="Italic" Visibility="Hidden"/>
         <Label x:Name="tbTotalGamesSmallText" BorderBrush="Black" Margin="170,276,97,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Franklin Gothic Demi Cond" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top" FontStyle="Italic" Visibility="Hidden" />
         <Label x:Name="tbMmrValueCangeText" BorderBrush="Black" Margin="170,317,64,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="Transparent" Height="39" VerticalAlignment="Top" Visibility="Hidden"/>
