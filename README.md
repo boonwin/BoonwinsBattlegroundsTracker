@@ -20,7 +20,7 @@ Now its pretty much already working, if you want to show your Stats on your stre
 Within the Plugin you have couple options, you can change the color of the text and on which side you want to show the tracker. 
 To get to the options you need first open up HDT, click on "plugins" then click "Boonwins Battelgrounds Tracker Settings" this will open on the left site a panel where you can change text colors and set the location on the screen were you want the tracker.
 
-![https://i.imgur.com/jic3r5R.png](https://i.imgur.com/jic3r5R.png)
+![https://i.imgur.com/t05nXsz.png](https://i.imgur.com/t05nXsz.png)
 
 To change the location please enter first your screen width and then click right, so far I only added three different sizes, since i developed the plugin for 1080p this would be max so far.
 if everything worked you will see this in the Hearthstone-menu :
