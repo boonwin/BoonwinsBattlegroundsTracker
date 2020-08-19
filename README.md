@@ -6,7 +6,7 @@ Hi! I'm Boonwin I made **Boonwins Battlegrounds Tracker** mainly for streamers, 
 
 1. [Click here]([https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases](https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases)) to download the latest YYYYmmDDBoowinsbattlegroundstracker.zip from the [releases page]([https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases](https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases)).
 2.  Unblock the zip file before unzipping, by  [right-clicking it and choosing properties](http://blogs.msdn.com/b/delay/p/unblockingdownloadedfile.aspx):  
-[![Unblock](https://i.imgur.com/3t618Rz.png?raw=true)](https://i.imgur.com/3t618Rz.png?raw=true)
+[![Unblock](https://i.imgur.com/jic3r5R.png?raw=true)](https://i.imgur.com/jic3r5R.png?raw=true)
 3.  Make sure you remove any old versions of BoonwinsBattlegroundsTracker directory in the plugins directory of Hearthstone Deck Tracker completely, before upgrading versions.
 4.  Unzip the archive to  `%AppData%/HearthstoneDeckTracker/Plugins`  To find this directory, you can click the following button in the Hearthstone Deck Tracker options menu:  `Options -> Tracker -> Plugins -> Plugins Folder`
 5.  If you've done it correctly, BoonwinsBattlegroundsTracker directory should be inside the Plugins directory. Inside the directory, should be a bunch of files, including a file called BoonwinsBattlegroundsTracker.dll.
