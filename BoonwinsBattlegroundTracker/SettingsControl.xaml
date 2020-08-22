@@ -8,7 +8,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"            
              mc:Ignorable="d" >
 
-    <StackPanel x:Name="panel" HorizontalAlignment="Left">
+    <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="477">
         <DockPanel Margin="10"/>
         <Label x:Name="lbSettings" Content="Settings, this is not done yet" FontSize="16" Foreground="White" FontWeight="Bold" Width="350"></Label>
 
@@ -43,6 +43,13 @@
         <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
             <Label Content="Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
             <CheckBox x:Name="cbIsRight" Width="69" Content="Set right" Foreground="White" Checked="cbIsRight_Checked" Unchecked="cbIsRight_Unchecked" IsEnabled="False" Height="18"></CheckBox>
+        </DockPanel>
+
+        <Separator></Separator>
+        <Label Content="Overlay" FontSize="16" Foreground="White" Width="350"></Label>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Menu Overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <CheckBox x:Name="cbIsBigEmanled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsMenuOverlay_Checked" Unchecked="cbIsMenuOverlay_Unchecked" Height="18"></CheckBox>
         </DockPanel>
     </StackPanel>
 </UserControl>

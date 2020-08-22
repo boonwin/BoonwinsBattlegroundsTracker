@@ -39,14 +39,40 @@ namespace BoonwinsBattlegroundTracker
         {
             if (Core.Game.CurrentMode != Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
             {
-                Core.OverlayCanvas.Children.Remove(Overlay);
-                return false;
-            }
-            if (Core.OverlayCanvas.Children.Contains(Overlay) == false) { 
-            Core.OverlayCanvas.Children.Add(Overlay);
+                if (_config.menuOverlayEnabled == true)
+                {
+                    if (Core.OverlayCanvas.Children.Contains(Overlay) == true)
+                    {
+                        Core.OverlayCanvas.Children.Remove(Overlay);
+                    }
+                    return false;
+                }
+                else
+                {
+                    if (Core.OverlayCanvas.Children.Contains(Overlay) == true)
+                    {
+                        Core.OverlayCanvas.Children.Remove(Overlay);
+                    }
+                    return false;
+                }
+            } else {
+                if (_config.menuOverlayEnabled == true)
+                {
+                    if (Core.OverlayCanvas.Children.Contains(Overlay) == false)
+                    {
+                        Core.OverlayCanvas.Children.Add(Overlay);                        
+                    }
+                    return true;
+                } else
+                {
+                    if (Core.OverlayCanvas.Children.Contains(Overlay) == true)
+                    {
+                        Core.OverlayCanvas.Children.Remove(Overlay);
+                    }
+                    return false;
+                }
             }
 
-            return true;
         }
         internal static bool InBgMode(string currentMethod)
         {
@@ -216,7 +242,20 @@ namespace BoonwinsBattlegroundTracker
 
         internal static void InMenu()
         {
-            Core.OverlayCanvas.Children.Add(Overlay);
+
+            if (_config.menuOverlayEnabled == true)
+            {
+                Core.OverlayCanvas.Children.Add(Overlay);
+
+            }
+            else 
+            {
+                if (Core.OverlayCanvas.Children.Contains(Overlay)) { 
+                Core.OverlayCanvas.Children.Remove(Overlay);
+                }
+
+            }
+
             if (lastRank > 0)
             {
                 SetRank(lastRank);

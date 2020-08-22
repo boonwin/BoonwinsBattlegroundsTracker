@@ -128,10 +128,8 @@ namespace BoonwinsBattlegroundTracker
             {
                 SetWindowLeft();
             }
-
-
+       
         }
-
 
         public void SetWindowRight()
         {

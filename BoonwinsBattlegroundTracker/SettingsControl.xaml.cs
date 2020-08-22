@@ -1,6 +1,9 @@
-﻿using Hearthstone_Deck_Tracker;
-using Hearthstone_Deck_Tracker.FlyoutControls.Options.HSReplay;
-using Hearthstone_Deck_Tracker.HsReplay.Data;
+﻿using HearthDb.Enums;
+
+using Hearthstone_Deck_Tracker.Enums;
+using Hearthstone_Deck_Tracker.Hearthstone;
+using Hearthstone_Deck_Tracker.API;
+using Hearthstone_Deck_Tracker.Hearthstone.Entities;
 using Hearthstone_Deck_Tracker.Utility;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls;
@@ -38,7 +41,18 @@ namespace BoonwinsBattlegroundTracker
             _config = c;
             UpdateConfig(c);
             _mount = mount;
-            _unmount = unmount;  
+            _unmount = unmount;
+
+            IsBigMenuEnabled();
+        }
+
+        public void IsBigMenuEnabled()
+        {
+            if (_config.menuOverlayEnabled == true)
+            {
+                cbIsBigEmanled.IsChecked = true;
+            }
+            else { cbIsBigEmanled.IsChecked = false; }
         }
 
         public void UpdateConfig(Config c)
@@ -135,6 +149,58 @@ namespace BoonwinsBattlegroundTracker
             _config.save();
         }
 
-       
+        private void cbIsMenuOverlay_Checked(object sender, RoutedEventArgs e)
+        {
+            
+            _config.menuOverlayEnabled = true;
+            _config.save();
+
+            if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
+                {
+                     if (_config.menuOverlayEnabled == true)
+                     {
+
+                    if (Core.OverlayCanvas.Children.Contains(_overlay) == false)
+                    {
+                        Core.OverlayCanvas.Children.Add(_overlay);
+                    }
+
+                }
+                else
+                {
+                    
+                        Core.OverlayCanvas.Children.Remove(_overlay);
+                    
+                }
+
+            }
+          
+
+        }
+
+        private void cbIsMenuOverlay_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.menuOverlayEnabled = false;
+            _config.save();
+            if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
+            {
+                if (_config.menuOverlayEnabled == false)
+                     {
+
+                
+                    if (Core.OverlayCanvas.Children.Contains(_overlay) == true)
+                    {
+                        Core.OverlayCanvas.Children.Remove(_overlay);
+                    }
+
+                }
+
+            } else
+            {
+                
+                    Core.OverlayCanvas.Children.Remove(_overlay);
+                
+            }
+        }
     }
 }

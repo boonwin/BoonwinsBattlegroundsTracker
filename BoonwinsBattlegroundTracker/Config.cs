@@ -17,6 +17,7 @@ namespace BoonwinsBattlegroundTracker
         public int screenWidth;
         public bool screenIsRight = false;
         public string backgroundImage = @"baseTheme.png";
+        public bool menuOverlayEnabled = true;
 
         public string TrackerFontColor;
         public string MmrPlus;
