@@ -105,10 +105,6 @@ namespace BoonwinsBattlegroundTracker
             tbMmrValueText.Content = mmr;
         }
 
-        public void UpdateTestRank(int lastRank)
-        {
-            tbTotalGames.Content = "Games: " + lastRank;
-        }
 
         public void UpdateMmrChangeValue(int mmr)
         {

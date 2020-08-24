@@ -41,11 +41,7 @@ namespace BoonwinsBattlegroundTracker
             GameEvents.OnGameStart.Add(BgMatchData.GameStart);
             GameEvents.OnTurnStart.Add(BgMatchData.TurnStart);
             GameEvents.OnGameEnd.Add(BgMatchData.GameEnd);
-            GameEvents.OnGameEnd.Add(BgMatchData.InMenu);
-
-            
-
-
+ 
 
             if (File.Exists(Config._configLocation))
             {
@@ -152,7 +148,7 @@ namespace BoonwinsBattlegroundTracker
 
         public string Author => "Boonwin";
 
-        public Version Version => new Version(0, 0, 5);
+        public Version Version => new Version(0, 0, 7);
 
         public MenuItem MenuItem => CreateMenu();
 

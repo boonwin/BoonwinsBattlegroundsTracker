@@ -26,12 +26,14 @@ namespace BoonwinsBattlegroundTracker
         private static int _rating;
         private static int _ratingStart;
         private static bool _isStart = true;
+        private static int _roundCounter = 0;
+        private static int _lastRoundNr = 0;
         private static GameRecord _record;
-        public static int lastRank;
+        private static int lastRank;
         private static Config _config;
         private static Ranks _ranks;
         private static string _avgRank;
-
+        private static int _tribeImgSize;
 
         public static BgMatchOverlay _overlay;
         public static View _view;
@@ -39,78 +41,11 @@ namespace BoonwinsBattlegroundTracker
 
         public static OverlayManager _input;
         public static TriverOverlayManager _tribeInput;
-
-
-        internal static bool InBgMenu(string currentMethod)
-        {
-            if (Core.Game.CurrentMode != Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
-            {
-        
-                if (_config.menuOverlayEnabled == true)
-                {
-                    if (!Core.OverlayCanvas.Children.Contains(_overlay))
-                    {
-                        Core.OverlayCanvas.Children.Add(_overlay); 
-                    }
-                    return false;
-                }
-                else
-                {
-                    if (Core.OverlayCanvas.Children.Contains(_overlay) == true)
-                    {
-                        Core.OverlayCanvas.Children.Remove(_overlay);
-                    }
-                    return false;
-                }
-            } else {
-               
-                //if (Core.OverlayCanvas.Children.Contains(Tribes))
-                //{
-                   
-                //        Log.Info($"{currentMethod} - IM A FREAKING BUG YOU TARD.");
-                //        Core.OverlayCanvas.Children.Remove(Tribes);
-                   
-                //}
-
-                if (_config.menuOverlayEnabled == true)
-                {
-                    if (Core.OverlayCanvas.Children.Contains(_overlay) == false)
-                    {
-                        Core.OverlayCanvas.Children.Add(_overlay);                        
-                    }
-                    return true;
-                } else
-                {
-                    if (Core.OverlayCanvas.Children.Contains(_overlay) == true)
-                    {
-                        Core.OverlayCanvas.Children.Remove(_overlay);
-                    }
-                    return false;
-                }
-            }
-
-        }
-        internal static bool InBgMode(string currentMethod)
-        {
-            if (Core.Game.CurrentGameMode != GameMode.Battlegrounds)
-            {
-                Log.Info($"{currentMethod} - Not in Battlegrounds Mode.");
-                return false;
-            }
-            return true;
-        }
-
-        internal static bool MulliganDone(string currentMethod)
-        {
-           if(Core.Game.IsMulliganDone != true) {
-                Log.Info($"{currentMethod} - Shits not ready yet.");
-                return false;
-            } return true;
-        }
+      
 
         internal static void TurnStart(ActivePlayer player)
         {
-            if (!InBgMode("Turn Start")) return;
+            if (!InBgMode()) return;
             int turn = Core.Game.GetTurnNumber();
             if (turn == 1) SetMissingRace();
             
@@ -129,7 +64,8 @@ namespace BoonwinsBattlegroundTracker
 
         internal static void GameStart()
         {
-          
+            _tribeImgSize = _config.tribeSize;
+
             if (!_config.ingameOverlayEnabled) {
                 
                 Core.OverlayCanvas.Children.Remove(_overlay);
@@ -144,6 +80,7 @@ namespace BoonwinsBattlegroundTracker
 
         internal static void GameEnd()
         {
+            _lastRoundNr++;
 
             if (Core.OverlayCanvas.Children.Contains(_tribes))
             {
@@ -161,6 +98,13 @@ namespace BoonwinsBattlegroundTracker
             _record.Position = hero.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE);
             lastRank = hero.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE);
 
+            if (lastRank > 0)
+            {
+                SetRank(lastRank);
+                CalcAvgRank(_ranks);
+                _overlay.SetTextBoxValue(_ranks, _avgRank);
+            }
+
             Log.Info($"Game ended Player Position is: { _record.Position }");
         }
 
@@ -174,8 +118,7 @@ namespace BoonwinsBattlegroundTracker
 
         internal static void GetMissingRaceString(Guid? gameID)
         {
-            SetTribeImageSize();
-
+  
             var races = BattlegroundsUtils.GetAvailableRaces(gameID);
             var total = 113;
 
@@ -281,39 +224,19 @@ namespace BoonwinsBattlegroundTracker
 
             if (_config.showTribeImages == true)
             {
-                Core.OverlayCanvas.Children.Add(_tribes);
+                if (!Core.OverlayCanvas.Children.Contains(_tribes)){
+                    Core.OverlayCanvas.Children.Add(_tribes);
+                }
             }else {
                 Log.Info($" KEKL.");
-                Core.OverlayCanvas.Children.Remove(_tribes); }
-        }
-
-        private static void SetTribeImageSize()
-        {
-            switch (_config.tribeSize)
-            {
-                case 0:
-                    _tribes.imgTribes.Width = 150;
-                    _tribes.imgTribes.Height = 150;
-                   
-                    break;
-                case 1:
-                    _tribes.imgTribes.Width = 200;
-                    _tribes.imgTribes.Height = 200;
-                   
-
-                    break;
-                case 2:
-                    _tribes.imgTribes.Width = 250;
-                    _tribes.imgTribes.Height = 250;
-                   
-                    break;
-                case 3:
-                    _tribes.imgTribes.Width = 300;
-                    _tribes.imgTribes.Height = 300;
-                   
-                    break;
+                if (Core.OverlayCanvas.Children.Contains(_tribes))
+                {
+                    Core.OverlayCanvas.Children.Remove(_tribes);
+                } 
             }
         }
+
+        
 
         internal static void SetRank(int rank)
         {
@@ -358,7 +281,6 @@ namespace BoonwinsBattlegroundTracker
 
         public static void CalcAvgRank(Ranks rank)
         {
-
             double totalAmount = rank.rank1Amount + rank.rank2Amount + rank.rank3Amount + rank.rank4Amount + rank.rank5Amount + rank.rank6Amount + rank.rank7Amount + rank.rank8Amount;
             double weightedAmount = (1 * rank.rank1Amount) + (2 * rank.rank2Amount) + (3 * rank.rank3Amount) + (4 * rank.rank4Amount) + (5 * rank.rank5Amount) + (6 * rank.rank6Amount) + (7 * rank.rank7Amount) + (8 * rank.rank8Amount);
 
@@ -370,64 +292,74 @@ namespace BoonwinsBattlegroundTracker
             {
                 _avgRank = Math.Round((weightedAmount / totalAmount), MidpointRounding.AwayFromZero).ToString();
             }
-
         }
 
-
-        internal static void InMenu()
+        internal static bool InBgMenu()
         {
+            if (Core.Game.CurrentMode != Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON) return false;           
+            else return true;
+        }
+        internal static bool InBgMode()
+        {
+            if (Core.Game.CurrentGameMode != GameMode.Battlegrounds)return false;
+            else return true;
+        }
 
-            if (_config.menuOverlayEnabled == true)
-            {
+        internal static void AddOrRemoveOverlay()
+        {
+            if (InBgMenu()) {
                 if (!Core.OverlayCanvas.Children.Contains(_overlay))
                 {
                     Core.OverlayCanvas.Children.Add(_overlay);
+                }            
+            } else {
+                if (Core.OverlayCanvas.Children.Contains(_overlay))
+                {
+                    Core.OverlayCanvas.Children.Remove(_overlay);
                 }
             }
-            else 
-            {
-                if (Core.OverlayCanvas.Children.Contains(_overlay)) { 
-                Core.OverlayCanvas.Children.Remove(_overlay);
-                }
+        }
 
-            }
+   
+        internal static void Update()
+        {
+            // rating is only updated after we have passed the menu
+            AddOrRemoveOverlay();
+            SetTribeImgSize();
 
-            if (lastRank > 0)
+            if (!InBgMenu()) return;
+            if (_isStart) SetLatestRating();
+            if (_lastRoundNr > _roundCounter) 
             {
-                SetRank(lastRank);
-                CalcAvgRank(_ranks);
-                _overlay.SetTextBoxValue(_ranks, _avgRank);
+                SetMMRChange();
             }
 
         }
-
-        internal static void Update()
+        internal static void SetTribeImgSize()
         {
+            if (_config.showTribeImages && _config.tribeSize != _tribeImgSize)
+            {
+                _tribes.SetTribeImageSize(_config.tribeSize);
+                _tribeImgSize = _config.tribeSize;
+            }
+        }
 
-            // rating is only updated after we have passed the menu
+        internal static void SetLatestRating()
+        {
+            _ratingStart = Core.Game.BattlegroundsRatingInfo.Rating;
+            _overlay.UpdateMMR(_ratingStart);
+            _isStart = false;
+        }
 
-            if (!InBgMenu("Update")) return;
-
-            
+        internal static void SetMMRChange()
+        {
+            _roundCounter = _lastRoundNr;
             int latestRating = Core.Game.BattlegroundsRatingInfo.Rating;
-
-            if (_isStart)
-            {
-                _ratingStart = latestRating;
-                _isStart = false;
-            }
-            else
-            {
-                int mmrChange = latestRating - _ratingStart;
-                _overlay.UpdateMmrChangeValue(mmrChange);
-            }
-
-
+            int mmrChange = latestRating - _ratingStart;
+            _overlay.UpdateMmrChangeValue(mmrChange);
             _rating = latestRating;
             _record.Rating = _rating;
             _overlay.UpdateMMR(latestRating);
-
-
 
         }
 

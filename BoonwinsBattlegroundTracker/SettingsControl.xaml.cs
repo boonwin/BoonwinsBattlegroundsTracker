@@ -252,33 +252,29 @@ namespace BoonwinsBattlegroundTracker
         {
 
             var comboBox = sender as ComboBox;
-            
 
-            switch (comboBox.SelectedIndex)
+
+            _tribes.SetTribeImageSize(comboBox.SelectedIndex);
+            switch(comboBox.SelectedIndex)
             {
                 case 0:
                     _config.tribeSize = 0;
-                    _tribes.imgTribes.Width = 150;
-                    _tribes.imgTribes.Height = 150;
+                    _config.save();
                     break;
                 case 1:
                     _config.tribeSize = 1;
-                    _tribes.imgTribes.Width = 200;
-                    _tribes.imgTribes.Height = 200;
+                    _config.save();
                     break;
                 case 2:
                     _config.tribeSize = 2;
-                    _tribes.imgTribes.Width = 250;
-                    _tribes.imgTribes.Height = 250;
+                    _config.save();
                     break;
                 case 3:
                     _config.tribeSize = 3;
-                    _tribes.imgTribes.Width = 300;
-                    _tribes.imgTribes.Height = 300;
+                    _config.save();
                     break;
             }
-
-            _config.save();
+            
 
         }
 
@@ -298,7 +294,10 @@ namespace BoonwinsBattlegroundTracker
             comboBox.ItemsSource = data;
 
             // ... Make the first item selected.
-            comboBox.SelectedIndex = 0;
+            if(_config.tribeSize != 0)
+            {
+                comboBox.SelectedIndex = _config.tribeSize;
+            }else comboBox.SelectedIndex = 0;
         }
     }
 }

@@ -10,21 +10,17 @@ namespace BoonwinsBattlegroundTracker
     public class TriverOverlayManager
     {
         private User32.MouseInput _mouseInput;
-
         private TribesOverlay _tribes;
         private Config _config;
-
         private Point mousePos0;
         private Point overlayPos0;
-
         private String _selected;
 
         public TriverOverlayManager(TribesOverlay tribesOverlay, Config c)
         {
             _tribes = tribesOverlay;
             _config = c;
-            UpdateConfig(c);
-         
+            UpdateConfig(c);        
         }
 
         public void UpdateConfig(Config c)
@@ -32,7 +28,6 @@ namespace BoonwinsBattlegroundTracker
 
 
         }
-
 
         public bool Toggle()
         {

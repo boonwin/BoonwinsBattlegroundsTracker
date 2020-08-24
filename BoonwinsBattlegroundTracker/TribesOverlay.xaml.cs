@@ -19,10 +19,37 @@ namespace BoonwinsBattlegroundTracker
     /// Interaktionslogik für TribesOverlay.xaml
     /// </summary>
     public partial class TribesOverlay : UserControl
-    {
+    {   
         public TribesOverlay()
         {
-            InitializeComponent();
+            InitializeComponent();          
+        }
+
+        public void SetTribeImageSize(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                  
+                    imgTribes.Width = 150;
+                    imgTribes.Height = 150;
+                    break;
+                case 1:
+                    
+                   imgTribes.Width = 200;
+                    imgTribes.Height = 200;
+                    break;
+                case 2:
+                    
+                    imgTribes.Width = 250;
+                    imgTribes.Height = 250;
+                    break;
+                case 3:
+                    
+                    imgTribes.Width = 300;
+                    imgTribes.Height = 300;
+                    break;
+            }
         }
     }
 }
