@@ -12,16 +12,23 @@ namespace BoonwinsBattlegroundTracker
     {
         public static readonly string _configLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\BoonwinsBattlegroundTracker.config";
         public readonly string _themeLocation  = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\Img\";
+        public static readonly string _tribesImageLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\Img\";
         public int TurnToStartTrackingAllBoards = 1;
-        public bool showStatsOverlay = true;
-        public int screenWidth;
-        public bool screenIsRight = false;
+        public bool showStatsOverlay = true;    
         public string backgroundImage = @"baseTheme.png";
+        public int tribeSize = 0;
         public bool menuOverlayEnabled = true;
+        public bool ingameOverlayEnabled = false;
 
         public string TrackerFontColor;
         public string MmrPlus;
         public string MmrMinus;
+        public double posLeft = 20;
+        public double posTop = 20;
+        public double tribePosLeft = 320;
+        public double tribePosTop = 20;
+        public bool showTribeColors;
+        public bool showTribeImages;
       
         public void save()
         {

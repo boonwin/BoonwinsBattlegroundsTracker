@@ -11,7 +11,7 @@
             <Label x:Name="lbrMMR" Content="MMR: 00000" VerticalAlignment="Top" FontSize="18" FontFamily="Source Sans Pro" Foreground="White" HorizontalAlignment="Left" Margin="0,10,0,0" />
         </StackPanel>
         <Separator BorderBrush="Azure"></Separator>
-        <StackPanel x:Name="panel1" HorizontalAlignment="Left" Width="130" >
+        <StackPanel x:Name="spBanned" HorizontalAlignment="Left" Width="130" >
             <Label  Content="Banned: " HorizontalAlignment="Left" Margin="0,0,0,-22" VerticalAlignment="Top" FontSize="18" FontFamily="Source Sans Pro" Foreground="White" />
             <Label x:Name="lbbannedMinion" Content="Waiting..." HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Source Sans Pro" Foreground="White" />
 

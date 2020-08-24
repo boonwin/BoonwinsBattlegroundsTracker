@@ -141,26 +141,7 @@ namespace BoonwinsBattlegroundTracker
             }
         }
 
-        public string SetAvgRankValue(Ranks rank)
-        {
-
-            double totalAmount = rank.rank1Amount + rank.rank2Amount + rank.rank3Amount + rank.rank4Amount + rank.rank5Amount + rank.rank6Amount + rank.rank7Amount + rank.rank8Amount;
-            double weightedAmount = (1 * rank.rank1Amount) + (2 * rank.rank2Amount) + (3 * rank.rank3Amount) + (4 * rank.rank4Amount) + (5 * rank.rank5Amount) + (6 * rank.rank6Amount) + (7 * rank.rank7Amount) + (8 * rank.rank8Amount);
-
-            if (tbTotalGames.Visibility == Visibility.Visible)
-            {
-                tbTotalGames.Content = "Games: " + totalAmount.ToString();
-            }
-            if (tbTotalGamesSmallText.Visibility == Visibility.Visible)
-            {
-                tbTotalGamesSmallText.Content = totalAmount.ToString();
-            }
-            if (totalAmount != 0)
-            {
-                return Math.Round((weightedAmount / totalAmount), MidpointRounding.AwayFromZero).ToString();
-            }
-            else return "";
-        }
+      
 
         public void SetTextBoxValue(Ranks rank, string avgRank)
         {

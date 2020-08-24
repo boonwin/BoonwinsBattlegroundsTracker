@@ -91,6 +91,7 @@
     <Compile Include="GameLogManager.cs" />
     <Compile Include="GameRecord.cs" />
     <Compile Include="Mmr.cs" />
+    <Compile Include="OverlayManager.cs" />
     <Compile Include="Ranks.cs" />
     <Compile Include="SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
@@ -104,6 +105,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TribesOverlay.xaml.cs">
+      <DependentUpon>TribesOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TriverOverlayManager.cs" />
     <Compile Include="TurnSnapshot.cs" />
     <Compile Include="View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -125,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Overlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TribesOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

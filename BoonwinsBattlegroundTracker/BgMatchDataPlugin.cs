@@ -16,6 +16,9 @@ namespace BoonwinsBattlegroundTracker
     {
         private Config config;
         private BgMatchOverlay _overlay;
+        private TribesOverlay _tribes;
+        private OverlayManager _overlayManager;
+        private TriverOverlayManager _tribeOverlayManager;
         private View _view;
         private Flyout _settingsFlyout;
         private SettingsControl _settingsControl;
@@ -25,8 +28,10 @@ namespace BoonwinsBattlegroundTracker
             // create overlay and insert into HDT overlay
             _overlay = new BgMatchOverlay();
             _view = new View();
-            BgMatchData.Overlay = _overlay;
-            BgMatchData.View = _view;
+            _tribes = new TribesOverlay();
+            BgMatchData._overlay = _overlay;
+            BgMatchData._view = _view;
+            BgMatchData._tribes = _tribes;
             
             
             
@@ -56,10 +61,28 @@ namespace BoonwinsBattlegroundTracker
 
 
             BgMatchData.OnLoad(config);
+
+
+
+
             if(config.showStatsOverlay)
             {
                 MountOverlay();
             }
+            _overlayManager = new OverlayManager(_overlay, config);
+            _tribeOverlayManager = new TriverOverlayManager(_tribes, config);
+
+            BgMatchData._input = _overlayManager;
+            BgMatchData._tribeInput = _tribeOverlayManager;
+
+
+            Canvas.SetTop(_overlay, config.posTop);
+            Canvas.SetLeft(_overlay, config.posLeft);
+
+            Canvas.SetTop(_tribes, config.tribePosTop);
+            Canvas.SetLeft(_tribes, config.tribePosLeft);
+
+
 
             _settingsFlyout = new Flyout();
             _settingsFlyout.Name = "BgSettingsFlyout";
@@ -118,29 +141,7 @@ namespace BoonwinsBattlegroundTracker
                 _settingsControl.mmrPlus.IsChecked = false;
                 _settingsControl.mmrMinus.IsChecked = false;
             }
-
-            if (String.IsNullOrEmpty(config.screenWidth.ToString()) != true && config.screenIsRight != false)
-            {
-                SetWindowRight();
-            }
-
-            if (String.IsNullOrEmpty(config.screenWidth.ToString()) != true && config.screenIsRight == false)
-            {
-                SetWindowLeft();
-            }
-       
-        }
-
-        public void SetWindowRight()
-        {
-            var windowRight = (83 * config.screenWidth / 100);
-            Canvas.SetLeft(_overlay, windowRight);
-        }
-
-        public void SetWindowLeft()
-        {
-            
-            Canvas.SetLeft(_overlay, 0);
+ 
         }
 
         public string Name => "Boonwins Battlegrounds Tracker";
@@ -151,7 +152,7 @@ namespace BoonwinsBattlegroundTracker
 
         public string Author => "Boonwin";
 
-        public Version Version => new Version(0, 0, 2);
+        public Version Version => new Version(0, 0, 5);
 
         public MenuItem MenuItem => CreateMenu();
 

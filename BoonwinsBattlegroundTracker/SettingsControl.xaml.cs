@@ -30,6 +30,7 @@ namespace BoonwinsBattlegroundTracker
     {
 
         BgMatchOverlay _overlay = new BgMatchOverlay();
+        TribesOverlay _tribes = new TribesOverlay();
 
         private Action _mount;
         private Action _unmount;
@@ -53,36 +54,55 @@ namespace BoonwinsBattlegroundTracker
                 cbIsBigEmanled.IsChecked = true;
             }
             else { cbIsBigEmanled.IsChecked = false; }
+            if (_config.showTribeColors == true)
+            {
+                cbEnableBannedTribeColors.IsChecked = true;
+            }
+            else { cbEnableBannedTribeColors.IsChecked = false; }
+            if (_config.showTribeImages == true)
+            {
+                cbEnableBannedTribeImages.IsChecked = true;
+            }
+            else { cbEnableBannedTribeImages.IsChecked = false; }
+            if (_config.ingameOverlayEnabled == true)
+            {
+                cbIsInGameEnabled.IsChecked = true;
+                cbBannedTribeImagesSizes.IsEnabled = true;
+            }
+            else { cbIsInGameEnabled.IsChecked = false;
+                cbBannedTribeImagesSizes.IsEnabled = false;
+            }
+            
         }
 
         public void UpdateConfig(Config c)
         {
-           
-                  
-         }
-        
+
+
+        }
+
         private void Mount(object sender, RoutedEventArgs e)
         {
             _mount();
             _config.showStatsOverlay = true;
-            
+
         }
 
         private void Unmount(object sender, RoutedEventArgs e)
         {
-           
+
             _unmount();
             _config.showStatsOverlay = false;
-           
+
         }
 
         private void cpPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-     
-            BgMatchData.Overlay.tbAvgRankText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
-            BgMatchData.Overlay.tbMmrText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
-            BgMatchData.Overlay.tbTotalGames.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
-            BgMatchData.Overlay.tbMmrValueText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
+
+            BgMatchData._overlay.tbAvgRankText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
+            BgMatchData._overlay.tbMmrText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
+            BgMatchData._overlay.tbTotalGames.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
+            BgMatchData._overlay.tbMmrValueText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
 
             _config.TrackerFontColor = cpPickerTextColor.SelectedColor.Value.ToString();
             _config.save();
@@ -91,74 +111,53 @@ namespace BoonwinsBattlegroundTracker
 
         private void cpPickerPlusMMR_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-            BgMatchData.Overlay.tbMmrValueCangeText.Foreground = new SolidColorBrush(cpPickerPlusMMR.SelectedColor.Value);
+            BgMatchData._overlay.tbMmrValueCangeText.Foreground = new SolidColorBrush(cpPickerPlusMMR.SelectedColor.Value);
 
             _config.MmrPlus = cpPickerPlusMMR.SelectedColor.Value.ToString();
             _config.save();
-          
+
         }
 
         private void cpPickerMinusMMR_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-            BgMatchData.Overlay.tbMmrValueNegativeCange.Foreground = new SolidColorBrush(cpPickerMinusMMR.SelectedColor.Value);
+            BgMatchData._overlay.tbMmrValueNegativeCange.Foreground = new SolidColorBrush(cpPickerMinusMMR.SelectedColor.Value);
 
             _config.MmrMinus = cpPickerMinusMMR.SelectedColor.Value.ToString();
             _config.save();
-    
+
         }
 
         private void mmrPlus_Checked(object sender, RoutedEventArgs e)
         {
-            BgMatchData.Overlay.tbMmrValueCangeText.Visibility = Visibility.Visible;
+            BgMatchData._overlay.tbMmrValueCangeText.Visibility = Visibility.Visible;
         }
 
         private void mmrPlus_Unchecked(object sender, RoutedEventArgs e)
         {
-            BgMatchData.Overlay.tbMmrValueCangeText.Visibility = Visibility.Hidden;
+            BgMatchData._overlay.tbMmrValueCangeText.Visibility = Visibility.Hidden;
         }
 
         private void mmrMinus_Checked(object sender, RoutedEventArgs e)
         {
-            BgMatchData.Overlay.tbMmrValueNegativeCange.Visibility = Visibility.Visible;
+            BgMatchData._overlay.tbMmrValueNegativeCange.Visibility = Visibility.Visible;
         }
 
         private void mmrMinus_Unchecked(object sender, RoutedEventArgs e)
         {
-            BgMatchData.Overlay.tbMmrValueNegativeCange.Visibility = Visibility.Hidden;
+            BgMatchData._overlay.tbMmrValueNegativeCange.Visibility = Visibility.Hidden;
         }
 
-   
-        private void cbIsRight_Checked(object sender, RoutedEventArgs e)
-        {
-            _config.screenIsRight = true;
-            _config.save();
-        }
-
-        private void cbIsRight_Unchecked(object sender, RoutedEventArgs e)
-        {
-            _config.screenIsRight = false;
-            _config.save();
-        }
-
-        private void cbScreenwidth_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           ComboBoxItem item = (ComboBoxItem)cbScreenwidth.SelectedItem;
-           var windowWidth = Int32.Parse(item.Content.ToString());
-            cbIsRight.IsEnabled = true;
-            _config.screenWidth = windowWidth;
-            _config.save();
-        }
 
         private void cbIsMenuOverlay_Checked(object sender, RoutedEventArgs e)
         {
-            
+
             _config.menuOverlayEnabled = true;
             _config.save();
 
             if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
+            {
+                if (_config.menuOverlayEnabled == true)
                 {
-                     if (_config.menuOverlayEnabled == true)
-                     {
 
                     if (Core.OverlayCanvas.Children.Contains(_overlay) == false)
                     {
@@ -168,13 +167,13 @@ namespace BoonwinsBattlegroundTracker
                 }
                 else
                 {
-                    
-                        Core.OverlayCanvas.Children.Remove(_overlay);
-                    
+
+                    Core.OverlayCanvas.Children.Remove(_overlay);
+
                 }
 
             }
-          
+
 
         }
 
@@ -185,9 +184,9 @@ namespace BoonwinsBattlegroundTracker
             if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
             {
                 if (_config.menuOverlayEnabled == false)
-                     {
+                {
 
-                
+
                     if (Core.OverlayCanvas.Children.Contains(_overlay) == true)
                     {
                         Core.OverlayCanvas.Children.Remove(_overlay);
@@ -195,12 +194,111 @@ namespace BoonwinsBattlegroundTracker
 
                 }
 
-            } else
-            {
-                
-                    Core.OverlayCanvas.Children.Remove(_overlay);
-                
             }
+        
+        }
+
+        private void cbIsInGameOverlay_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.ingameOverlayEnabled = true;
+            _config.save();
+        }
+
+        private void cbIsInGameOverlay_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.ingameOverlayEnabled = true;
+            _config.save();
+        }
+
+        private void BtnUnlockOverlay_Click(object sender, RoutedEventArgs e)
+        {
+            btnUnlock.Content = BgMatchData._input.Toggle() ? "Lock Ranks" : "Unlock Ranks";
+        }
+
+        private void cbEnableBannedTribeColors_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.showTribeColors = true;
+            _config.save();
+        }
+
+        private void cbEnableBannedTribeColors_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.showTribeColors = false;
+            _config.save();
+        }
+
+        private void cbEnableBannedTribeImages_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.showTribeImages = true;
+            cbBannedTribeImagesSizes.IsEnabled = true;
+            _config.save();
+        }
+
+        private void cbEnableBannedTribeImages_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.showTribeImages = false;
+            cbBannedTribeImagesSizes.IsEnabled = false;
+            _config.save();
+        }
+
+        private void btntribesUnlock_Click(object sender, RoutedEventArgs e)
+        {
+
+            btntribesUnlock.Content = BgMatchData._tribeInput.Toggle() ? "Lock Tribes" : "Unlock Tribes";
+
+        }
+
+        private void cbBannedTribeImagesSizes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            var comboBox = sender as ComboBox;
+            
+
+            switch (comboBox.SelectedIndex)
+            {
+                case 0:
+                    _config.tribeSize = 0;
+                    _tribes.imgTribes.Width = 150;
+                    _tribes.imgTribes.Height = 150;
+                    break;
+                case 1:
+                    _config.tribeSize = 1;
+                    _tribes.imgTribes.Width = 200;
+                    _tribes.imgTribes.Height = 200;
+                    break;
+                case 2:
+                    _config.tribeSize = 2;
+                    _tribes.imgTribes.Width = 250;
+                    _tribes.imgTribes.Height = 250;
+                    break;
+                case 3:
+                    _config.tribeSize = 3;
+                    _tribes.imgTribes.Width = 300;
+                    _tribes.imgTribes.Height = 300;
+                    break;
+            }
+
+            _config.save();
+
+        }
+
+        private void cbBannedTribeImagesSizes_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("150x150");
+            data.Add("200x200");
+            data.Add("250x250");
+            data.Add("300x300");
+
+            // ... Get the ComboBox reference.
+            var comboBox = sender as ComboBox;
+
+
+            // ... Assign the ItemsSource to the List.
+            comboBox.ItemsSource = data;
+
+            // ... Make the first item selected.
+            comboBox.SelectedIndex = 0;
         }
     }
 }
