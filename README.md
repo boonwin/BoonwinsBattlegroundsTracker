@@ -4,7 +4,7 @@ Hi! I'm Boonwin I made **Boonwins Battlegrounds Tracker** mainly for streamers, 
 
 # How to Install
 
-1. [Click here]([https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases](https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases)) to download the latest YYYYmmDDBoowinsbattlegroundstracker.zip from the [releases page]([https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases](https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases)).
+1. [Click here](https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases) to download the latest YYYYmmDDBoowinsbattlegroundstracker.zip from the [releases page](https://github.com/boonwin/BoonwinsBattlegroundsTracker/releases).
 2.  Unblock the zip file before unzipping, by  [right-clicking it and choosing properties](http://blogs.msdn.com/b/delay/p/unblockingdownloadedfile.aspx):  
 [![Unblock](https://i.imgur.com/jic3r5R.png?raw=true)](https://i.imgur.com/jic3r5R.png?raw=true)
 3.  Make sure you remove any old versions of BoonwinsBattlegroundsTracker directory in the plugins directory of Hearthstone Deck Tracker completely, before upgrading versions.
