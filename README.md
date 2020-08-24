@@ -37,3 +37,4 @@ If you have any comments just come into my discord https://discord.gg/mbvv2j
 
 # Credits
 Since im new to making hdt plugins I used [Jawslouis Battleground Plugin](https://github.com/jawslouis/battlegrounds-stats/) as an exsample, so check his plugin out too, if you like to record your stats over a long period it, realy good.
+And also thanks to [JohnnyToumieh](https://https://github.com/JohnnyToumieh) who helped me with the banned tribe part. 
