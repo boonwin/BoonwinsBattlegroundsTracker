@@ -122,6 +122,7 @@ namespace BoonwinsBattlegroundTracker
                     tbMmrValueNegativeCange.Visibility = Visibility.Hidden;
                     
                     break;
+
                 case int n when (n < 0):
                     tbMmrValueNegativeCange.Content = mmr;
                     if (mmrplus == null)
@@ -133,7 +134,19 @@ namespace BoonwinsBattlegroundTracker
                     tbMmrValueNegativeCange.Visibility = Visibility.Visible;
                     tbMmrValueCangeText.Visibility = Visibility.Hidden;
 
-                    break;              
+                    break;
+
+
+                case int n when (n == 0):
+
+                    tbMmrValueNegativeCange.Content = mmr;
+                    tbMmrValueCangeText.Content = mmr;
+
+                    tbMmrValueNegativeCange.Visibility = Visibility.Hidden;
+                    tbMmrValueCangeText.Visibility = Visibility.Hidden;
+
+                    break;
+
             }
         }
 
