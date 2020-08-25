@@ -106,8 +106,12 @@ namespace BoonwinsBattlegroundTracker
 
             private bool PointInsideControl(Point p, FrameworkElement control)
             {
+            try
+            {
                 var pos = control.PointFromScreen(p);
                 return pos.X > 0 && pos.X < control.ActualWidth && pos.Y > 0 && pos.Y < control.ActualHeight;
+            }
+            catch { return false; }
             }
         
         }

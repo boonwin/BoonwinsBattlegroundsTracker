@@ -65,12 +65,6 @@ namespace BoonwinsBattlegroundTracker
         internal static void GameStart()
         {
             _tribeImgSize = _config.tribeSize;
-
-            if (!_config.ingameOverlayEnabled) {
-                
-                Core.OverlayCanvas.Children.Remove(_overlay);
-            }
-
             _view.SetAvgRank(_avgRank);
             _view.SetMMR(_rating);
             _view.SetisBannedGameStart();
@@ -315,9 +309,16 @@ namespace BoonwinsBattlegroundTracker
             } else {
                 if (Core.OverlayCanvas.Children.Contains(_overlay))
                 {
+                    if (InBgMode() && !_config.ingameOverlayEnabled) { 
                     Core.OverlayCanvas.Children.Remove(_overlay);
-                }
+                    }
+                    if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.HUB)
+                    {
+                        Core.OverlayCanvas.Children.Remove(_overlay);
+                    }                 
+                 }       
             }
+      
         }
 
    
