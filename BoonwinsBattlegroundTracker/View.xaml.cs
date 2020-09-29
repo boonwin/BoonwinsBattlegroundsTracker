@@ -41,11 +41,14 @@ namespace BoonwinsBattlegroundTracker
         internal void SetisBannedGameStart()
         {
             lbbannedMinion.Content = "Waiting...";
+            lbbannedMinion2.Content = "";
+
         }
 
-        internal void SetisBanned(string type)
+        internal void SetisBanned(string type1, string type2)
         {
-            lbbannedMinion.Content = type;
+            lbbannedMinion.Content = type1;
+            lbbannedMinion2.Content = type2;
         }
     }
 

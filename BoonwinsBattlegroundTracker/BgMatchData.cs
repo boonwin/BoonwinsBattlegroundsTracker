@@ -105,150 +105,29 @@ namespace BoonwinsBattlegroundTracker
         internal static void SetMissingRace()
         {
             
-            var gameID = Core.Game.CurrentGameStats.GameId;            
-            GetMissingRaceString(gameID);
+            var gameID = Core.Game.CurrentGameStats.GameId;
 
-        }
-
-        internal static void GetMissingRaceString(Guid? gameID)
-        {
-  
-            var races = BattlegroundsUtils.GetAvailableRaces(gameID);
-            var total = 113;
-
-            foreach (var race in races)
-            {
-                total -= (int)race;
-            }
-
-            if (total == 14)
-            {
-                _view.SetisBanned("Murlocs");
-                if (_config.showTribeColors == true)
-                {
-                    _view.spBanned.Background = (Brush)new BrushConverter().ConvertFrom("#048519");
-                }
-                if (_config.showTribeImages == true)
-                {
-                    if(File.Exists(Config._tribesImageLocation + @"murloc.png")) { 
-                    _tribes.imgTribes.Source = new BitmapImage(new Uri(Config._tribesImageLocation + @"murloc.png"));
-                    }
-                }
-
-            }
-            else if (total == 15)
-            {
-                _view.SetisBanned("Demons");
-                if (_config.showTribeColors == true)
-                {
-                    _view.spBanned.Background = (Brush)new BrushConverter().ConvertFrom("#340065");
-                }
-                if (_config.showTribeImages == true)
-                {
-                    if (File.Exists(Config._tribesImageLocation + @"demon.png"))
-                    {
-                        _tribes.imgTribes.Source = new BitmapImage(new Uri(Config._tribesImageLocation + @"demon.png"));
-                    }
-                }
-            }
-            else if (total == 17)
-            {
-                _view.SetisBanned("Mechs");
-                if (_config.showTribeColors == true)
-                {
-                    _view.spBanned.Background = (Brush)new BrushConverter().ConvertFrom("#008b89");
-                }
-                if (_config.showTribeImages == true)
-                {
-                    if (File.Exists(Config._tribesImageLocation + @"mech.png"))
-                    {
-                        _tribes.imgTribes.Source = new BitmapImage(new Uri(Config._tribesImageLocation + @"mech.png"));
-                    }
-                }
-            }
-
-            else if (total == 18)
-            {
-                _view.SetisBanned("Elementals");
-                if (_config.showTribeColors == true)
-                {
-                    _view.spBanned.Background = (Brush)new BrushConverter().ConvertFrom("#dacd01");
-                }
-                if (_config.showTribeImages == true)
-                {
-                    if (File.Exists(Config._tribesImageLocation + @"elementals.png"))
-                    {
-                        _tribes.imgTribes.Source = new BitmapImage(new Uri(Config._tribesImageLocation + @"elementals.png"));
-                    }
-                }
-            }
+            Tribes.GetBannedTribes(gameID, _view, _config, _tribes);
 
 
-            else if (total == 20)
+            if (_config.showTribeImages == true)
             {
-                _view.SetisBanned("Beasts");
-                if (_config.showTribeColors == true)
+                if (!Core.OverlayCanvas.Children.Contains(_tribes))
                 {
-                    _view.spBanned.Background = (Brush)new BrushConverter().ConvertFrom("#714800");
-                }
-                if (_config.showTribeImages == true)
-                {
-                    if (File.Exists(Config._tribesImageLocation + @"beast.png"))
-                    {
-                        _tribes.imgTribes.Source = new BitmapImage(new Uri(Config._tribesImageLocation + @"beast.png"));
-                    }
-                }
-            }
-            else if (total == 23)
-            {
-                _view.SetisBanned("Pirates");
-                if (_config.showTribeColors == true)
-                {
-                    _view.spBanned.Background = (Brush)new BrushConverter().ConvertFrom("#590000");
-                }
-                if (_config.showTribeImages == true)
-                {
-                    if (File.Exists(Config._tribesImageLocation + @"pirate.png"))
-                    {
-                        _tribes.imgTribes.Source = new BitmapImage(new Uri(Config._tribesImageLocation + @"pirate.png"));
-                    }
-                }
-            }
-            else if (total == 24)
-            {
-                _view.SetisBanned("Dragons");
-                if (_config.showTribeColors == true)
-                {
-                    _view.spBanned.Background = (Brush)new BrushConverter().ConvertFrom("#042e85");
-                }
-                if (_config.showTribeImages == true)
-                {
-                    if (File.Exists(Config._tribesImageLocation + @"dragon.png"))
-                    {
-                        _tribes.imgTribes.Source = new BitmapImage(new Uri(Config._tribesImageLocation + @"dragon.png"));
-                    }
+                    Core.OverlayCanvas.Children.Add(_tribes);
                 }
             }
             else
             {
-                _view.SetisBanned("N/A");
-            }
-
-            if (_config.showTribeImages == true)
-            {
-                if (!Core.OverlayCanvas.Children.Contains(_tribes)){
-                    Core.OverlayCanvas.Children.Add(_tribes);
-                }
-            }else {
                 Log.Info($" KEKL.");
                 if (Core.OverlayCanvas.Children.Contains(_tribes))
                 {
                     Core.OverlayCanvas.Children.Remove(_tribes);
-                } 
+                }
             }
-        }
 
-        
+        }
+               
 
         internal static void SetRank(int rank)
         {
