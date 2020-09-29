@@ -166,6 +166,24 @@ namespace BoonwinsBattlegroundTracker
                     }
                 }
             }
+
+            else if (total == 18)
+            {
+                _view.SetisBanned("Elementals");
+                if (_config.showTribeColors == true)
+                {
+                    _view.spBanned.Background = (Brush)new BrushConverter().ConvertFrom("#dacd01");
+                }
+                if (_config.showTribeImages == true)
+                {
+                    if (File.Exists(Config._tribesImageLocation + @"elementals.png"))
+                    {
+                        _tribes.imgTribes.Source = new BitmapImage(new Uri(Config._tribesImageLocation + @"elementals.png"));
+                    }
+                }
+            }
+
+
             else if (total == 20)
             {
                 _view.SetisBanned("Beasts");
