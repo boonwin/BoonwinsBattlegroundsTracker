@@ -15,7 +15,13 @@ namespace BoonwinsBattlegroundTracker
     public class Tribes
     {
 
-        public static void GetBannedTribes(Guid? gameID, View _view, Config _config,  TribesOverlay _tribes)
+        public static HashSet<Race> GetBannedTribes(Guid? gameID, View _view, Config _config, TribesOverlay _tribes)
+        {
+            var gameTribes = BattlegroundsUtils.GetAvailableRaces(gameID);
+            return gameTribes;
+        }
+
+            public static void SetBannedTribes(Guid? gameID, View _view, Config _config,  TribesOverlay _tribes)
         {
 
             var gameTribes = BattlegroundsUtils.GetAvailableRaces(gameID);

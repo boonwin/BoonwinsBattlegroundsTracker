@@ -16,6 +16,7 @@ using static System.Windows.Visibility;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Threading;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -34,6 +35,7 @@ namespace BoonwinsBattlegroundTracker
         private static Ranks _ranks;
         private static string _avgRank;
         private static int _tribeImgSize;
+        public static bool IsMissingTribeRetrieved;
 
         public static BgMatchOverlay _overlay;
         public static View _view;
@@ -46,8 +48,8 @@ namespace BoonwinsBattlegroundTracker
         internal static void TurnStart(ActivePlayer player)
         {
             if (!InBgMode()) return;
-            int turn = Core.Game.GetTurnNumber();
-            if (turn == 1) SetMissingRace();
+            //int turn = Core.Game.GetTurnNumber();
+            //if (turn == 1) SetMissingRace();
             
         }
 
@@ -64,17 +66,29 @@ namespace BoonwinsBattlegroundTracker
 
         internal static void GameStart()
         {
+            IsMissingTribeRetrieved = false;
+
             _tribeImgSize = _config.tribeSize;
             _view.SetAvgRank(_avgRank);
             _view.SetMMR(_rating);
-            _view.SetisBannedGameStart();
+            
+            int waitTime = 30000;
+
+            while (!IsMissingTribeRetrieved && waitTime > 0)
+            {
+                Thread.Sleep(3000);
+                waitTime -= 3000;
+                IsMissingTribeRetrieved = SetMissingRace();
+            }
+
+
         }
-
-
 
         internal static void GameEnd()
         {
             _lastRoundNr++;
+
+            _view.SetisBannedGameStart();
 
             if (Core.OverlayCanvas.Children.Contains(_tribes))
             {
@@ -102,30 +116,37 @@ namespace BoonwinsBattlegroundTracker
             Log.Info($"Game ended Player Position is: { _record.Position }");
         }
 
-        internal static void SetMissingRace()
+    
+        internal static bool SetMissingRace()
         {
-            
+
             var gameID = Core.Game.CurrentGameStats.GameId;
+            
+            HashSet<Race> bannedTribe = Tribes.GetBannedTribes(gameID, _view, _config, _tribes);
 
-            Tribes.GetBannedTribes(gameID, _view, _config, _tribes);
-
-
-            if (_config.showTribeImages == true)
+            if (bannedTribe != null)
             {
-                if (!Core.OverlayCanvas.Children.Contains(_tribes))
-                {
-                    Core.OverlayCanvas.Children.Add(_tribes);
-                }
-            }
-            else
-            {
-                Log.Info($" KEKL.");
-                if (Core.OverlayCanvas.Children.Contains(_tribes))
-                {
-                    Core.OverlayCanvas.Children.Remove(_tribes);
-                }
-            }
+                Tribes.SetBannedTribes(gameID, _view, _config, _tribes);
 
+                if (_config.showTribeImages == true)
+                {
+                    if (!Core.OverlayCanvas.Children.Contains(_tribes))
+                    {
+                        Core.OverlayCanvas.Children.Add(_tribes);
+                    }
+                }
+                else
+                {
+                    Log.Info($" KEKL.");
+                    if (Core.OverlayCanvas.Children.Contains(_tribes))
+                    {
+                        Core.OverlayCanvas.Children.Remove(_tribes);
+                    }
+                }
+
+                return true;
+            }
+            return false;
         }
                
 
