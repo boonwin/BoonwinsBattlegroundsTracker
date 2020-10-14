@@ -31,6 +31,7 @@ namespace BoonwinsBattlegroundTracker
 
         BgMatchOverlay _overlay = new BgMatchOverlay();
         TribesOverlay _tribes = new TribesOverlay();
+        ConsoleOverlay _console = new ConsoleOverlay();
 
         private Action _mount;
         private Action _unmount;
@@ -154,25 +155,25 @@ namespace BoonwinsBattlegroundTracker
             _config.menuOverlayEnabled = true;
             _config.save();
 
-            if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
-            {
-                if (_config.menuOverlayEnabled == true)
-                {
+            //if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
+            //{
+            //    if (_config.menuOverlayEnabled == true)
+            //    {
 
-                    if (Core.OverlayCanvas.Children.Contains(_overlay) == false)
-                    {
-                        Core.OverlayCanvas.Children.Add(_overlay);
-                    }
+            //        if (!Core.OverlayCanvas.Children.Contains(_overlay))
+            //        {
+            //            Core.OverlayCanvas.Children.Add(_overlay);
+            //        }
 
-                }
-                else
-                {
+            //    }
+            //    else
+            //    {
+            //        if (Core.OverlayCanvas.Children.Contains(_overlay)) { 
+            //        Core.OverlayCanvas.Children.Remove(_overlay);
+            //        }
+            //    }
 
-                    Core.OverlayCanvas.Children.Remove(_overlay);
-
-                }
-
-            }
+            //}
 
 
         }
@@ -181,20 +182,20 @@ namespace BoonwinsBattlegroundTracker
         {
             _config.menuOverlayEnabled = false;
             _config.save();
-            if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
-            {
-                if (_config.menuOverlayEnabled == false)
-                {
+            //if (Core.Game.CurrentMode == Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.BACON)
+            //{
+            //    if (_config.menuOverlayEnabled == false)
+            //    {
 
 
-                    if (Core.OverlayCanvas.Children.Contains(_overlay) == true)
-                    {
-                        Core.OverlayCanvas.Children.Remove(_overlay);
-                    }
+            //        if (Core.OverlayCanvas.Children.Contains(_overlay))
+            //        {
+            //            Core.OverlayCanvas.Children.Remove(_overlay);
+            //        }
 
-                }
+            //    }
 
-            }
+            //}
         
         }
 
@@ -206,7 +207,7 @@ namespace BoonwinsBattlegroundTracker
 
         private void cbIsInGameOverlay_Unchecked(object sender, RoutedEventArgs e)
         {
-            _config.ingameOverlayEnabled = true;
+            _config.ingameOverlayEnabled = false;
             _config.save();
         }
 
@@ -298,6 +299,52 @@ namespace BoonwinsBattlegroundTracker
             {
                 comboBox.SelectedIndex = _config.tribeSize;
             }else comboBox.SelectedIndex = 0;
+        }
+
+        private void btnHideConsole_Click(object sender, RoutedEventArgs e)
+        {
+            _config.showConsole = false;
+            _config.save();
+            ShowHideMenu("sbHideTopMenu", btnTopMenuHide, btnTopMenuShow);
+        }
+
+        private void btnShowConsole_Click(object sender, RoutedEventArgs e)
+        {
+            _config.showConsole = true;
+            _config.save();
+            ShowHideMenu("sbShowTopMenu", btnTopMenuHide, btnTopMenuShow);
+        }
+
+        public void ShowHideMenu(string Storyboard, Button btnHide, Button btnShow)
+        {
+            
+
+            if (Storyboard.Contains("Show"))
+            {
+                btnHide.Visibility = System.Windows.Visibility.Visible;
+                btnShow.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else if (Storyboard.Contains("Hide"))
+            {
+                btnHide.Visibility = System.Windows.Visibility.Hidden;
+                btnShow.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void btnHistoryHide_Click(object sender, RoutedEventArgs e)
+        {
+            _config.showHistory = false;
+            _config.save();
+            btnHistoryHide.Visibility = Visibility.Hidden;
+            btnHistoryShow.Visibility = Visibility.Visible;
+        }
+
+        private void btnHistoryShow_Click(object sender, RoutedEventArgs e)
+        {
+            _config.showHistory = true;
+            _config.save();
+            btnHistoryHide.Visibility = Visibility.Visible;
+            btnHistoryShow.Visibility = Visibility.Hidden;
         }
     }
 }

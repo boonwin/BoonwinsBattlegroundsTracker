@@ -34,21 +34,33 @@
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BobsBuddy, Version=1.2.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.7\BobsBuddy.dll</HintPath>
+    </Reference>
     <Reference Include="HearthDb">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\HearthDb.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.7\HearthDb.dll</HintPath>
     </Reference>
     <Reference Include="HearthMirror">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\HearthMirror.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.7\HearthMirror.dll</HintPath>
     </Reference>
     <Reference Include="HearthstoneDeckTracker">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\HearthstoneDeckTracker.exe</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.7\HearthstoneDeckTracker.exe</HintPath>
+    </Reference>
+    <Reference Include="HearthWatcher">
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.7\HearthWatcher.dll</HintPath>
     </Reference>
     <Reference Include="HSReplay">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\HSReplay.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.7\HSReplay.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\MahApps.Metro.dll</HintPath>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.7\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
@@ -92,9 +104,14 @@
     <Compile Include="BgMatchData.cs" />
     <Compile Include="BgMatchDataPlugin.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="ConsoleOverlay.xaml.cs">
+      <DependentUpon>ConsoleOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CsvConnector.cs" />
     <Compile Include="FilePathes.cs" />
-    <Compile Include="GameLogManager.cs" />
+    <Compile Include="GameHistoryOverlay.xaml.cs">
+      <DependentUpon>GameHistoryOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameRecord.cs" />
     <Compile Include="Mmr.cs" />
     <Compile Include="OverlayManager.cs" />
@@ -116,7 +133,6 @@
       <DependentUpon>TribesOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="TriverOverlayManager.cs" />
-    <Compile Include="TurnSnapshot.cs" />
     <Compile Include="View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -132,6 +148,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ConsoleOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameHistoryOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

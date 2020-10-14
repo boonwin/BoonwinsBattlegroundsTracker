@@ -9,6 +9,7 @@ using Hearthstone_Deck_Tracker.Utility.Logging;
 using MahApps.Metro.Controls;
 using System.Windows;
 using Hearthstone_Deck_Tracker.HsReplay;
+using System.Threading;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -19,9 +20,12 @@ namespace BoonwinsBattlegroundTracker
         private TribesOverlay _tribes;
         private OverlayManager _overlayManager;
         private TriverOverlayManager _tribeOverlayManager;
+
         private View _view;
         private Flyout _settingsFlyout;
         private SettingsControl _settingsControl;
+        private ConsoleOverlay _console;
+        private GameHistoryOverlay _history;
 
         public void OnLoad()
         {
@@ -29,39 +33,28 @@ namespace BoonwinsBattlegroundTracker
             _overlay = new BgMatchOverlay();
             _view = new View();
             _tribes = new TribesOverlay();
+            _history = new GameHistoryOverlay();
+            _console = new ConsoleOverlay();
+
             BgMatchData._overlay = _overlay;
             BgMatchData._view = _view;
             BgMatchData._tribes = _tribes;
-            
-            
-            
-
+            BgMatchData._history = _history;
+            BgMatchData._console = _console;
 
             // Triggered upon startup and when the user ticks the plugin on            
             GameEvents.OnGameStart.Add(BgMatchData.GameStart);
             GameEvents.OnTurnStart.Add(BgMatchData.TurnStart);
             GameEvents.OnGameEnd.Add(BgMatchData.GameEnd);
- 
 
-            if (File.Exists(Config._configLocation))
-            {
-                // load config from file, if available
-                config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(Config._configLocation));
-
-            }
-            else
-            { // create config file
-                config = new Config();
-                config.save();
-            }
-
+            CreateDateFileEnviroment();
 
             BgMatchData.OnLoad(config);
 
 
 
 
-            if(config.showStatsOverlay)
+            if (config.showStatsOverlay)
             {
                 MountOverlay();
             }
@@ -92,19 +85,38 @@ namespace BoonwinsBattlegroundTracker
             //    config.save();
             //};
             Core.MainWindow.Flyouts.Items.Add(_settingsFlyout);
-       
-
 
         }
 
+        private void CreateDateFileEnviroment()
+        {
+            var pluginDateFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BoonwinsBattlegroundTracker\data\";
+            if (!Directory.Exists(pluginDateFolderPath)) { 
+            Directory.CreateDirectory(pluginDateFolderPath);
+                Thread.Sleep(300);
+            }
+            if (File.Exists(Config._configLocation))
+            {
+                // load config from file, if available
+                config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(Config._configLocation));
+            }
+            else
+            { // create config file
+                config = new Config();
+                config.save();
+            }
+
+            if (!File.Exists(config._gameRecordPath))
+            {
+                using (File.Create(config._gameRecordPath)) ;
+                
+            }
+        }
 
         public void MountOverlay()
         {
-
-
             StackPanel BgsTopBar = (StackPanel)Core.OverlayWindow.FindName("BgsTopBar");
             BgsTopBar.Children.Insert(1, _view);
-
         }
 
 
@@ -112,7 +124,6 @@ namespace BoonwinsBattlegroundTracker
         {
             StackPanel BgsTopBar = (StackPanel)Core.OverlayWindow.FindName("BgsTopBar");
             BgsTopBar.Children.Remove(_view);
-
         }
 
         public void OnUnload()
@@ -164,7 +175,6 @@ namespace BoonwinsBattlegroundTracker
 
             return m;
         }
-
 
     }
 
