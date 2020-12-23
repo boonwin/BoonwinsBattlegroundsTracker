@@ -32,6 +32,7 @@ namespace BoonwinsBattlegroundTracker
         BgMatchOverlay _overlay = new BgMatchOverlay();
         TribesOverlay _tribes = new TribesOverlay();
         ConsoleOverlay _console = new ConsoleOverlay();
+        SimpleOverlay _simpleOverlay = new SimpleOverlay();
 
         private Action _mount;
         private Action _unmount;
@@ -40,6 +41,7 @@ namespace BoonwinsBattlegroundTracker
         public SettingsControl(Config c, Action mount, Action unmount)
         {
             InitializeComponent();
+            cbLeaderboardName.TextChanged += cbLeaderboardName_TextChanged;
             _config = c;
             UpdateConfig(c);
             _mount = mount;
@@ -47,6 +49,8 @@ namespace BoonwinsBattlegroundTracker
 
             IsBigMenuEnabled();
         }
+
+ 
 
         public void IsBigMenuEnabled()
         {
@@ -73,7 +77,33 @@ namespace BoonwinsBattlegroundTracker
             else { cbIsInGameEnabled.IsChecked = false;
                 cbBannedTribeImagesSizes.IsEnabled = false;
             }
-            
+
+            if (_config.isSoundChecked == true)
+            {
+                cbSounds.IsChecked = true;
+            }
+            else
+            {
+                cbSounds.IsChecked = false;
+            }
+
+            if (_config.showSimpleOverlay == true) cbSimpleOverlay.IsChecked = true;
+            else cbSimpleOverlay.IsChecked = false;
+
+            if (_config.isLeaderboardActivated)
+            {
+                cbLeaderboard.IsChecked = true;
+                LeaderboardNamePanel.IsEnabled = true;
+                
+            }
+            else { cbLeaderboard.IsChecked = false;
+                LeaderboardNamePanel.IsEnabled = false;
+
+            }
+            if (!String.IsNullOrEmpty(_config.leaderboardName))
+            {
+                cbLeaderboardName.Text = _config.leaderboardName;
+            }
         }
 
         public void UpdateConfig(Config c)
@@ -331,20 +361,49 @@ namespace BoonwinsBattlegroundTracker
             }
         }
 
-        private void btnHistoryHide_Click(object sender, RoutedEventArgs e)
+     
+        private void cbLeaderboard_Checked(object sender, RoutedEventArgs e)
         {
-            _config.showHistory = false;
-            _config.save();
-            btnHistoryHide.Visibility = Visibility.Hidden;
-            btnHistoryShow.Visibility = Visibility.Visible;
+           _config.isLeaderboardActivated = true;
+           LeaderboardNamePanel.IsEnabled = true;
+           _config.save();
         }
 
-        private void btnHistoryShow_Click(object sender, RoutedEventArgs e)
+        private void cbLeaderboard_Unchecked(object sender, RoutedEventArgs e)
         {
-            _config.showHistory = true;
+            _config.isLeaderboardActivated = false;
+            LeaderboardNamePanel.IsEnabled = false;
             _config.save();
-            btnHistoryHide.Visibility = Visibility.Visible;
-            btnHistoryShow.Visibility = Visibility.Hidden;
+        }       
+        private void cbLeaderboardName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = sender as TextBox;
+            _config.leaderboardName = text.Text;
+            _config.save();
+        }
+
+        private void cbSounds_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.isSoundChecked = true;
+            _config.save();
+        }
+
+        private void cbSounds_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.isSoundChecked = false;
+            _config.save();
+        }
+
+        private void cbSimpleOverlay_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.showSimpleOverlay = true;
+            _config.save();
+        }
+
+        private void cbSimpleOverlay_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.showSimpleOverlay = false;
+            _config.save();
         }
     }
 }

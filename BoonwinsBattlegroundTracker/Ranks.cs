@@ -19,6 +19,7 @@ namespace BoonwinsBattlegroundTracker
         public int rank6Amount { get; set; }
         public int rank7Amount { get; set; }
         public int rank8Amount { get; set; }
+        public int? LastRank { get; set; }
 
 
     }

@@ -9,10 +9,7 @@
              mc:Ignorable="d" >
 
     <StackPanel x:Name="panel" HorizontalAlignment="Left" Margin="20">
-        <DockPanel Margin="10"/>
-        <Label x:Name="lbSettings" Content="Settings, this is not done yet" FontSize="16" Foreground="White" FontWeight="Bold" Width="350"></Label>
-        <DockPanel Margin="10"/>
-        <Separator></Separator>
+
         <Label Content="Set colors" FontSize="16" Foreground="White" Width="350"></Label>
         <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
             <Label Content="Pick a Text-Color:" Foreground="White" FontSize="16" Width="150" HorizontalContentAlignment="Left"/>
@@ -61,6 +58,18 @@
             <Label Content="Ingame Overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
             <CheckBox x:Name="cbIsInGameEnabled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsInGameOverlay_Checked" Unchecked="cbIsInGameOverlay_Unchecked" Height="18"></CheckBox>
         </DockPanel>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Leaderboard:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <CheckBox x:Name="cbLeaderboard" Width="69" Content="Enabled" Foreground="White" Checked="cbLeaderboard_Checked" Unchecked="cbLeaderboard_Unchecked" Height="18"></CheckBox>
+        </DockPanel>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Simple overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <CheckBox x:Name="cbSimpleOverlay" Width="69" Content="Enabled" Foreground="White" Checked="cbSimpleOverlay_Checked" Unchecked="cbSimpleOverlay_Unchecked" Height="18"></CheckBox>
+        </DockPanel>
+        <DockPanel x:Name="LeaderboardNamePanel" Margin="10,10,10,0" Width="350" HorizontalAlignment="Left" IsEnabled="False">
+            <Label Content="Name without Number:" Foreground="White" FontSize="16" Width="219" HorizontalContentAlignment="Left"/>
+            <TextBox x:Name="cbLeaderboardName" Width="126" Text="Enter Ingame Name"   Height="18"></TextBox>
+        </DockPanel>
         <Separator></Separator>
         <Label Content="Console" FontSize="16" Foreground="White" Width="350"></Label>
         <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
@@ -69,11 +78,10 @@
             <Button x:Name="btnTopMenuShow" Width="124" Content="Show"  Click="btnShowConsole_Click" Margin="216,0,10,0" ></Button>
         </Grid>
         <Separator></Separator>
-        <Label Content="Game History (will be added soon)" FontSize="16" Foreground="White" Width="350"></Label>
         <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Show Game History" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left" Margin="0,0,125,0"/>
-            <Button x:Name="btnHistoryHide" Width="124" Content="Hide"  Click="btnHistoryHide_Click" Margin="216,0,10,0" Visibility="Hidden" IsEnabled="False"></Button>
-            <Button x:Name="btnHistoryShow" Width="124" Content="Show"  Click="btnHistoryShow_Click" Margin="216,0,10,0" IsEnabled="False"></Button>
+            <Label Content="Sounds" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left" Margin="0,0,125,0"/>
+            <CheckBox x:Name="cbSounds" Width="69" Content="Enabled" Foreground="White" Checked="cbSounds_Checked" Unchecked="cbSounds_Unchecked" Height="18" Margin="253,7,28,6.6"></CheckBox>
+
         </Grid>
     </StackPanel>
 </UserControl>

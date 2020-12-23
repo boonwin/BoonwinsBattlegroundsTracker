@@ -152,7 +152,7 @@ namespace BoonwinsBattlegroundTracker
 
       
 
-        public void SetTextBoxValue(Ranks rank, string avgRank)
+        public void SetRanksForOverlay(Ranks rank, string avgRank)
         {
             lbRank1.Content = rank.rank1Amount.ToString() + "x";
             lbRank2.Content = rank.rank2Amount.ToString() + "x";
@@ -191,10 +191,7 @@ namespace BoonwinsBattlegroundTracker
             {
                 tbAvgRankText.Content = "Ø-Rank: " + avgRank;
             }
-            if (tbAvgRankSmallText.Visibility == Visibility.Visible)
-            {
-                tbAvgRankSmallText.Content = avgRank;
-            }
+
         }
     }
 }

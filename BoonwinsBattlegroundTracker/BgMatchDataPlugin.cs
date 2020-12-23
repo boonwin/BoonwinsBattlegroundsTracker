@@ -26,6 +26,7 @@ namespace BoonwinsBattlegroundTracker
         private SettingsControl _settingsControl;
         private ConsoleOverlay _console;
         private GameHistoryOverlay _history;
+        private SimpleOverlay _simpleOverlay;
 
         public void OnLoad()
         {
@@ -35,23 +36,25 @@ namespace BoonwinsBattlegroundTracker
             _tribes = new TribesOverlay();
             _history = new GameHistoryOverlay();
             _console = new ConsoleOverlay();
+            _simpleOverlay = new SimpleOverlay();
 
             BgMatchData._overlay = _overlay;
             BgMatchData._view = _view;
             BgMatchData._tribes = _tribes;
             BgMatchData._history = _history;
             BgMatchData._console = _console;
+            BgMatchData._simpleOverlay = _simpleOverlay;
 
             // Triggered upon startup and when the user ticks the plugin on            
             GameEvents.OnGameStart.Add(BgMatchData.GameStart);
             GameEvents.OnTurnStart.Add(BgMatchData.TurnStart);
             GameEvents.OnGameEnd.Add(BgMatchData.GameEnd);
 
-            CreateDateFileEnviroment();
 
+            CreateDateFileEnviroment();
             BgMatchData.OnLoad(config);
 
-
+           
 
 
             if (config.showStatsOverlay)
@@ -108,7 +111,7 @@ namespace BoonwinsBattlegroundTracker
 
             if (!File.Exists(config._gameRecordPath))
             {
-                using (File.Create(config._gameRecordPath)) ;
+                using (File.Create(config._gameRecordPath));
                 
             }
         }
@@ -159,7 +162,7 @@ namespace BoonwinsBattlegroundTracker
 
         public string Author => "Boonwin";
 
-        public Version Version => new Version(0, 0, 9);
+        public Version Version => new Version(0, 0, 13);
 
         public MenuItem MenuItem => CreateMenu();
 

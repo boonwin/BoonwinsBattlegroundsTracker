@@ -14,6 +14,7 @@ namespace BoonwinsBattlegroundTracker
         public static readonly string _configLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BoonwinsBattlegroundTracker\data\BoonwinsBattlegroundTracker.config"; 
         public readonly string _gameRecordPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BoonwinsBattlegroundTracker\data\GameRecords.json";
         public readonly string _themeLocation  = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\Img\";
+        public readonly string _soundLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\Sounds\";
         public static readonly string _tribesImageLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\Img\";
         public int TurnToStartTrackingAllBoards = 1;
         public bool showStatsOverlay = true;    
@@ -21,6 +22,11 @@ namespace BoonwinsBattlegroundTracker
         public int tribeSize = 0;
         public bool menuOverlayEnabled = true;
         public bool ingameOverlayEnabled = false;
+        public bool isSoundChecked = false;
+        public bool isLeaderboardActivated = false;
+        public bool showSimpleOverlay = true;
+        public string leaderboardName;
+
 
         public string TrackerFontColor;
         public string MmrPlus;
@@ -34,7 +40,7 @@ namespace BoonwinsBattlegroundTracker
 
         public bool showConsole;
         internal bool showTurns = true;
-        internal bool showHistory;
+  
 
         public void save()
         {
