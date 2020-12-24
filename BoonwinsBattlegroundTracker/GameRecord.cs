@@ -1,4 +1,5 @@
 ﻿using HearthDb.Enums;
+using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Hearthstone.Entities;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
@@ -21,8 +22,9 @@ namespace BoonwinsBattlegroundTracker
         public Guid GameID { get; set; }
         public string Player { get; set; }
         public int Mmr { get; set; }
+        public Region Region { get; set; }
 
-  
+
 
         //public List<string> Headers = new List<string> {
         //        "Date & Time","Position","MMR" ,"Hero", "Banned Tribes", "Ending Minions", "Ending Turn", "Game ID", "Player"
@@ -196,9 +198,11 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-        internal static string GetPeak(List<GameRecord> recordList)
+        internal static string GetPeak(List<GameRecord> recordList, Region region)
         {
-            return recordList.Max(t => t.Mmr).ToString();         
+            return recordList
+                .Where(r => r.Region == region)
+                .Max(m => m.Mmr).ToString();
         }
     }
 

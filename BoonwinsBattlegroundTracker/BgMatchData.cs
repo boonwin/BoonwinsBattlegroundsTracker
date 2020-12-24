@@ -54,6 +54,9 @@ namespace BoonwinsBattlegroundTracker
         public static GameHistoryOverlay _history;
 
         public static OverlayManager _input;
+
+        
+
         public static TriverOverlayManager _tribeInput;
 
         public static HashSet<Race> _avaiableTribes;
@@ -62,6 +65,61 @@ namespace BoonwinsBattlegroundTracker
         private static int _leaderboardRatingNextRank = 0;
         private static string _leaderBoardRank = "none";
 
+        public static void OnLoad(Config config)
+        {
+            Log.Info($"onLoad - reading config, ceating ranks and gamerecord object");
+            _config = config;
+            _ranks = new Ranks();
+            LoadGameRecordFromFile();
+
+            lastRank = 0;
+
+        }
+
+        internal static void InMenu()
+        {
+        }
+
+        internal static async void GameStart()
+        {
+            if (!Core.Game.Spectator)
+            {
+                _console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " started.");
+
+
+                IsMissingTribeRetrieved = false;
+                _tribeImgSize = _config.tribeSize;
+                
+
+                int waitTime = 6000;
+
+                while (!IsMissingTribeRetrieved && waitTime > 0)
+                {
+                    Thread.Sleep(3000);
+                    waitTime -= 3000;
+                    IsMissingTribeRetrieved = SetMissingRace();
+
+                }
+
+              
+
+                var avaiableHeroes = await SetPersonalHeroRating();
+
+                _console.SetConsoleText("Getting Game Informations");
+
+                try { 
+                    _peak = GameRecord.GetPeak(_recordList, Core.Game.CurrentRegion);
+                    GameRecord.GetHeroWinRating(_recordList, avaiableHeroes, _avaiableTribes, _console);
+                }
+                catch { }
+
+                _view.SetPeak(_peak);
+
+                if (_rating > 0) _view.SetMMR(_rating);
+                else _view.SetMMR(_ratingStart);
+            
+            }
+        }
         internal static void TurnStart(ActivePlayer player)
         {
             if (!Core.Game.Spectator)
@@ -83,97 +141,6 @@ namespace BoonwinsBattlegroundTracker
             }
         }
 
-        public static void OnLoad(Config config)
-        {
-            Log.Info($"onLoad - reading config, ceating ranks and gamerecord object");
-            _config = config;
-            _ranks = new Ranks();
-
-            switch (Core.Game.CurrentRegion)
-            {
-                case Region.ASIA:
-                    {
-                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath+"_AP");
-                        break;
-                    }
-                case (Region.US):
-                    {
-                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath+"_US");
-                        break;
-                    }
-                case (Region.EU):
-                    {
-                        
-                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
-                        break;
-                    }
-            }
-            _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
-
-
-            lastRank = 0;
-
-        }
-
-        internal static async void GameStart()
-        {
-            if (!Core.Game.Spectator)
-            {
-                _console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " started.");
-
-
-                IsMissingTribeRetrieved = false;
-                _tribeImgSize = _config.tribeSize;
-                
-
-                int waitTime = 9000;
-
-                while (!IsMissingTribeRetrieved && waitTime > 0)
-                {
-                    Thread.Sleep(3000);
-                    waitTime -= 3000;
-                    IsMissingTribeRetrieved = SetMissingRace();
-
-                }
-
-                var avaiableHeroes = await SetPersonalHeroRating();
-
-                _console.SetConsoleText("Getting Game Informations");
-
-                try { 
-                    _peak = GameRecord.GetPeak(_recordList);
-                    GameRecord.GetHeroWinRating(_recordList, avaiableHeroes, _avaiableTribes, _console);
-                }
-                catch { }
-
-                _view.SetPeak(_peak);
-
-                if (_rating > 0) _view.SetMMR(_rating);
-                else _view.SetMMR(_ratingStart);
-            
-            }
-        }
-
-
-        internal static async Task<string[]> SetPersonalHeroRating()
-        {
-            string[] avaiableHeroes = null;
-
-            for (var i = 0; i < 10; i++)
-            {
-                await Task.Delay(500);
-                var heroes = Core.Game.Player.PlayerEntities.Where(x => x.IsHero && x.HasTag(GameTag.BACON_HERO_CAN_BE_DRAFTED));
-                if (heroes.Count() < 2)
-                    continue;
-                await Task.Delay(500);
-                avaiableHeroes = heroes.Select(x => x.Card.LocalizedName).ToArray();
-
-            }
-
-            return avaiableHeroes;
-        }
-
-
         internal static void GameEnd()
         {
             if (!Core.Game.Spectator)
@@ -193,28 +160,7 @@ namespace BoonwinsBattlegroundTracker
                     .First();
 
                 GetGameRecordData(hero);
-
-                switch (Core.Game.CurrentRegion)
-                {
-                    case Region.ASIA:
-                        {
-                            GameRecord.WriteGameRecordToFile(_config._gameRecordPath + "_AP", _record); 
-                            break;
-                        }
-                    case (Region.US):
-                        {
-                            GameRecord.WriteGameRecordToFile(_config._gameRecordPath + "_US", _record); 
-                            break;
-                        }
-                    case (Region.EU):
-                        {
-                            GameRecord.WriteGameRecordToFile(_config._gameRecordPath, _record);
-                            break;
-                        }
-                }
-                
-
-
+               
                 lastRank = hero.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE);
 
                 if (lastRank > 0)
@@ -230,6 +176,34 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
+        internal static async Task<string[]> SetPersonalHeroRating()
+        {
+            string[] avaiableHeroes = null;
+
+            for (var i = 0; i < 10; i++)
+            {
+                await Task.Delay(500);
+                var heroes = Core.Game.Player.PlayerEntities.Where(x => x.IsHero && x.HasTag(GameTag.BACON_HERO_CAN_BE_DRAFTED));
+                if (heroes.Count() < 2)
+                    continue;
+                await Task.Delay(500);
+                avaiableHeroes = heroes.Select(x => x.Card.LocalizedName).ToArray();
+
+            }
+
+            return avaiableHeroes;
+        }
+
+        private static void LoadGameRecordFromFile()
+        {
+            _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);            
+        }
+
+        private static void WriteGameRecordToFile(GameRecord record)
+        {
+           GameRecord.WriteGameRecordToFile(_config._gameRecordPath, record);
+        }
+
         private static void GetGameRecordData(Entity hero)
         {
             _record = new GameRecord();
@@ -239,11 +213,16 @@ namespace BoonwinsBattlegroundTracker
             _record.Tribes = _avaiableTribes;
             _record.GameID = Core.Game.CurrentGameStats.GameId;
             _record.Player = Core.Game.Player.Name;
-            _record.Mmr = Core.Game.BattlegroundsRatingInfo.Rating;
-            _recordList.Add(_record);
+            _record.Region = Core.Game.CurrentRegion;
+        }    
 
+        private static void GetMmrRecordData(GameRecord record)
+        {
+            record.Mmr = Core.Game.BattlegroundsRatingInfo.Rating;
+          
         }
-        private static Lazy<BattlegroundsDb> _db = new Lazy<BattlegroundsDb>();
+
+
         //Most of this should be in another class KEKL
         internal static bool SetMissingRace()
         {
@@ -252,7 +231,6 @@ namespace BoonwinsBattlegroundTracker
 
             _avaiableTribes = Tribes.GetTribes(gameID, _view, _config, _tribes);
 
-            //var races = BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats?.GameId) ?? _db.Value.Races;
 
             if (_avaiableTribes != null && _avaiableTribes.Count > 0)
             {
@@ -468,13 +446,14 @@ namespace BoonwinsBattlegroundTracker
                 //AddRemoveGameHistory();
                 AddRemoveLeaderboard();
 
-
-
                 if (!InBgMenu()) return;
                 if (_isStart) SetLatestRating();
                 if (_lastRoundNr > _roundCounter)
                 {
                     SetMMRChange();
+                    GetMmrRecordData(_record);
+                    _recordList.Add(_record);
+                    WriteGameRecordToFile(_record);
                 }
 
             }
@@ -606,6 +585,7 @@ namespace BoonwinsBattlegroundTracker
         {
             _ratingStart = Core.Game.BattlegroundsRatingInfo.Rating;
             _overlay.UpdateMMR(_ratingStart);
+
             UpdateLeaderboardData();
             _isStart = false;
         }

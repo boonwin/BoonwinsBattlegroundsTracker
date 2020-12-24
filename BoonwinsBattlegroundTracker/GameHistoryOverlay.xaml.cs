@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hearthstone_Deck_Tracker;
+using Hearthstone_Deck_Tracker.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,37 @@ namespace BoonwinsBattlegroundTracker
     /// </summary>
     public partial class GameHistoryOverlay : UserControl
     {
+
+        Config _config = new Config();
+        List<GameRecord> _recordList = new List<GameRecord>();
+
+
         public GameHistoryOverlay()
         {
             InitializeComponent();
+            switch (Core.Game.CurrentRegion)
+            {
+                case Region.ASIA:
+                    {
+                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath + "_AP");
+                        break;
+                    }
+                case (Region.US):
+                    {
+                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath + "_US");
+                        break;
+                    }
+                case (Region.EU):
+                    {
+
+                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
+                        break;
+                    }
+            }
         }
+
+
+
+
     }
 }
