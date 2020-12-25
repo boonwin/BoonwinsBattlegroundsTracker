@@ -405,5 +405,21 @@ namespace BoonwinsBattlegroundTracker
             _config.showSimpleOverlay = false;
             _config.save();
         }
+
+   
+
+        private void btnStatsShow_Click(object sender, RoutedEventArgs e)
+        {
+            Window gameHistoryOverlay = new Window()
+            {
+                Title = "Boonwin",
+                Content = new GameHistoryOverlay(),
+               
+                ResizeMode = ResizeMode.CanResizeWithGrip
+            };
+
+            gameHistoryOverlay.Show();
+        
+        }
     }
 }

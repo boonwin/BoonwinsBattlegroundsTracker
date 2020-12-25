@@ -6,7 +6,17 @@
              xmlns:local="clr-namespace:BoonwinsBattlegroundTracker"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Width="800" Height="450">
+        <Label x:Name="lbAvgRanks" Content="Average Rank:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="24,39,574,372"/>
+        <Label x:Name="lbTotalGames" Content="Total Games:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="24,0,537,411"/>
+        <Label x:Name="lbMostPlayedHero" Content="Most played Hero:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="24,78,537,333"/>
+        <ListView x:Name="lbtHeros" FontSize="16" HorizontalContentAlignment="Left" Margin="24,122,207,19">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Hero:" Width="120" DisplayMemberBinding="{Binding Hero}"></GridViewColumn>
+                    <GridViewColumn Header="Count: " Width="50" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

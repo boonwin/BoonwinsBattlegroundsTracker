@@ -25,34 +25,39 @@ namespace BoonwinsBattlegroundTracker
 
         Config _config = new Config();
         List<GameRecord> _recordList = new List<GameRecord>();
-
-
+    
         public GameHistoryOverlay()
         {
             InitializeComponent();
-            switch (Core.Game.CurrentRegion)
-            {
-                case Region.ASIA:
-                    {
-                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath + "_AP");
-                        break;
-                    }
-                case (Region.US):
-                    {
-                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath + "_US");
-                        break;
-                    }
-                case (Region.EU):
-                    {
+            _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
+            showAvgRanks();
 
-                        _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
-                        break;
-                    }
+        }
+
+        public void showAvgRanks()
+        {
+            int ranks = 0;
+            int counter = 0;
+            int bestHero = 0;
+            string heroName;
+
+
+
+            foreach (var game in _recordList)
+            {
+                ranks = ranks + game.Position;
+                counter++;
             }
+            lbTotalGames.Content = "Total Games: " + counter;
+            lbAvgRanks.Content = "Average Rank: " + (ranks / counter).ToString();
+
+            var query = _recordList.GroupBy(x => x.Hero, (y, z) => new { Hero = y, Count = z.Count() })
+                .OrderByDescending(o => o.Count);
+
+            lbtHeros.ItemsSource = query;
         }
 
 
-
-
     }
+
 }

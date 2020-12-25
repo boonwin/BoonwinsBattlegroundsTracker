@@ -6,82 +6,91 @@
              xmlns:local="clr-namespace:BoonwinsBattlegroundTracker"                            
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"            
-             mc:Ignorable="d" >
+             mc:Ignorable="d" Height="926" >
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
-    <StackPanel x:Name="panel" HorizontalAlignment="Left" Margin="20">
+        <StackPanel x:Name="panel" HorizontalAlignment="Left" Margin="20" >
 
-        <Label Content="Set colors" FontSize="16" Foreground="White" Width="350"></Label>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Pick a Text-Color:" Foreground="White" FontSize="16" Width="150" HorizontalContentAlignment="Left"/>
-            <xctk:ColorPicker x:Name="cpPickerTextColor" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPicker_SelectedColorChanged" HorizontalContentAlignment="Left"/>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Pick +MMR Color:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <xctk:ColorPicker  x:Name="cpPickerPlusMMR" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPickerPlusMMR_SelectedColorChanged" HorizontalContentAlignment="Left"/>
-            <CheckBox x:Name="mmrPlus" Width="54" Content="Show" Foreground="White" Checked="mmrPlus_Checked" Unchecked="mmrPlus_Unchecked" ></CheckBox>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Pick -MMR Color:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <xctk:ColorPicker  x:Name="cpPickerMinusMMR" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPickerMinusMMR_SelectedColorChanged" HorizontalContentAlignment="Left"/>
-            <CheckBox x:Name="mmrMinus" Width="54" Content="Show" Foreground="White" Checked="mmrMinus_Checked" Unchecked="mmrMinus_Unchecked" ></CheckBox>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Banned Tribes Colors:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-           <CheckBox x:Name="cbEnableBannedTribeColors" Width="66" Content="Enabled" Foreground="White" Checked="cbEnableBannedTribeColors_Checked" Unchecked="cbEnableBannedTribeColors_Unchecked"  ></CheckBox>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Banned Tribes Images:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <CheckBox x:Name="cbEnableBannedTribeImages" Width="66" Content="Enabled" Foreground="White" Checked="cbEnableBannedTribeImages_Checked" Unchecked="cbEnableBannedTribeImages_Unchecked"  ></CheckBox>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Banned Tribes Images Size:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <ComboBox x:Name="cbBannedTribeImagesSizes" Width="100" IsEnabled="False" IsEditable="False"  Loaded="cbBannedTribeImagesSizes_Loaded" SelectionChanged="cbBannedTribeImagesSizes_SelectionChanged"/>
+            <Label Content="Set colors" FontSize="16" Foreground="White" Width="350"></Label>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Pick a Text-Color:" Foreground="White" FontSize="16" Width="150" HorizontalContentAlignment="Left"/>
+                <xctk:ColorPicker x:Name="cpPickerTextColor" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPicker_SelectedColorChanged" HorizontalContentAlignment="Left"/>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Pick +MMR Color:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <xctk:ColorPicker  x:Name="cpPickerPlusMMR" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPickerPlusMMR_SelectedColorChanged" HorizontalContentAlignment="Left"/>
+                <CheckBox x:Name="mmrPlus" Width="54" Content="Show" Foreground="White" Checked="mmrPlus_Checked" Unchecked="mmrPlus_Unchecked" ></CheckBox>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Pick -MMR Color:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <xctk:ColorPicker  x:Name="cpPickerMinusMMR" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPickerMinusMMR_SelectedColorChanged" HorizontalContentAlignment="Left"/>
+                <CheckBox x:Name="mmrMinus" Width="54" Content="Show" Foreground="White" Checked="mmrMinus_Checked" Unchecked="mmrMinus_Unchecked" ></CheckBox>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Banned Tribes Colors:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <CheckBox x:Name="cbEnableBannedTribeColors" Width="66" Content="Enabled" Foreground="White" Checked="cbEnableBannedTribeColors_Checked" Unchecked="cbEnableBannedTribeColors_Unchecked"  ></CheckBox>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Banned Tribes Images:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <CheckBox x:Name="cbEnableBannedTribeImages" Width="66" Content="Enabled" Foreground="White" Checked="cbEnableBannedTribeImages_Checked" Unchecked="cbEnableBannedTribeImages_Unchecked"  ></CheckBox>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Banned Tribes Images Size:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <ComboBox x:Name="cbBannedTribeImagesSizes" Width="100" IsEnabled="False" IsEditable="False"  Loaded="cbBannedTribeImagesSizes_Loaded" SelectionChanged="cbBannedTribeImagesSizes_SelectionChanged"/>
 
-        </DockPanel>
-        <Separator></Separator>
-        <Label Content="Set location" FontSize="16" Foreground="White" Width="350"></Label>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Ranks Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <Button x:Name="btnUnlock" Width="124" Content="Unlock Ranks"  Click="BtnUnlockOverlay_Click" ></Button>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Tribes Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <Button x:Name="btntribesUnlock" Width="124" Content="Unlock Tribes"  Click="btntribesUnlock_Click" ></Button>
-        </DockPanel>
-        <Separator></Separator>
-        <Label Content="Overlay" FontSize="16" Foreground="White" Width="350"></Label>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Menu Overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <CheckBox x:Name="cbIsBigEmanled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsMenuOverlay_Checked" Unchecked="cbIsMenuOverlay_Unchecked" Height="18"></CheckBox>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Ingame Overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <CheckBox x:Name="cbIsInGameEnabled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsInGameOverlay_Checked" Unchecked="cbIsInGameOverlay_Unchecked" Height="18"></CheckBox>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Leaderboard:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <CheckBox x:Name="cbLeaderboard" Width="69" Content="Enabled" Foreground="White" Checked="cbLeaderboard_Checked" Unchecked="cbLeaderboard_Unchecked" Height="18"></CheckBox>
-        </DockPanel>
-        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Simple overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-            <CheckBox x:Name="cbSimpleOverlay" Width="69" Content="Enabled" Foreground="White" Checked="cbSimpleOverlay_Checked" Unchecked="cbSimpleOverlay_Unchecked" Height="18"></CheckBox>
-        </DockPanel>
-        <DockPanel x:Name="LeaderboardNamePanel" Margin="10,10,10,0" Width="350" HorizontalAlignment="Left" IsEnabled="False">
-            <Label Content="Name without Number:" Foreground="White" FontSize="16" Width="219" HorizontalContentAlignment="Left"/>
-            <TextBox x:Name="cbLeaderboardName" Width="126" Text="Enter Ingame Name"   Height="18"></TextBox>
-        </DockPanel>
-        <Separator></Separator>
-        <Label Content="Console" FontSize="16" Foreground="White" Width="350"></Label>
-        <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Show Console:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left" Margin="0,0,125,0"/>
-            <Button x:Name="btnTopMenuHide" Width="124" Content="Hide"  Click="btnHideConsole_Click" Margin="216,0,10,0" Visibility="Hidden"></Button>
-            <Button x:Name="btnTopMenuShow" Width="124" Content="Show"  Click="btnShowConsole_Click" Margin="216,0,10,0" ></Button>
-        </Grid>
-        <Separator></Separator>
-        <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-            <Label Content="Sounds" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left" Margin="0,0,125,0"/>
-            <CheckBox x:Name="cbSounds" Width="69" Content="Enabled" Foreground="White" Checked="cbSounds_Checked" Unchecked="cbSounds_Unchecked" Height="18" Margin="253,7,28,6.6"></CheckBox>
+            </DockPanel>
+            <Separator></Separator>
+            <Label Content="Set location" FontSize="16" Foreground="White" Width="350"></Label>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Ranks Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <Button x:Name="btnUnlock" Width="124" Content="Unlock Ranks"  Click="BtnUnlockOverlay_Click" ></Button>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Tribes Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <Button x:Name="btntribesUnlock" Width="124" Content="Unlock Tribes"  Click="btntribesUnlock_Click" ></Button>
+            </DockPanel>
+            <Separator></Separator>
+            <Label Content="Overlay" FontSize="16" Foreground="White" Width="350"></Label>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Menu Overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <CheckBox x:Name="cbIsBigEmanled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsMenuOverlay_Checked" Unchecked="cbIsMenuOverlay_Unchecked" Height="18"></CheckBox>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Ingame Overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <CheckBox x:Name="cbIsInGameEnabled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsInGameOverlay_Checked" Unchecked="cbIsInGameOverlay_Unchecked" Height="18"></CheckBox>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Leaderboard:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <CheckBox x:Name="cbLeaderboard" Width="69" Content="Enabled" Foreground="White" Checked="cbLeaderboard_Checked" Unchecked="cbLeaderboard_Unchecked" Height="18"></CheckBox>
+            </DockPanel>
+            <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Simple overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                <CheckBox x:Name="cbSimpleOverlay" Width="69" Content="Enabled" Foreground="White" Checked="cbSimpleOverlay_Checked" Unchecked="cbSimpleOverlay_Unchecked" Height="18"></CheckBox>
+            </DockPanel>
+            <DockPanel x:Name="LeaderboardNamePanel" Margin="10,10,10,0" Width="350" HorizontalAlignment="Left" IsEnabled="False">
+                <Label Content="Name without Number:" Foreground="White" FontSize="16" Width="219" HorizontalContentAlignment="Left"/>
+                <TextBox x:Name="cbLeaderboardName" Width="126" Text="Enter Ingame Name"   Height="18"></TextBox>
+            </DockPanel>
+            <Separator></Separator>
+            <Label Content="Console" FontSize="16" Foreground="White" Width="350"></Label>
+            <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Show Console:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left" Margin="0,0,125,0"/>
+                <Button x:Name="btnTopMenuHide" Width="124" Content="Hide"  Click="btnHideConsole_Click" Margin="216,0,10,0" Visibility="Hidden"></Button>
+                <Button x:Name="btnTopMenuShow" Width="124" Content="Show"  Click="btnShowConsole_Click" Margin="216,0,10,0" ></Button>
+            </Grid>
+            <Separator></Separator>
+            <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Sounds" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left" Margin="0,0,125,0"/>
+                <CheckBox x:Name="cbSounds" Width="69" Content="Enabled" Foreground="White" Checked="cbSounds_Checked" Unchecked="cbSounds_Unchecked" Height="18" Margin="253,7,28,6.6"></CheckBox>
 
-        </Grid>
-    </StackPanel>
+            </Grid>
+
+            <Separator></Separator>
+            <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                <Label Content="Stats" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left" Margin="0,0,125,0"/>
+                <Button x:Name="btnStatsShow" Width="124" Content="Show"  Click="btnStatsShow_Click" Margin="216,0,10,0" ></Button>
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
