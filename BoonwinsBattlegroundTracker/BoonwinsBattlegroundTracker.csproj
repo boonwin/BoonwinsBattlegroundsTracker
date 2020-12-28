@@ -179,11 +179,13 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Img\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="background.png" />
     <Content Include="FullTheme.png" />
+    <Content Include="Img\background.png" />
+    <Content Include="Img\besthero_forground.png" />
+    <Content Include="Img\lichking.png" />
     <Content Include="Themes\baseTheme.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

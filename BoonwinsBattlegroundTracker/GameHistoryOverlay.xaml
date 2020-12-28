@@ -4,19 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BoonwinsBattlegroundTracker"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Width="800" Height="450">
-        <Label x:Name="lbAvgRanks" Content="Average Rank:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="24,39,574,372"/>
-        <Label x:Name="lbTotalGames" Content="Total Games:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="24,0,537,411"/>
-        <Label x:Name="lbMostPlayedHero" Content="Most played Hero:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="24,78,537,333"/>
-        <ListView x:Name="lbtHeros" FontSize="16" HorizontalContentAlignment="Left" Margin="24,122,207,19">
+             mc:Ignorable="d" Width="1027" Height="710" >
+    <UserControl.Background>
+        <ImageBrush x:Name="imgBg" />
+    </UserControl.Background>
+
+    <Grid Margin="10">
+        <Image x:Name="imgStatsBG" Source="/BoonwinsBattlegroundTracker;component/Img/lichking.png"  Height="274" Width="226" VerticalAlignment="Top" Margin="0,276,168,0" HorizontalAlignment="Right"></Image>
+        <Label x:Name="lbBestHero" Content="Best Hero: Lich King (beta example)" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="590,163,131,493" FontWeight="Bold"/>
+        <Label x:Name="lbAvgRanks" Content="Average Rank:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="581,105,168,550"/>
+        <Label x:Name="lbTotalGames" Content="Total Games:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Margin="158,105,636,556"/>
+        <Label x:Name="lbStats" Content="Statistics" Foreground="DarkRed" FontSize="20" HorizontalContentAlignment="Center" Margin="0,0,393,634" FontWeight="Bold" HorizontalAlignment="Right" Width="213" Height="44" VerticalAlignment="Bottom"/>
+        <Image x:Name="imgStatsFG" Source="/BoonwinsBattlegroundTracker;component/Img/besthero_forground.png"  Height="385" Width="295" VerticalAlignment="Top" Margin="0,197,131,0" HorizontalAlignment="Right"></Image>
+
+        <ListView x:Name="lbtHeros" FontSize="16"  GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler" Margin="92,163,494,83" Background="#524433" Foreground="White">
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Hero:" Width="120" DisplayMemberBinding="{Binding Hero}"></GridViewColumn>
-                    <GridViewColumn Header="Count: " Width="50" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
+                <GridView AllowsColumnReorder="False" >
+                    <GridViewColumn Header="Hero" Width="200" DisplayMemberBinding="{Binding Hero}" ></GridViewColumn>
+                    <GridViewColumn Header="Count" Width="60" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
+                    <GridViewColumn Header="Average" Width="100" DisplayMemberBinding="{Binding Average}" ></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
+
     </Grid>
 </UserControl>

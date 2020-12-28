@@ -18,6 +18,7 @@ namespace BoonwinsBattlegroundTracker
         public DateTime DateTime { get; set; }
         public int Position { get; set; }
         public string Hero { get; set; }
+        public string HeroID { get; set; }
         public HashSet<Race> Tribes { get; set; }
         public Guid GameID { get; set; }
         public string Player { get; set; }

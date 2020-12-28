@@ -210,6 +210,7 @@ namespace BoonwinsBattlegroundTracker
             _record.DateTime = DateTime.Now;
             _record.Position = hero.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE);
             _record.Hero = hero.Card.LocalizedName;
+            _record.HeroID = hero.Card.Id;
             _record.Tribes = _avaiableTribes;
             _record.GameID = Core.Game.CurrentGameStats.GameId;
             _record.Player = Core.Game.Player.Name;

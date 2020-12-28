@@ -16,6 +16,9 @@ namespace BoonwinsBattlegroundTracker
         public readonly string _themeLocation  = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\Img\";
         public readonly string _soundLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\Sounds\";
         public static readonly string _tribesImageLocation = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\Img\";
+        public static readonly string _statsBestHeroBackgroundPath = _tribesImageLocation + @"stats\lichking.png";
+        public static readonly string _statsBackgroundPath = _tribesImageLocation + @"stats\background.png";
+        public static readonly string _statsBestHeroForegroundPath = _tribesImageLocation + @"stats\besthero_forground.png";
         public int TurnToStartTrackingAllBoards = 1;
         public bool showStatsOverlay = true;    
         public string backgroundImage = @"baseTheme.png";
@@ -41,7 +44,6 @@ namespace BoonwinsBattlegroundTracker
         public bool showConsole;
         internal bool showTurns = true;
   
-
         public void save()
         {
             File.WriteAllText(_configLocation, JsonConvert.SerializeObject(this, Formatting.Indented));

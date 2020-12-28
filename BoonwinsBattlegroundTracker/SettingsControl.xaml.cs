@@ -412,10 +412,10 @@ namespace BoonwinsBattlegroundTracker
         {
             Window gameHistoryOverlay = new Window()
             {
-                Title = "Boonwin",
+                Title = "Boonwins Battlegrounds Tracker Stats",
                 Content = new GameHistoryOverlay(),
-               
-                ResizeMode = ResizeMode.CanResizeWithGrip
+
+                ResizeMode = ResizeMode.NoResize
             };
 
             gameHistoryOverlay.Show();
