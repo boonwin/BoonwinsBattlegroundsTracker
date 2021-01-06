@@ -11,7 +11,7 @@ Hi! I'm Boonwin I made **Boonwins Battlegrounds Tracker** mainly for streamers, 
 4.  Unzip the archive to  `%AppData%/HearthstoneDeckTracker/Plugins`  To find this directory, you can click the following button in the Hearthstone Deck Tracker options menu:  `Options -> Tracker -> Plugins -> Plugins Folder`
 5.  If you've done it correctly, BoonwinsBattlegroundsTracker directory should be inside the Plugins directory. Inside the directory, should be a bunch of files, including a file called BoonwinsBattlegroundsTracker.dll.
 6.  Launch Hearthstone Deck Tracker. Enable the plugin in  `Options -> Tracker -> Plugins`.
-8.  If it is not working you can enable a debug mode in the options window and join my Discord to tell me whats wrong. https://discord.gg/mbvv2j
+8.  If it is not working you can enable a debug mode in the options window and join my Discord to tell me whats wrong. https://discord.gg/55ZS6hy
 
 ## How to Use
 
