@@ -54,11 +54,11 @@
 
                     <Label Content="Overlay" FontSize="16" Foreground="White" Width="350"></Label>
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Menu Overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                        <Label Content="Menu overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
                         <CheckBox x:Name="cbIsBigEmanled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsMenuOverlay_Checked" Unchecked="cbIsMenuOverlay_Unchecked" Height="18"></CheckBox>
                     </DockPanel>
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Ingame Overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                        <Label Content="Ingame overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
                         <CheckBox x:Name="cbIsInGameEnabled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsInGameOverlay_Checked" Unchecked="cbIsInGameOverlay_Unchecked" Height="18"></CheckBox>
                     </DockPanel>
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
@@ -70,7 +70,7 @@
                         <CheckBox x:Name="cbSimpleOverlay" Width="69" Content="Enabled" Foreground="White" Checked="cbSimpleOverlay_Checked" Unchecked="cbSimpleOverlay_Unchecked" Height="18"></CheckBox>
                     </DockPanel>
                     <DockPanel x:Name="LeaderboardNamePanel" Margin="10,10,10,0" Width="350" HorizontalAlignment="Left" IsEnabled="False">
-                        <Label Content="Name without Number:" Foreground="White" FontSize="16" Width="219" HorizontalContentAlignment="Left"/>
+                        <Label Content="Name (without Number):" Foreground="White" FontSize="16" Width="219" HorizontalContentAlignment="Left"/>
                         <TextBox x:Name="cbLeaderboardName" Width="126" Text="Enter Ingame Name"   Height="18"></TextBox>
                     </DockPanel>
                 </StackPanel>
@@ -81,7 +81,12 @@
                 <StackPanel x:Name="spSound" HorizontalAlignment="Left" Margin="20" >
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
                         <Label Content="Top 8:" Foreground="White" FontSize="16" Height="50" HorizontalContentAlignment="Left" />
-                        <CheckBox x:Name="cbSounds" Width="69" Content="Enabled" Foreground="White" Checked="cbSounds_Checked" Unchecked="cbSounds_Unchecked" Height="18">
+                        <CheckBox x:Name="cbSounds" Width="68" Content="Enabled" Foreground="White" Checked="cbSounds_Checked" Unchecked="cbSounds_Unchecked" Height="18">
+                        </CheckBox>
+                    </DockPanel>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Mean Bob:" Foreground="White" FontSize="16" Height="50" HorizontalContentAlignment="Left" />
+                        <CheckBox x:Name="cbMeanBob" Width="96" Content="Enabled" Foreground="White" Checked="cbMeanBob_Checked" Unchecked="cbMeanBob_Unchecked" Height="18">
                         </CheckBox>
                     </DockPanel>
             </StackPanel>
@@ -90,21 +95,41 @@
               <TabItem Header="Stats">
                 <StackPanel x:Name="spStats" HorizontalAlignment="Left" Margin="20" >
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Stats" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" />
+                        <Label Content="MMR Chart" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" />
                         <Button x:Name="btnStatsShow" Width="124" Height="50" Content="Show"  Click="btnStatsShow_Click"  ></Button>
+                    </DockPanel>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Hero Stats" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Width="91" />
+                        <Button x:Name="btnHeroShow" Width="124" Height="50" Content="Show"  Click="btnHeroShow_Click"  ></Button>
                     </DockPanel>
                 </StackPanel>
             </TabItem>
            
-            <TabItem Header="Console">
+            <TabItem Header="Other">
                     <StackPanel x:Name="spConsole" HorizontalAlignment="Left" Margin="20" >
-                        <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                            <Label Content="Show Console:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left" Margin="0,0,125,0"/>
-                            <Button x:Name="btnTopMenuHide" Width="124" Content="Hide"  Click="btnHideConsole_Click" Margin="216,0,10,0" Visibility="Hidden"></Button>
-                            <Button x:Name="btnTopMenuShow" Width="124" Content="Show"  Click="btnShowConsole_Click" Margin="216,0,10,0" ></Button>
-                        </Grid>
-                    </StackPanel>
-                </TabItem>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Console:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Width="100"/>
+                            <Button x:Name="btnTopMenuHide" Width="124" Content="Hide"  Click="btnHideConsole_Click"  Visibility="Hidden"></Button>
+                            <Button x:Name="btnTopMenuShow" Width="124" Content="Show"  Click="btnShowConsole_Click" ></Button>
+                     </DockPanel>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Create Disconector:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Width="224"/>
+                        <Button x:Name="btnDisconecterCreate" Width="124" Content="Create"  Click="btnDisconecterCreate_Click" ></Button>
+                    </DockPanel>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Switch Disconector state:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Width="224"/>
+                        <Button x:Name="btnSwitchDisconector" Width="124" Content="On/Off"  Click="btnSwitchDisconector_Click" ></Button>
+                    </DockPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Donation">
+                <StackPanel x:Name="spDonation" HorizontalAlignment="Left" Margin="20" >
+                    <Grid Margin="10,10,10,0" Width="350" HorizontalAlignment="Left" Height="187">
+                        <TextBlock Text="This plugin is free to use and it will stay fre to use but if you like to support you can give me a host on Twitch (Boonwin) or donate here:" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,127"/>
+                       <Image Source="https://panels-images.twitch.tv/panel-31724968-image-04af2fea-e24a-4e2f-ac93-53c35060fce1" Margin="0,65,0,-65" Height="109" VerticalAlignment="Top" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+                    </Grid>
+                </StackPanel>
+            </TabItem>
         </TabControl>
     </ScrollViewer>
 

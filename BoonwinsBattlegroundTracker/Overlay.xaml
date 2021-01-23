@@ -47,6 +47,8 @@
         <Label x:Name="tbLeaderboardRatingDifference" Margin="181,363,23,0" Content="?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="26" VerticalAlignment="Top"/>
 
 
-
+        
     </Grid>
+
 </UserControl>
+

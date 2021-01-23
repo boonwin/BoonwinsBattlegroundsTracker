@@ -10,38 +10,45 @@ using MahApps.Metro.Controls;
 using System.Windows;
 using Hearthstone_Deck_Tracker.HsReplay;
 using System.Threading;
+using AutoUpdaterDotNET;
 
 namespace BoonwinsBattlegroundTracker
 {
     public class BgMatchDataPlugin : IPlugin
     {
-        private Config config;
+        private Config _config;
         private BgMatchOverlay _overlay;
         private TribesOverlay _tribes;
         private OverlayManager _overlayManager;
         private TriverOverlayManager _tribeOverlayManager;
+        private InGameDisconectorOverlay _inGameDisconectorOverlay;
 
         private View _view;
         private Flyout _settingsFlyout;
         private SettingsControl _settingsControl;
         private ConsoleOverlay _console;
-        private GameHistoryOverlay _history;
+
         private SimpleOverlay _simpleOverlay;
 
         public void OnLoad()
         {
             // create overlay and insert into HDT overlay
+            AutoUpdate();
+
+
             _overlay = new BgMatchOverlay();
             _view = new View();
             _tribes = new TribesOverlay();
-            _history = new GameHistoryOverlay();
+            _inGameDisconectorOverlay = new InGameDisconectorOverlay();
+
             _console = new ConsoleOverlay();
             _simpleOverlay = new SimpleOverlay();
 
             BgMatchData._overlay = _overlay;
             BgMatchData._view = _view;
             BgMatchData._tribes = _tribes;
-            BgMatchData._history = _history;
+            BgMatchData._cheatButtonForNoobs = _inGameDisconectorOverlay;
+
             BgMatchData._console = _console;
             BgMatchData._simpleOverlay = _simpleOverlay;
 
@@ -53,27 +60,30 @@ namespace BoonwinsBattlegroundTracker
 
 
             CreateDateFileEnviroment();
-            BgMatchData.OnLoad(config);
+            BgMatchData.OnLoad(_config);
 
            
 
 
-            if (config.showStatsOverlay)
+            if (_config.showStatsOverlay)
             {
                 MountOverlay();
             }
-            _overlayManager = new OverlayManager(_overlay, config);
-            _tribeOverlayManager = new TriverOverlayManager(_tribes, config);
+            _overlayManager = new OverlayManager(_overlay, _config);           
+            _tribeOverlayManager = new TriverOverlayManager(_tribes, _config);
 
             BgMatchData._input = _overlayManager;
             BgMatchData._tribeInput = _tribeOverlayManager;
+            
 
+            Canvas.SetTop(_overlay, _config.posTop);
+            Canvas.SetLeft(_overlay, _config.posLeft);
 
-            Canvas.SetTop(_overlay, config.posTop);
-            Canvas.SetLeft(_overlay, config.posLeft);
+            Canvas.SetTop(_inGameDisconectorOverlay, 50);
+            Canvas.SetLeft(_inGameDisconectorOverlay, 300);
 
-            Canvas.SetTop(_tribes, config.tribePosTop);
-            Canvas.SetLeft(_tribes, config.tribePosLeft);
+            Canvas.SetTop(_tribes, _config.tribePosTop);
+            Canvas.SetLeft(_tribes, _config.tribePosLeft);
 
 
 
@@ -82,7 +92,7 @@ namespace BoonwinsBattlegroundTracker
             _settingsFlyout.Position = Position.Left;
             Panel.SetZIndex(_settingsFlyout, 100);
             _settingsFlyout.Header = "BoonwinsBattlegroundTracker Settings";
-            _settingsControl = new SettingsControl(config, MountOverlay, UnmountOverlay);
+            _settingsControl = new SettingsControl(_config, MountOverlay, UnmountOverlay);
             _settingsFlyout.Content = _settingsControl;
             //_settingsFlyout.ClosingFinished += (sender, args) =>
             //{        
@@ -92,6 +102,20 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
+
+        private void AutoUpdate()
+        {
+            AutoUpdater.InstalledVersion = Version;
+            AutoUpdater.AppTitle = "Boonwins Battlegrounds Tracker";
+            AutoUpdater.Start("https://boonwin.de/Downloads/version.xml");
+            AutoUpdater.DownloadPath = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\";
+            var currentDirectory = new DirectoryInfo(Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\");
+            if (currentDirectory.Parent != null)
+            {
+                AutoUpdater.InstallationPath = currentDirectory.Parent.FullName;
+            }
+            
+        }
         private void CreateDateFileEnviroment()
         {
             var pluginDateFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BoonwinsBattlegroundTracker\data\";
@@ -102,17 +126,23 @@ namespace BoonwinsBattlegroundTracker
             if (File.Exists(Config._configLocation))
             {
                 // load config from file, if available
-                config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(Config._configLocation));
+                _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(Config._configLocation));
             }
             else
             { // create config file
-                config = new Config();
-                config.save();
+                _config = new Config();
+                _config.save();
+            } 
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BoonwinsBattlegroundTracker\data\baseTheme.png") && _config._themeLocation != Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BoonwinsBattlegroundTracker\data\") 
+            {
+                _config._themeLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BoonwinsBattlegroundTracker\data\";
+                _config.save();
             }
 
-            if (!File.Exists(config._gameRecordPath))
+
+            if (!File.Exists(_config._gameRecordPath))
             {
-                using (File.Create(config._gameRecordPath));
+                using (File.Create(_config._gameRecordPath));
                 
             }
         }
@@ -133,7 +163,7 @@ namespace BoonwinsBattlegroundTracker
         public void OnUnload()
         {
             Core.OverlayCanvas.Children.Remove(_overlay);
-            if (config.showStatsOverlay) UnmountOverlay();
+            if (_config.showStatsOverlay) UnmountOverlay();
         }
 
         public void OnButtonPress()
@@ -157,13 +187,13 @@ namespace BoonwinsBattlegroundTracker
 
         public string Name => "Boonwins Battlegrounds Tracker";
 
-        public string Description => "Save your match statistics in a local CSV file or in a Google Sheet online. Tracks the hero, ending position, minions, and the turns to reach tavern tiers for each match.";
+        public string Description => "Shows your reached Ranks, Banned Tribes and best Heroes. Soon there will be even more, still in Progress :)";
 
         public string ButtonText => "Settings";
 
         public string Author => "Boonwin";
 
-        public Version Version => new Version(0, 0, 13);
+        public Version Version => new Version(0, 0, 1, 5);
 
         public MenuItem MenuItem => CreateMenu();
 

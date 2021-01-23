@@ -1,5 +1,7 @@
 ﻿using Hearthstone_Deck_Tracker;
 using Hearthstone_Deck_Tracker.Enums;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,146 +23,69 @@ namespace BoonwinsBattlegroundTracker
     /// <summary>
     /// Interaktionslogik für GameHistoryOverlay.xaml
     /// </summary>
+    /// 
     public partial class GameHistoryOverlay : UserControl
     {
 
         Config _config = new Config();
         List<GameRecord> _recordList = new List<GameRecord>();
-    
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> YFormatter { get; set; }
+
         public GameHistoryOverlay()
         {
+
             InitializeComponent();
-            _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
-            showAvgRanks();
-            makeHeroList();
-            imgBg.ImageSource = new BitmapImage(new Uri(Config._statsBackgroundPath));
-            imgStatsFG.Source = new BitmapImage(new Uri(Config._statsBestHeroForegroundPath));
-            imgStatsBG.Source = new BitmapImage(new Uri(Config._statsBestHeroBackgroundPath));
-            mostTop3Hero();
 
-        }
+           
 
-        
-
-            public void showAvgRanks()
-        {
-            int ranks = 0;
-            int counter = 0;
-
-            foreach (var game in _recordList)
+            try
             {
-                ranks = ranks + game.Position;
-                counter++;
+                _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
+                MakeSeries();
             }
-            lbTotalGames.Content = "Total Games: " + counter;
-            if (counter > 0) lbAvgRanks.Content = "Average Rank: " + (ranks / counter).ToString();
-            else lbAvgRanks.Content = "Average Rank: first Game";
-
+            catch
+            {
+                MessageBox.Show("You cant show Stats yet, maybe you didnt play anygame so far.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            };
 
         }
 
-        public void makeHeroList()
+  //      new CartesianMapper<double>()
+  //.X((value, index) => value) //use the value as X
+  //.Y((value, index) => index) //use the index as Y
+        //var mapper = Mappers.Xy<MyClass>().X(v => v.XProp).Y(v => v.YProp);
+        //var seriesCollection = new SeriesCollection(mapper);
+        //myChart.SeriesCollection = seriesCollection;
+
+        public void MakeSeries()
         {
-            var viewList = _recordList.GroupBy(t => new { Hero = t.Hero })
-             .Select(g => new {
-                 //HeroImage = g.Select(l => l.HeroID),
-                 Hero = g.Key.Hero,
-                 Count = g.Count(),
-                 Average = Math.Round(g.Average(p => p.Position),1)
-                 
-                 
-             })
-             .OrderByDescending(o => o.Count)
-             ;
+            SeriesCollection = new SeriesCollection();
+            var MmrValues = new ChartValues<int>();
 
-            dgGameHistory.ItemsSource = viewList;
-        }
+            _recordList.ForEach(x => { if (x.Mmr != 0) MmrValues.Add(x.Mmr); });
+                     
 
-        public void mostTop3Hero()
-        {
-
-            var topThreePositionPerHero = _recordList
-                .Where(x => x.Position <= 3)
-                .GroupBy(t => new {Hero = t.Hero})
-                .Select(g => new {
-                    Hero = g.Key.Hero,
-                    Count = g.Count()
-                })
-                .ToList();
+            Labels = new[] {"Game"};
 
 
-            var bottomFivePositionPerHero = _recordList
-                .Where(x => x.Position > 3)
-                .GroupBy(t => new { Hero = t.Hero })
-                .Select(g => new {
-                    Hero = g.Key.Hero,
-                    Count = g.Count()
-                })
-                .ToList();
+            //modifying the series collection will animate and update the chart
+            SeriesCollection.Add(new LineSeries
+            {
+                Title = "MMR",
+                LineSmoothness = 0, //0: straight lines, 1: really smooth lines
+                Values = MmrValues
+           
+            }) ;
 
 
 
-            var query =
-                from heroTop in topThreePositionPerHero
-                join heroBottom in bottomFivePositionPerHero on heroTop.Hero equals heroBottom.Hero
-                select new { Hero = heroTop.Hero, Amount = heroTop.Count - heroBottom.Count}
-                ;
-
-
-            lbBestHero.Content = "Best Hero: " + query.Where(x => x.Amount == query.Max(y => y.Amount)).Select(g => g.Hero).First();
-
+            DataContext = this;
 
         }
 
+ 
     }
 
 }
-
-
-//GridViewColumnHeader _lastHeaderClicked = null;
-//ListSortDirection _lastDirection = ListSortDirection.Ascending;
-
-//void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
-//{
-//    GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
-//    ListSortDirection direction;
-
-//    if (headerClicked != null)
-//    {
-//        if (headerClicked.Role != GridViewColumnHeaderRole.Padding)
-//        {
-//            if (headerClicked != _lastHeaderClicked)
-//            {
-//                direction = ListSortDirection.Ascending;
-//            }
-//            else
-//            {
-//                if (_lastDirection == ListSortDirection.Ascending)
-//                {
-//                    direction = ListSortDirection.Descending;
-//                }
-//                else
-//                {
-//                    direction = ListSortDirection.Ascending;
-//                }
-//            }
-
-//            string header = headerClicked.Column.Header as string;
-//            Sort(header, direction);
-
-//            _lastHeaderClicked = headerClicked;
-//            _lastDirection = direction;
-//        }
-//    }
-//}
-
-//private void Sort(string sortBy, ListSortDirection direction)
-//{
-//    ICollectionView dataView =
-//      CollectionViewSource.GetDefaultView(lbtHeros.ItemsSource);
-
-//    dataView.SortDescriptions.Clear();
-//    SortDescription sd = new SortDescription(sortBy, direction);
-//    dataView.SortDescriptions.Add(sd);
-//    dataView.Refresh();
-//}

@@ -16,25 +16,24 @@ using System.Windows.Shapes;
 namespace BoonwinsBattlegroundTracker
 {
     /// <summary>
-    /// Interaktionslogik für SimpleOverlay.xaml
+    /// Interaction logic for AddRankPrompt.xaml
     /// </summary>
-    public partial class SimpleOverlay : UserControl
+    public partial class AddRankPrompt : UserControl
     {
-        Config _config = new Config();
-        public SimpleOverlay()
+        public AddRankPrompt()
         {
             InitializeComponent();
         }
-
-        public void SetLastRank(int rank )
-        {    
-            
-          tbRanks.Text = tbRanks.Text + rank.ToString() + ", ";
-                
+        internal static Window _window;
+        public static void GetWindowName(Window window)
+        {
+            _window = window;
         }
 
-
-
-
+        private void btnAddRank_Click(object sender, RoutedEventArgs e)
+        {
+            //BgMatchData.AddRankManualy(Int32.Parse(ResponseTextBox.Text));
+            _window.Close();
+        }
     }
 }

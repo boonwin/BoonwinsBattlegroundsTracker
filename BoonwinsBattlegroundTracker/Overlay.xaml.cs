@@ -29,9 +29,9 @@ namespace BoonwinsBattlegroundTracker
 
         public BgMatchOverlay()
         {
-            InitializeComponent();
-            SetImgPathes();
+            InitializeComponent();        
             LoadConfig();
+            SetImgPathes();
         }
 
         public void LoadConfig()
@@ -81,15 +81,18 @@ namespace BoonwinsBattlegroundTracker
                 // load config from file, if available
                 config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(Config._configLocation));
 
-                if (String.IsNullOrEmpty(config.backgroundImage) != true && config.backgroundImage != null)
+                if (!String.IsNullOrEmpty(config.backgroundImage))
                 {
                     uriTheme = new Uri(config._themeLocation + config.backgroundImage);
                     SetBackground(uriTheme);
                 }
             }
+            else {
+                uriTheme = new Uri(config._themeLocation + config.backgroundImage);
+                SetBackground(uriTheme);
+            }
 
-            uriTheme = new Uri(config._themeLocation + config.backgroundImage);
-            SetBackground(uriTheme);
+            
         }
 
 

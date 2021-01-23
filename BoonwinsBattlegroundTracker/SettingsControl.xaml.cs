@@ -80,11 +80,28 @@ namespace BoonwinsBattlegroundTracker
 
             if (_config.isSoundChecked == true)
             {
+                if (_config.IsMeanBobChecked == true)
+                {
+                    cbSounds.IsChecked = false;
+                    _config.isSoundChecked = false;
+                }else { 
                 cbSounds.IsChecked = true;
+                }
             }
             else
             {
                 cbSounds.IsChecked = false;
+            }
+
+            if (_config.IsMeanBobChecked == true)
+            {
+                cbMeanBob.IsChecked = true;
+                _config.isSoundChecked = false;
+                cbSounds.IsChecked = false;
+            }
+            else
+            {
+                cbMeanBob.IsChecked = false;
             }
 
             if (_config.showSimpleOverlay == true) cbSimpleOverlay.IsChecked = true;
@@ -104,6 +121,8 @@ namespace BoonwinsBattlegroundTracker
             {
                 cbLeaderboardName.Text = _config.leaderboardName;
             }
+
+
         }
 
         public void UpdateConfig(Config c)
@@ -375,16 +394,13 @@ namespace BoonwinsBattlegroundTracker
             LeaderboardNamePanel.IsEnabled = false;
             _config.save();
         }       
-        private void cbLeaderboardName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = sender as TextBox;
-            _config.leaderboardName = text.Text;
-            _config.save();
-        }
+      
 
         private void cbSounds_Checked(object sender, RoutedEventArgs e)
         {
             _config.isSoundChecked = true;
+            _config.IsMeanBobChecked = false;
+            cbMeanBob.IsChecked = false;
             _config.save();
         }
 
@@ -412,7 +428,7 @@ namespace BoonwinsBattlegroundTracker
         {
             Window gameHistoryOverlay = new Window()
             {
-                Title = "Boonwins Battlegrounds Tracker Stats",
+                Title = "Boonwins Battlegrounds MMR per Game Stats",
                 Content = new GameHistoryOverlay(),
 
                 ResizeMode = ResizeMode.NoResize
@@ -420,6 +436,77 @@ namespace BoonwinsBattlegroundTracker
 
             gameHistoryOverlay.Show();
         
+        }
+        private void cbLeaderboardName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = sender as TextBox;
+            _config.leaderboardName = text.Text;
+            _config.save();
+        }
+
+
+
+        public static bool IsValidUri(string uri)
+        {
+            if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
+                return false;
+            Uri tmp;
+            if (!Uri.TryCreate(uri, UriKind.Absolute, out tmp))
+                return false;
+            return tmp.Scheme == Uri.UriSchemeHttp || tmp.Scheme == Uri.UriSchemeHttps;
+        }
+
+        public static bool OpenUri(string uri)
+        {
+            if (!IsValidUri(uri))
+                return false;
+            System.Diagnostics.Process.Start(uri);
+            return true;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            OpenUri(@"https://ko-fi.com/boonwin");
+        }
+
+        private void cbMeanBob_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.IsMeanBobChecked = true;
+            _config.isSoundChecked = false;
+            cbSounds.IsChecked = false;
+            _config.save();
+        }
+
+        private void cbMeanBob_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.IsMeanBobChecked = false;
+            _config.save();
+        }
+
+        private void btnHeroShow_Click(object sender, RoutedEventArgs e)
+        {
+            Window HeroStats = new Window()
+            {
+                Title = "Boonwins Battlegrounds Hero Stats",
+                Content = new HeroStats(),
+
+                ResizeMode = ResizeMode.NoResize
+            };
+
+            HeroStats.Show();
+
+        }
+
+        private void btnDisconecterCreate_Click(object sender, RoutedEventArgs e)
+        {
+            Disconnector.CheckAndCreateRule();
+            
+        }
+
+        private void btnSwitchDisconector_Click(object sender, RoutedEventArgs e)
+        {
+            //Disconnector.Disconnect();
+            BgMatchData.ToggleDisconect();
         }
     }
 }

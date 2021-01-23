@@ -22,6 +22,7 @@ using Hearthstone_Deck_Tracker.LogReader.Interfaces;
 using MahApps.Metro.Controls;
 using System.Media;
 using Hearthstone_Deck_Tracker.Windows;
+using System.Reflection;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -51,7 +52,7 @@ namespace BoonwinsBattlegroundTracker
         public static View _view;
         public static TribesOverlay _tribes;
         public static ConsoleOverlay _console;
-        public static GameHistoryOverlay _history;
+        public static InGameDisconectorOverlay _cheatButtonForNoobs;
 
         public static OverlayManager _input;
 
@@ -65,13 +66,15 @@ namespace BoonwinsBattlegroundTracker
         private static int _leaderboardRatingNextRank = 0;
         private static string _leaderBoardRank = "none";
 
+        internal List<FrameworkElement> frameworkElements = new List<FrameworkElement>();
+
         public static void OnLoad(Config config)
         {
             Log.Info($"onLoad - reading config, ceating ranks and gamerecord object");
             _config = config;
             _ranks = new Ranks();
             LoadGameRecordFromFile();
-
+            AddRemoveDisconectButton();
             lastRank = 0;
 
         }
@@ -143,8 +146,10 @@ namespace BoonwinsBattlegroundTracker
 
         internal static void GameEnd()
         {
+            
             if (!Core.Game.Spectator)
             {
+                
                 _lastRoundNr++;
                 _view.SetisBannedGameStart();
 
@@ -162,15 +167,20 @@ namespace BoonwinsBattlegroundTracker
                 GetGameRecordData(hero);
                
                 lastRank = hero.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE);
-
+               
                 if (lastRank > 0)
                 {
-                    SetRank(lastRank);
+                    Ranks.SetRank(lastRank,_ranks);
                     CalcAvgRank(_ranks);
                     _overlay.SetRanksForOverlay(_ranks, _avgRank);
                     _simpleOverlay.SetLastRank(lastRank);
                     UpdateLeaderboardData();
+                    meanbob.meanBobLines(lastRank,_config);                   
+                    if(lastRank == 8) RankEight();
                 }
+                
+           
+                
                 _console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " ended.");
             }
 
@@ -262,50 +272,19 @@ namespace BoonwinsBattlegroundTracker
         }
 
 
-        internal static void SetRank(int rank)
+       
+
+        public static void RankEight()
         {
-
-            switch (rank)
+            if (_config.isSoundChecked)
             {
-                case 1:
-                    _ranks.rank1Amount = _ranks.rank1Amount + 1;
-                    break;
-                case 2:
-                    _ranks.rank2Amount = _ranks.rank2Amount + 1;
-                    break;
-                case 3:
-                    _ranks.rank3Amount = _ranks.rank3Amount + 1;
-                    break;
-                case 4:
-                    _ranks.rank4Amount = _ranks.rank4Amount + 1;
-                    break;
-                case 5:
-                    _ranks.rank5Amount = _ranks.rank5Amount + 1;
-                    break;
-                case 6:
-                    _ranks.rank6Amount = _ranks.rank6Amount + 1;
-                    break;
-                case 7:
-                    _ranks.rank7Amount = _ranks.rank7Amount + 1;
-                    break;
-                case 8:
-                    _ranks.rank8Amount = _ranks.rank8Amount + 1;
-                    if (_config.isSoundChecked)
-                    {
-                        if (File.Exists(_config._soundLocation + "top8.wav"))
-                        {
-                            MediaPlayer wplayer = new MediaPlayer();
-                            wplayer.Open(new Uri(_config._soundLocation + "top8.wav"));
-                            wplayer.Volume = 50.0f;
-                            wplayer.Play();
-                        }
-                    }
-                    break;
-                default: break;
+                if (File.Exists(_config._soundLocation + "top8.wav"))
+                {               
+                    SoundPlayer player = new SoundPlayer(_config._soundLocation + "top8.wav");
+                    player.Play();
+                }
             }
-
         }
-
         public static void CalcAvgRank(Ranks rank)
         {
             double totalAmount = rank.rank1Amount + rank.rank2Amount + rank.rank3Amount + rank.rank4Amount + rank.rank5Amount + rank.rank6Amount + rank.rank7Amount + rank.rank8Amount;
@@ -360,25 +339,22 @@ namespace BoonwinsBattlegroundTracker
             }
         }
 
-       
 
-        //internal static void AddRemoveGameHistory()
-        //{
-        //    if (_config.showHistory)
-        //    {
-        //        if (!Core.OverlayCanvas.Children.Contains(_history))
-        //        {
-        //            Core.OverlayCanvas.Children.Add(_history);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (Core.OverlayCanvas.Children.Contains(_history))
-        //        {
-        //            Core.OverlayCanvas.Children.Remove(_history);
-        //        }
-        //    }
-        //}
+
+        internal static void AddRemoveDisconectButton()
+        {
+            Window DisconectButtonWindow = new Window()
+            {
+                Title = "Boomer Button",
+                Content = new InGameDisconectorOverlay(),
+                Height = 113.861,
+                Width = 211.646,
+
+                ResizeMode = ResizeMode.NoResize
+            };
+
+            DisconectButtonWindow.Show();
+        }
 
         internal static void AddOrRemoveOverlay()
         {
@@ -434,20 +410,23 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-
+      
         internal static void Update()
         {
             if (!Core.Game.Spectator)
             {
+               
                 // rating is only updated after we have passed the menu
                 AddOrRemoveOverlay();
                 SetTribeImgSize();
                 AddRemoveConsole();
                 AddRemoveSimpleOverlay();
-                //AddRemoveGameHistory();
                 AddRemoveLeaderboard();
+               
+
 
                 if (!InBgMenu()) return;
+                OpenAddRankPrompt();
                 if (_isStart) SetLatestRating();
                 if (_lastRoundNr > _roundCounter)
                 {
@@ -460,9 +439,14 @@ namespace BoonwinsBattlegroundTracker
             }
 
         }
+        public static int ToggleDisconect()
+        {
+           return  Disconnector.RuleSwitcher(_config);
+        }
 
         internal static async void UpdateLeaderboardData()
         {
+            if (_config.isLeaderboardActivated) { 
             if (InBgMenu())
             {
 
@@ -532,7 +516,7 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-
+        }
 
 
 
@@ -557,19 +541,54 @@ namespace BoonwinsBattlegroundTracker
 
         internal static void AddRemoveSimpleOverlay()
         {
-            if (_config.showSimpleOverlay)
+            if (InBgMenu())
             {
-                if (!Core.OverlayCanvas.Children.Contains(_simpleOverlay))
+                if (_config.showSimpleOverlay)
                 {
-                    Core.OverlayCanvas.Children.Add(_simpleOverlay);
+                    if (!Core.OverlayCanvas.Children.Contains(_simpleOverlay))
+                    {
+                        Core.OverlayCanvas.Children.Add(_simpleOverlay);
+                    }
                 }
+                else
+                {
+                    if (Core.OverlayCanvas.Children.Contains(_simpleOverlay))
+                    {
+                        Core.OverlayCanvas.Children.Remove(_simpleOverlay);
+                    }
+                }
+
             }
             else
             {
-                if (Core.OverlayCanvas.Children.Contains(_simpleOverlay))
+                if (InGameplayMode())
                 {
-                    Core.OverlayCanvas.Children.Remove(_simpleOverlay);
+                    if (InBgMode())
+                    {
+                        if (!_config.showSimpleOverlay)
+                        {
+                            if (Core.OverlayCanvas.Children.Contains(_simpleOverlay))
+                            {
+                                Core.OverlayCanvas.Children.Remove(_simpleOverlay);
+                            }
+                        }
+                        else
+                        {
+                            if (!Core.OverlayCanvas.Children.Contains(_simpleOverlay))
+                            {
+                                Core.OverlayCanvas.Children.Add(_simpleOverlay);
+                            }
+                        }
+                    }
                 }
+                if (InGameHub())
+                {
+                    if (Core.OverlayCanvas.Children.Contains(_simpleOverlay))
+                    {
+                        Core.OverlayCanvas.Children.Remove(_simpleOverlay);
+                    }
+                }
+
             }
         }
 
@@ -602,6 +621,35 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
+        public static void AddRankManualy(int rank)
+        {
+            Ranks.AddManual(rank, _ranks);
+        }
+
+        internal static void OpenAddRankPrompt()
+        {
+            if (InBgMenu())
+            {
+                if (_config.UseDisconect)
+                {
+                    if (_config.DisconectedThisGame)
+                    {
+                        //add new wpf for using disconect in game and handling the manual rank
+                        _config.DisconectedThisGame = false;
+                        Window AddRankWindow = new Window()
+                        {
+                            Title = "You used the disconect feature, chame on you! Now you have to enter your rank manually. Boomer",
+                            Content = new AddRankPrompt(),
+
+                            ResizeMode = ResizeMode.NoResize
+                        };
+
+                        AddRankWindow.Show();
+                        AddRankPrompt.GetWindowName(AddRankWindow);
+                    }
+                }
+            }
+        }
 
     }
 
