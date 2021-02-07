@@ -248,6 +248,18 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
+        private void BtnResetTribes_Click(object sender, RoutedEventArgs e)
+        {
+            _config.tribePosLeft = 320;
+            _config.tribePosTop = 20;
+        }
+
+        private void BtnResetRanks_Click(object sender, RoutedEventArgs e)
+        {
+            _config.posLeft = 20;
+            _config.posTop = 20;
+        }
+
         private void cbBannedTribeImagesSizes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
