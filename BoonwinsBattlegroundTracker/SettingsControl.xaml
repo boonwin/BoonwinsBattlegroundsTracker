@@ -51,6 +51,19 @@
             <Label Content="Tribes Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
             <Button x:Name="btntribesUnlock" Width="124" Content="Unlock Tribes"  Click="btntribesUnlock_Click" ></Button>
         </DockPanel>
+
+        <Separator></Separator>
+        <Label Content="Set location" FontSize="16" Foreground="White" Width="350"></Label>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Reset Ranks Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <Button x:Name="btnUnlock" Width="124" Content="Reset Ranks"  Click="BtnResetRanks_Click" ></Button>
+        </DockPanel>
+        <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+            <Label Content="Reset Tribes Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+            <Button x:Name="btntribesUnlock" Width="124" Content="Reset Tribes"  Click="BtnResetTribes_Click" ></Button>
+        </DockPanel>
+        <Separator></Separator>
+
         <Separator></Separator>
         <Label Content="Overlay" FontSize="16" Foreground="White" Width="350"></Label>
         <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
