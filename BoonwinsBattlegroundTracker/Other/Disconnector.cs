@@ -17,14 +17,15 @@ namespace BoonwinsBattlegroundTracker
 
 
         public const string ruleName = @"Boontracker_Hearthstone";
-        public const string hsPath = @"E:\Games\Hearthstone\Hearthstone.exe";
+        internal static Config _config = new Config();
 
 
         public static void CheckAndCreateRule()
         {
-           
 
-            try
+            if (_config.IsAdmin && !String.IsNullOrEmpty(_config.GamePath))
+            {
+                try
             {
                 var rule = FirewallManager.Instance.Rules.Where(o =>
                     o.Direction == FirewallDirection.Outbound &&
@@ -33,14 +34,15 @@ namespace BoonwinsBattlegroundTracker
 
                 if (rule == null) rule = CreateRule();
 
+                Connect();
             }
             catch (Exception exception)
             {
                
                 MessageBox.Show(exception.Message, "Cant Use Firewall-Tool start Tracker as Admin");
                
-            }    
-
+            }
+            }
         }
 
         public static int RuleSwitcher(Config _config)
@@ -54,9 +56,7 @@ namespace BoonwinsBattlegroundTracker
             if (!rule.IsEnable)
             {
                 //Wait Timer and auto reconect
-                Disconnect();
-                
-                
+                Disconnect();                              
                 return 1;
 
             } else {
@@ -70,16 +70,17 @@ namespace BoonwinsBattlegroundTracker
 
         private static IRule CreateRule()
         {
-
+            
             IRule rule = FirewallManager.Instance.CreateApplicationRule(
             FirewallManager.Instance.GetProfile().Type,
             ruleName,
             FirewallAction.Block,
-            hsPath
+            _config.GamePath
             );
             rule.Direction = FirewallDirection.Outbound;
             FirewallManager.Instance.Rules.Add(rule);
             return rule;
+           
         }
           
         

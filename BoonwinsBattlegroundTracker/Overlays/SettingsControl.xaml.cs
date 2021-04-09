@@ -24,6 +24,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 
+
+
 namespace BoonwinsBattlegroundTracker
 {
     public partial class SettingsControl : UserControl
@@ -121,7 +123,11 @@ namespace BoonwinsBattlegroundTracker
             {
                 cbLeaderboardName.Text = _config.leaderboardName;
             }
-
+            if(_config.IsAdmin && _config.UseDisconect)
+            {
+                cbDisconector.IsChecked = true;
+                InGameDisconectorOverlay._window.Show();
+            }
 
         }
 
@@ -350,19 +356,19 @@ namespace BoonwinsBattlegroundTracker
             }else comboBox.SelectedIndex = 0;
         }
 
-        private void btnHideConsole_Click(object sender, RoutedEventArgs e)
-        {
-            _config.showConsole = false;
-            _config.save();
-            ShowHideMenu("sbHideTopMenu", btnTopMenuHide, btnTopMenuShow);
-        }
+        //private void btnHideConsole_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _config.showConsole = false;
+        //    _config.save();
+        //    ShowHideMenu("sbHideTopMenu", btnTopMenuHide, btnTopMenuShow);
+        //}
 
-        private void btnShowConsole_Click(object sender, RoutedEventArgs e)
-        {
-            _config.showConsole = true;
-            _config.save();
-            ShowHideMenu("sbShowTopMenu", btnTopMenuHide, btnTopMenuShow);
-        }
+        //private void btnShowConsole_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _config.showConsole = true;
+        //    _config.save();
+        //    ShowHideMenu("sbShowTopMenu", btnTopMenuHide, btnTopMenuShow);
+        //}
 
         public void ShowHideMenu(string Storyboard, Button btnHide, Button btnShow)
         {
@@ -503,10 +509,72 @@ namespace BoonwinsBattlegroundTracker
             
         }
 
-        private void btnSwitchDisconector_Click(object sender, RoutedEventArgs e)
+        private void cbDisconector_Checked(object sender, RoutedEventArgs e)
         {
-            //Disconnector.Disconnect();
-            BgMatchData.ToggleDisconect();
+            if (_config.IsAdmin) {
+
+                if (!String.IsNullOrEmpty(_config.GamePath))
+                {
+                    btnDisconecterCreate.IsEnabled = true;
+                    _config.UseDisconect = true;
+                    _config.save();
+                }
+                else
+                {
+                    OpenFileDialog fileDialog = new OpenFileDialog();
+                    fileDialog.Filter = "Hearthstone.exe (Hearthstone.exe)|Hearthstone.exe";
+                    fileDialog.FilterIndex = 1;
+                    fileDialog.Multiselect = false;
+                    Nullable<bool> result = fileDialog.ShowDialog();
+                    if (result == true)
+                    {
+                        _config.GamePath = Path.GetFullPath(fileDialog.FileName);
+                        btnDisconecterCreate.IsEnabled = true;
+                        _config.UseDisconect = true;
+                        _config.save();
+                    }
+                        
+                }
+            } else
+            {
+                MessageBox.Show("DOOOD IF YOU WANT TO USE THIS, YOU NEED TO BE ADMIN, CANT YOU READ? RESTART DECK TRACKER AS ADMIN....", "Boomer Settings");
+                cbDisconector.IsChecked = false;
+            }
+        }
+
+        private void cbDisconector_Unchecked(object sender, RoutedEventArgs e)
+        {
+            btnDisconecterCreate.IsEnabled = false;
+            _config.UseDisconect = false;
+            _config.save();
+        }
+
+        private void btnOpenDisconectDialog_Click(object sender, RoutedEventArgs e)
+        {
+            if (_config.UseDisconect)
+            {
+
+
+                Window DisconectButtonWindow = new Window()
+                {
+                    Title = "Boomer Button",
+                    Content = new InGameDisconectorOverlay(),
+                    Height = 113.861,
+                    Width = 211.646,
+
+                    ResizeMode = ResizeMode.NoResize
+                };
+                if (!_config.DisconectWindowOpen)
+                {
+                    _config.DisconectWindowOpen = true;
+                    _config.save();
+                    InGameDisconectorOverlay.GetWindowName(DisconectButtonWindow);
+                    DisconectButtonWindow.Show();
+                }
+
+
+            }
+
         }
     }
 }

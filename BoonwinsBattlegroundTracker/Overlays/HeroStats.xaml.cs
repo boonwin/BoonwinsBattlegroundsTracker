@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BoonConector.Service;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -24,17 +26,21 @@ namespace BoonwinsBattlegroundTracker
     /// 
     public partial class HeroStats : UserControl
     {
-        
-   
-            Config _config = new Config();
-            List<GameRecord> _recordList = new List<GameRecord>();
 
+       
+        Config _config = new Config();
+        List<GameRecord> _recordList = new List<GameRecord>();
+
+        
         public HeroStats()
         {
-                InitializeComponent();
-                try
+            InitializeComponent();
+         
+            //eventuell wenn leer dann zeig nix an... oder dann funktioniert das feature nicht... oder er zieht sich den namen automatisch und speichert ihn in der config... 
+            try
                 {
-                    _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
+                    var client = boonApiConnector.InitializeClient();
+                    _recordList = GameRecord.LoadGameRecordFromApi(client, _config.player);
                     showAvgRanks();
                     imgBg.ImageSource = new BitmapImage(new Uri(Config._statsBackgroundPath));
                     mostTop3Hero();

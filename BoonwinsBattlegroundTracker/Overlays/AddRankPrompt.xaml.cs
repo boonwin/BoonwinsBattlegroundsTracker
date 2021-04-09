@@ -25,6 +25,7 @@ namespace BoonwinsBattlegroundTracker
             InitializeComponent();
         }
         internal static Window _window;
+        //internal static 
         public static void GetWindowName(Window window)
         {
             _window = window;
@@ -32,7 +33,7 @@ namespace BoonwinsBattlegroundTracker
 
         private void btnAddRank_Click(object sender, RoutedEventArgs e)
         {
-            //BgMatchData.AddRankManualy(Int32.Parse(ResponseTextBox.Text));
+            BgMatchData.AddRankManualy(Int32.Parse(ResponseTextBox.Text));
             _window.Close();
         }
     }

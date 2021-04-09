@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\BobsBuddy.dll</HintPath>
     </Reference>
+    <Reference Include="BoonConector">
+      <HintPath>..\..\BoonConector\bin\Debug\BoonConector.dll</HintPath>
+    </Reference>
     <Reference Include="HearthDb, Version=19.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HearthDb.dll</HintPath>
@@ -64,9 +67,8 @@
     <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.22\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.27\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
@@ -79,6 +81,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
@@ -109,37 +114,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddRankPrompt.xaml.cs">
+    <Compile Include="Other\BoonApi.cs" />
+    <Compile Include="Overlays\AddRankPrompt.xaml.cs">
       <DependentUpon>AddRankPrompt.xaml</DependentUpon>
     </Compile>
     <Compile Include="BgMatchData.cs" />
     <Compile Include="BgMatchDataPlugin.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="ConsoleOverlay.xaml.cs">
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Overlays\ConsoleOverlay.xaml.cs">
       <DependentUpon>ConsoleOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CsvConnector.cs" />
-    <Compile Include="Disconnector.cs" />
-    <Compile Include="FilePathes.cs" />
-    <Compile Include="GameHistoryOverlay.xaml.cs">
+    <Compile Include="Other\CsvConnector.cs" />
+    <Compile Include="Other\Disconnector.cs" />
+    <Compile Include="Config\FilePathes.cs" />
+    <Compile Include="Overlays\GameHistoryOverlay.xaml.cs">
       <DependentUpon>GameHistoryOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameRecord.cs" />
-    <Compile Include="HeroStats.xaml.cs">
+    <Compile Include="Stats\BoonLeague.cs" />
+    <Compile Include="Stats\GameRecord.cs" />
+    <Compile Include="Overlays\HeroStats.xaml.cs">
       <DependentUpon>HeroStats.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InGameDisconectorOverlay.xaml.cs">
+    <Compile Include="Overlays\InGameDisconectorOverlay.xaml.cs">
       <DependentUpon>InGameDisconectorOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Leaderboard.cs" />
-    <Compile Include="meanbob.cs" />
-    <Compile Include="Mmr.cs" />
-    <Compile Include="OverlayManager.cs" />
-    <Compile Include="Ranks.cs" />
-    <Compile Include="SettingsControl.xaml.cs">
+    <Compile Include="Stats\Leaderboard.cs" />
+    <Compile Include="Sounds\meanbob.cs" />
+    <Compile Include="Stats\Mmr.cs" />
+    <Compile Include="Overlays\OverlayManager.cs" />
+    <Compile Include="Stats\Ranks.cs" />
+    <Compile Include="Overlays\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Overlay.xaml.cs">
+    <Compile Include="Overlays\Overlay.xaml.cs">
       <DependentUpon>Overlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -148,15 +155,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SimpleOverlay.xaml.cs">
+    <Compile Include="Overlays\SimpleOverlay.xaml.cs">
       <DependentUpon>SimpleOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tribes.cs" />
-    <Compile Include="TribesOverlay.xaml.cs">
+    <Compile Include="Overlays\Tribes.cs" />
+    <Compile Include="Overlays\TribesOverlay.xaml.cs">
       <DependentUpon>TribesOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TriverOverlayManager.cs" />
-    <Compile Include="View.xaml.cs">
+    <Compile Include="Overlays\TriverOverlayManager.cs" />
+    <Compile Include="Overlays\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -171,43 +178,43 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AddRankPrompt.xaml">
+    <Page Include="Overlays\AddRankPrompt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ConsoleOverlay.xaml">
+    <Page Include="Overlays\ConsoleOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GameHistoryOverlay.xaml">
+    <Page Include="Overlays\GameHistoryOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HeroStats.xaml">
+    <Page Include="Overlays\HeroStats.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InGameDisconectorOverlay.xaml">
+    <Page Include="Overlays\InGameDisconectorOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsControl.xaml">
+    <Page Include="Overlays\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Overlay.xaml">
+    <Page Include="Overlays\Overlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SimpleOverlay.xaml">
+    <Page Include="Overlays\SimpleOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TribesOverlay.xaml">
+    <Page Include="Overlays\TribesOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View.xaml">
+    <Page Include="Overlays\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,6 +226,9 @@
     <Content Include="Img\besthero_forground.png" />
     <Content Include="Img\lichking.png" />
     <Content Include="Themes\baseTheme.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enum\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

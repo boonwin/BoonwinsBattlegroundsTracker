@@ -11,6 +11,7 @@ using System.Windows;
 using Hearthstone_Deck_Tracker.HsReplay;
 using System.Threading;
 using AutoUpdaterDotNET;
+using System.Threading.Tasks;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -34,7 +35,7 @@ namespace BoonwinsBattlegroundTracker
         {
             // create overlay and insert into HDT overlay
             AutoUpdate();
-
+            CreateDateFileEnviroment();
 
             _overlay = new BgMatchOverlay();
             _view = new View();
@@ -49,7 +50,7 @@ namespace BoonwinsBattlegroundTracker
             BgMatchData._tribes = _tribes;
             BgMatchData._cheatButtonForNoobs = _inGameDisconectorOverlay;
 
-            BgMatchData._console = _console;
+            //BgMatchData._console = _console;
             BgMatchData._simpleOverlay = _simpleOverlay;
 
             // Triggered upon startup and when the user ticks the plugin on            
@@ -59,7 +60,8 @@ namespace BoonwinsBattlegroundTracker
             GameEvents.OnGameEnd.Add(BgMatchData.GameEnd);
 
 
-            CreateDateFileEnviroment();
+           
+
             BgMatchData.OnLoad(_config);
 
            
@@ -121,7 +123,6 @@ namespace BoonwinsBattlegroundTracker
             var pluginDateFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BoonwinsBattlegroundTracker\data\";
             if (!Directory.Exists(pluginDateFolderPath)) { 
             Directory.CreateDirectory(pluginDateFolderPath);
-                Thread.Sleep(300);
             }
             if (File.Exists(Config._configLocation))
             {

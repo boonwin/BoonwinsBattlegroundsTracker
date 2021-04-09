@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BoonwinsBattlegroundTracker"
-             mc:Ignorable="d" Height="113.861" Width="211.646" HorizontalAlignment="Center" VerticalAlignment="Center">
+             mc:Ignorable="d" Height="124.741" Width="211.646" HorizontalAlignment="Center" VerticalAlignment="Center"
+             >
     <Grid>
-        <Button x:Name="btnDisconectToggle" Content="Skip Fight" Click="btnDisconectToggle_Click" Margin="56,44" />
+        <Button x:Name="btnDisconectToggle" Content="Skip Fight" Click="btnDisconectToggle_Click" Margin="56,44,56,52" />
         <Border x:Name="borStatus" BorderThickness="1" BorderBrush="Black"  Width="10" Height="10" CornerRadius="50,50,50,50" Background="Green" Margin="161,51,37,50"/>
-    </Grid>
+  </Grid>
 </UserControl>

@@ -43,8 +43,14 @@ namespace BoonwinsBattlegroundTracker
         public bool showConsole;
         internal bool showTurns = true;
         public bool IsMeanBobChecked = false;
-        internal bool DisconectedThisGame =true;
-        internal bool UseDisconect = true;
+        internal bool DisconectedThisGame = false;
+        internal bool UseDisconect = false;
+        public string GamePath;
+        internal bool IsAdmin = false;
+        internal bool SkipAll = false;
+        internal bool DisconectWindowOpen;
+        internal bool waitForRank;
+        internal string player;
 
         public void save()
         {

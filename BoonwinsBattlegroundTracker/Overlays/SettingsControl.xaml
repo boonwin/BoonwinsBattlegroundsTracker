@@ -107,18 +107,24 @@
            
             <TabItem Header="Other">
                     <StackPanel x:Name="spConsole" HorizontalAlignment="Left" Margin="20" >
-                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                    <!--<DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
                         <Label Content="Console:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Width="100"/>
                             <Button x:Name="btnTopMenuHide" Width="124" Content="Hide"  Click="btnHideConsole_Click"  Visibility="Hidden"></Button>
                             <Button x:Name="btnTopMenuShow" Width="124" Content="Show"  Click="btnShowConsole_Click" ></Button>
-                     </DockPanel>
+                     </DockPanel>-->
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Create Disconector:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Width="224"/>
-                        <Button x:Name="btnDisconecterCreate" Width="124" Content="Create"  Click="btnDisconecterCreate_Click" ></Button>
+                        <TextBlock Text="With this click I admit that I'm a Boomer and want to use the disconect function." Foreground="White" FontSize="16" TextWrapping="Wrap" Width="224" Height="72"/>
+                        <CheckBox x:Name="cbDisconector" Checked="cbDisconector_Checked" Unchecked="cbDisconector_Unchecked" Content="Sign me up" Height="27"/>
+                    </DockPanel>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left" >
+                        <Label Content="Create Disconector:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Width="224" />
+                        <Button x:Name="btnDisconecterCreate" Width="124" Content="Create"  Click="btnDisconecterCreate_Click" IsEnabled="False"></Button>
                     </DockPanel>
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Switch Disconector state:" Foreground="White" FontSize="16" HorizontalContentAlignment="Left" Width="224"/>
-                        <Button x:Name="btnSwitchDisconector" Width="124" Content="On/Off"  Click="btnSwitchDisconector_Click" ></Button>
+                        <TextBlock Text="TO USE DISCONECTOR YOU NEED TO START DECK TRACKER AS ADMIN! AND HEARTHSTONE NEEDS TO RUN!" Foreground="Red" TextWrapping="Wrap" Height="43"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Button x:Name="btnOpenDisconectDialog" Content="Open Disconect Window" Click="btnOpenDisconectDialog_Click" IsEnabled="True"></Button>
                     </DockPanel>
                 </StackPanel>
             </TabItem>

@@ -12,7 +12,6 @@ using Hearthstone_Deck_Tracker.Hearthstone.Entities;
 using Hearthstone_Deck_Tracker.Utility;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using System.Windows;
-using static System.Windows.Visibility;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
@@ -21,8 +20,10 @@ using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.LogReader.Interfaces;
 using MahApps.Metro.Controls;
 using System.Media;
+using System.Security.Principal;
 using Hearthstone_Deck_Tracker.Windows;
 using System.Reflection;
+using BoonConector.Service;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -37,6 +38,7 @@ namespace BoonwinsBattlegroundTracker
         private static int _lastRoundNr = 0;
         private static GameRecord _record;
         private static List<GameRecord> _recordList;
+        private static BoonLeague _boon;
 
         private static int lastRank;
         private static Config _config;
@@ -51,7 +53,7 @@ namespace BoonwinsBattlegroundTracker
         public static SimpleOverlay _simpleOverlay;
         public static View _view;
         public static TribesOverlay _tribes;
-        public static ConsoleOverlay _console;
+        //public static ConsoleOverlay _console;
         public static InGameDisconectorOverlay _cheatButtonForNoobs;
 
         public static OverlayManager _input;
@@ -70,13 +72,30 @@ namespace BoonwinsBattlegroundTracker
 
         public static void OnLoad(Config config)
         {
-            Log.Info($"onLoad - reading config, ceating ranks and gamerecord object");
+            Log.Info($"onLoad - reading config, creating ranks and gamerecord object");            
             _config = config;
             _ranks = new Ranks();
             LoadGameRecordFromFile();
-            AddRemoveDisconectButton();
             lastRank = 0;
+            IsAdmin();
+            boonApiConnector.InitializeClient();
+        }
 
+
+        internal static void IsAdmin()
+        {
+           
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                _config.IsAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
+                if (!_config.IsAdmin)
+                {
+                    _config.UseDisconect = false;
+                }
+
+            }
+           
         }
 
         internal static void InMenu()
@@ -87,8 +106,11 @@ namespace BoonwinsBattlegroundTracker
         {
             if (!Core.Game.Spectator)
             {
-                _console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " started.");
-
+                //_console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " started.");
+                if (String.IsNullOrEmpty(_config.player))
+                {
+                    _config.player = Core.Game.Player.Name;
+                }
 
                 IsMissingTribeRetrieved = false;
                 _tribeImgSize = _config.tribeSize;
@@ -106,13 +128,15 @@ namespace BoonwinsBattlegroundTracker
 
               
 
-                var avaiableHeroes = await SetPersonalHeroRating();
+                //var avaiableHeroes = await SetPersonalHeroRating();
 
-                _console.SetConsoleText("Getting Game Informations");
+                //_console.SetConsoleText("Getting Game Informations");
+
+
 
                 try { 
                     _peak = GameRecord.GetPeak(_recordList, Core.Game.CurrentRegion);
-                    GameRecord.GetHeroWinRating(_recordList, avaiableHeroes, _avaiableTribes, _console);
+                    //GameRecord.GetHeroWinRating(_recordList, avaiableHeroes, _avaiableTribes, _console);
                 }
                 catch { }
 
@@ -128,6 +152,7 @@ namespace BoonwinsBattlegroundTracker
             if (!Core.Game.Spectator)
             {
                 if (!InBgMode()) return;
+                
                 try
                 {
                     Entity hero = Core.Game.Entities.Values
@@ -136,11 +161,20 @@ namespace BoonwinsBattlegroundTracker
 
                     if (_lastknownTurn != Core.Game.GetTurnNumber() && _config.showTurns)
                     {
-                        _console.SetConsoleText("Turn #" + Core.Game.GetTurnNumber() + " started. You have " + " " + hero.Health + " HP left.");
+                        //_console.SetConsoleText("Turn #" + Core.Game.GetTurnNumber() + " started. You have " + " " + hero.Health + " HP left.");
                         _lastknownTurn = Core.Game.GetTurnNumber();
                     }
                 }
                 catch { }
+
+                if (_config.SkipAll)
+                {
+                    Task.Delay(3000);
+                    ToggleDisconect();
+                    Task.Delay(3000);
+                    ToggleDisconect();
+
+                }
             }
         }
 
@@ -149,7 +183,7 @@ namespace BoonwinsBattlegroundTracker
             
             if (!Core.Game.Spectator)
             {
-                
+
                 _lastRoundNr++;
                 _view.SetisBannedGameStart();
 
@@ -165,44 +199,65 @@ namespace BoonwinsBattlegroundTracker
                     .First();
 
                 GetGameRecordData(hero);
-               
-                lastRank = hero.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE);
-               
-                if (lastRank > 0)
+                // es muss nur der gamerecord an die api geschickt werden der rest passiert automatisch, boonleage kann mich sich via HTTP GET holen.
+                // eigentlich brauche ich hier keine gamerecords, die sind nur für die stat seite interesant und müssen hier nicht jedes mal geladen werden.
+                //wenn man will kann man dann den platz der boonleague im overlay ausgeben
+
+                if (!_config.DisconectedThisGame)
                 {
-                    Ranks.SetRank(lastRank,_ranks);
-                    CalcAvgRank(_ranks);
-                    _overlay.SetRanksForOverlay(_ranks, _avgRank);
-                    _simpleOverlay.SetLastRank(lastRank);
-                    UpdateLeaderboardData();
-                    meanbob.meanBobLines(lastRank,_config);                   
-                    if(lastRank == 8) RankEight();
+                    lastRank = hero.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE);
+                    SetOverlayRanksAndStuff();
+                }
+                else
+                {
+                    OpenAddRankPrompt();
                 }
                 
-           
-                
-                _console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " ended.");
+
+
+                //_console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " ended.");
             }
 
         }
 
-        internal static async Task<string[]> SetPersonalHeroRating()
+        private static void SetOverlayRanksAndStuff()
         {
-            string[] avaiableHeroes = null;
-
-            for (var i = 0; i < 10; i++)
+            if (lastRank > 0)
             {
-                await Task.Delay(500);
-                var heroes = Core.Game.Player.PlayerEntities.Where(x => x.IsHero && x.HasTag(GameTag.BACON_HERO_CAN_BE_DRAFTED));
-                if (heroes.Count() < 2)
-                    continue;
-                await Task.Delay(500);
-                avaiableHeroes = heroes.Select(x => x.Card.LocalizedName).ToArray();
-
+                Ranks.SetRank(lastRank, _ranks);
+                CalcAvgRank(_ranks);
+                _overlay.SetRanksForOverlay(_ranks, _avgRank);
+                _simpleOverlay.SetLastRank(lastRank);
+                UpdateLeaderboardData();
+                meanbob.meanBobLines(lastRank, _config);
+                if (lastRank == 8) RankEight();
             }
-
-            return avaiableHeroes;
         }
+
+
+        public static void AddRankManualy(int rank)
+        {
+            lastRank = rank;
+            SetOverlayRanksAndStuff();
+        }
+
+        //internal static async Task<string[]> SetPersonalHeroRating()
+        //{
+        //    string[] avaiableHeroes = null;
+
+        //    for (var i = 0; i < 10; i++)
+        //    {
+        //        await Task.Delay(500);
+        //        var heroes = Core.Game.Player.PlayerEntities.Where(x => x.IsHero && x.HasTag(GameTag.BACON_HERO_CAN_BE_DRAFTED));
+        //        if (heroes.Count() < 2)
+        //            continue;
+        //        await Task.Delay(500);
+        //        avaiableHeroes = heroes.Select(x => x.Card.LocalizedName).ToArray();
+
+        //    }
+
+        //    return avaiableHeroes;
+        //}
 
         private static void LoadGameRecordFromFile()
         {
@@ -225,7 +280,9 @@ namespace BoonwinsBattlegroundTracker
             _record.GameID = Core.Game.CurrentGameStats.GameId;
             _record.Player = Core.Game.Player.Name;
             _record.Region = Core.Game.CurrentRegion;
-        }    
+        }
+
+    
 
         private static void GetMmrRecordData(GameRecord record)
         {
@@ -258,7 +315,6 @@ namespace BoonwinsBattlegroundTracker
                     }
                     else
                     {
-                        Log.Info($" KEKL.");
                         if (Core.OverlayCanvas.Children.Contains(_tribes))
                         {
                             Core.OverlayCanvas.Children.Remove(_tribes);
@@ -270,10 +326,6 @@ namespace BoonwinsBattlegroundTracker
             }
             return false;
         }
-
-
-       
-
         public static void RankEight()
         {
             if (_config.isSoundChecked)
@@ -321,41 +373,53 @@ namespace BoonwinsBattlegroundTracker
             if (Core.Game.CurrentMode != Hearthstone_Deck_Tracker.Enums.Hearthstone.Mode.HUB) return false;
             else return true;
         }
-        internal static void AddRemoveConsole()
-        {
-            if (_config.showConsole)
-            {
-                if (!Core.OverlayCanvas.Children.Contains(_console))
-                {
-                    Core.OverlayCanvas.Children.Add(_console);
-                }
-            }
-            else
-            {
-                if (Core.OverlayCanvas.Children.Contains(_console))
-                {
-                    Core.OverlayCanvas.Children.Remove(_console);
-                }
-            }
-        }
+        //internal static void AddRemoveConsole()
+        //{
+        //    if (_config.showConsole)
+        //    {
+        //        if (!Core.OverlayCanvas.Children.Contains(_console))
+        //        {
+        //            Core.OverlayCanvas.Children.Add(_console);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (Core.OverlayCanvas.Children.Contains(_console))
+        //        {
+        //            Core.OverlayCanvas.Children.Remove(_console);
+        //        }
+        //    }
+        //}
 
 
 
         internal static void AddRemoveDisconectButton()
         {
-            Window DisconectButtonWindow = new Window()
-            {
-                Title = "Boomer Button",
-                Content = new InGameDisconectorOverlay(),
-                Height = 113.861,
-                Width = 211.646,
+            if (_config.UseDisconect) {
+               
+                
+                Window DisconectButtonWindow = new Window()
+                {
+                    Title = "Boomer Button",
+                    Content = new InGameDisconectorOverlay(),
+                    Height = 113.861,
+                    Width = 211.646,
 
-                ResizeMode = ResizeMode.NoResize
-            };
+                    ResizeMode = ResizeMode.NoResize
+                };
+                if (!_config.DisconectWindowOpen) {
+                    _config.DisconectWindowOpen = true;
+                    _config.save();
+                        InGameDisconectorOverlay.GetWindowName(DisconectButtonWindow);
+                        DisconectButtonWindow.Show();
+                }
 
-            DisconectButtonWindow.Show();
+
+            }
+
         }
 
+        
         internal static void AddOrRemoveOverlay()
         {
             if (InBgMenu())
@@ -419,14 +483,15 @@ namespace BoonwinsBattlegroundTracker
                 // rating is only updated after we have passed the menu
                 AddOrRemoveOverlay();
                 SetTribeImgSize();
-                AddRemoveConsole();
+                AddRemoveDisconectButton();
+
+                //AddRemoveConsole();
                 AddRemoveSimpleOverlay();
                 AddRemoveLeaderboard();
                
 
 
                 if (!InBgMenu()) return;
-                OpenAddRankPrompt();
                 if (_isStart) SetLatestRating();
                 if (_lastRoundNr > _roundCounter)
                 {
@@ -434,6 +499,8 @@ namespace BoonwinsBattlegroundTracker
                     GetMmrRecordData(_record);
                     _recordList.Add(_record);
                     WriteGameRecordToFile(_record);
+                   
+
                 }
 
             }
@@ -621,15 +688,11 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-        public static void AddRankManualy(int rank)
-        {
-            Ranks.AddManual(rank, _ranks);
-        }
+       
 
         internal static void OpenAddRankPrompt()
         {
-            if (InBgMenu())
-            {
+           
                 if (_config.UseDisconect)
                 {
                     if (_config.DisconectedThisGame)
@@ -640,15 +703,15 @@ namespace BoonwinsBattlegroundTracker
                         {
                             Title = "You used the disconect feature, chame on you! Now you have to enter your rank manually. Boomer",
                             Content = new AddRankPrompt(),
-
+                            
                             ResizeMode = ResizeMode.NoResize
                         };
-
-                        AddRankWindow.Show();
-                        AddRankPrompt.GetWindowName(AddRankWindow);
+                    AddRankWindow.Topmost = true;
+                    AddRankWindow.Show();
+                    AddRankPrompt.GetWindowName(AddRankWindow);
                     }
                 }
-            }
+           
         }
 
     }
