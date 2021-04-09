@@ -27,14 +27,20 @@ namespace BoonwinsBattlegroundTracker
             InitializeComponent();
         }
 
-        internal void SetAvgRank(string avgRank)
-        {
-            Ranks rank = new Ranks();
-            lbAvgRank.Content = "Avg Rank: " + avgRank;
+        //internal void SetAvgRank(string avgRank)
+        //{
+        //    Ranks rank = new Ranks();
+        //    lbAvgRank.Content = "Avg Rank: " + avgRank;
+        //}
+
+        internal void SetPeak(string peak)
+        {            
+            lbPeak.Content = "Peak: " + peak;
         }
 
         internal void SetMMR(int rating)
         {
+            
             lbrMMR.Content = "MMR: " + rating;
         }
 

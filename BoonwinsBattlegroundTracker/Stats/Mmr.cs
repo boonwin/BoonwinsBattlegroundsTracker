@@ -13,5 +13,10 @@ namespace BoonwinsBattlegroundTracker
             return mmrLastRound - mmrActual;
         }
 
+
+        public int getPeak()
+        {
+            return 10000;
+        }
     }
 }

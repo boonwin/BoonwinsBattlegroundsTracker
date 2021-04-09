@@ -7,7 +7,7 @@
              mc:Ignorable="d" Width="260" Height="55" BorderBrush="#141617" BorderThickness="1" Background="#23272a" VerticalAlignment="Top">
     <StackPanel Orientation="Horizontal">
         <StackPanel x:Name="panel2" HorizontalAlignment="Left" Width="140" >
-            <Label x:Name="lbAvgRank" Content="Avg Rank: 0.0" HorizontalAlignment="Left" Margin="0,0,0,-22" VerticalAlignment="Top" FontSize="18" FontFamily="Source Sans Pro" Foreground="White" />
+            <Label x:Name="lbPeak" Content="Peak: 00000" HorizontalAlignment="Left" Margin="0,0,0,-22" VerticalAlignment="Top" FontSize="18" FontFamily="Source Sans Pro" Foreground="White" />
             <Label x:Name="lbrMMR" Content="MMR: 00000" VerticalAlignment="Top" FontSize="18" FontFamily="Source Sans Pro" Foreground="White" HorizontalAlignment="Left" Margin="0,10,0,0" />
         </StackPanel>
         <Separator BorderBrush="Azure"></Separator>

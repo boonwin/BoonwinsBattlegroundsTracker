@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,24 +35,43 @@
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HearthDb">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\HearthDb.dll</HintPath>
+    <Reference Include="AutoUpdater.NET, Version=1.6.4.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autoupdater.NET.Official.1.6.4\lib\net45\AutoUpdater.NET.dll</HintPath>
     </Reference>
-    <Reference Include="HearthMirror">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\HearthMirror.dll</HintPath>
-    </Reference>
-    <Reference Include="HearthstoneDeckTracker">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\HearthstoneDeckTracker.exe</HintPath>
-    </Reference>
-    <Reference Include="HSReplay">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\HSReplay.dll</HintPath>
-    </Reference>
-    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="BobsBuddy, Version=1.2.16.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.5\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\BobsBuddy.dll</HintPath>
+    </Reference>
+    <Reference Include="BoonConector">
+      <HintPath>..\..\BoonConector\bin\Debug\BoonConector.dll</HintPath>
+    </Reference>
+    <Reference Include="HearthDb, Version=19.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HearthDb.dll</HintPath>
+    </Reference>
+    <Reference Include="HearthMirror, Version=19.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HearthMirror.dll</HintPath>
+    </Reference>
+    <Reference Include="HearthstoneDeckTracker, Version=1.13.17.5275, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HearthstoneDeckTracker.exe</HintPath>
+    </Reference>
+    <Reference Include="HSReplay, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HSReplay.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.27\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -61,6 +81,11 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -69,40 +94,59 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfAnimatedGif.2.0.0\lib\net40\WpfAnimatedGif.dll</HintPath>
+    <Reference Include="WindowsFirewallHelper, Version=1.6.3.40, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsFirewallHelper.1.6.3.40\lib\net40\WindowsFirewallHelper.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.Toolkit, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.2\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Other\BoonApi.cs" />
+    <Compile Include="Overlays\AddRankPrompt.xaml.cs">
+      <DependentUpon>AddRankPrompt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BgMatchData.cs" />
     <Compile Include="BgMatchDataPlugin.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="CsvConnector.cs" />
-    <Compile Include="FilePathes.cs" />
-    <Compile Include="GameLogManager.cs" />
-    <Compile Include="GameRecord.cs" />
-    <Compile Include="Mmr.cs" />
-    <Compile Include="OverlayManager.cs" />
-    <Compile Include="Ranks.cs" />
-    <Compile Include="SettingsControl.xaml.cs">
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Overlays\ConsoleOverlay.xaml.cs">
+      <DependentUpon>ConsoleOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Other\CsvConnector.cs" />
+    <Compile Include="Other\Disconnector.cs" />
+    <Compile Include="Config\FilePathes.cs" />
+    <Compile Include="Overlays\GameHistoryOverlay.xaml.cs">
+      <DependentUpon>GameHistoryOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\BoonLeague.cs" />
+    <Compile Include="Stats\GameRecord.cs" />
+    <Compile Include="Overlays\HeroStats.xaml.cs">
+      <DependentUpon>HeroStats.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Overlays\InGameDisconectorOverlay.xaml.cs">
+      <DependentUpon>InGameDisconectorOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\Leaderboard.cs" />
+    <Compile Include="Sounds\meanbob.cs" />
+    <Compile Include="Stats\Mmr.cs" />
+    <Compile Include="Overlays\OverlayManager.cs" />
+    <Compile Include="Stats\Ranks.cs" />
+    <Compile Include="Overlays\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Overlay.xaml.cs">
+    <Compile Include="Overlays\Overlay.xaml.cs">
       <DependentUpon>Overlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,13 +155,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Tribes.cs" />
-    <Compile Include="TribesOverlay.xaml.cs">
+    <Compile Include="Overlays\SimpleOverlay.xaml.cs">
+      <DependentUpon>SimpleOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Overlays\Tribes.cs" />
+    <Compile Include="Overlays\TribesOverlay.xaml.cs">
       <DependentUpon>TribesOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TriverOverlayManager.cs" />
-    <Compile Include="TurnSnapshot.cs" />
-    <Compile Include="View.xaml.cs">
+    <Compile Include="Overlays\TriverOverlayManager.cs" />
+    <Compile Include="Overlays\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -132,29 +178,57 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="SettingsControl.xaml">
+    <Page Include="Overlays\AddRankPrompt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Overlay.xaml">
+    <Page Include="Overlays\ConsoleOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TribesOverlay.xaml">
+    <Page Include="Overlays\GameHistoryOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View.xaml">
+    <Page Include="Overlays\HeroStats.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Overlays\InGameDisconectorOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Overlays\SettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Overlays\Overlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Overlays\SimpleOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Overlays\TribesOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Overlays\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Img\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="background.png" />
     <Content Include="FullTheme.png" />
+    <Content Include="Img\background.png" />
+    <Content Include="Img\besthero_forground.png" />
+    <Content Include="Img\lichking.png" />
     <Content Include="Themes\baseTheme.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enum\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

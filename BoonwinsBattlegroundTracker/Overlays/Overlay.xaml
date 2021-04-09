@@ -25,23 +25,30 @@
         <Label x:Name="lbRank6" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,203,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
         <Label x:Name="lbRank7" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,233,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
         <Label x:Name="lbRank8" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,265,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
-        <Image x:Name="imgTheme" HorizontalAlignment="Left" VerticalAlignment="Top"  Source="Themes/baseTheme.png" />
+        <Image x:Name="imgTheme" HorizontalAlignment="Left" VerticalAlignment="Top"  Source="Themes/baseTheme.png" Margin="0,0,0,-1" />
 
 
-        <Label x:Name="tbAvgRankText" Margin="108,291,40,0" Content="Ø-Rank: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="33" VerticalAlignment="Top"/>
+        <Label x:Name="tbAvgRankText" Margin="108,291,40,0" Content="Ø-Rank: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="29" VerticalAlignment="Top"/>
 
-        <Label x:Name="tbMmrText" Margin="0,327,150,0" Content="MMR: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="24" FontWeight="Bold" Foreground="White" Background="Transparent" Height="52" VerticalAlignment="Top"/>
-
-
-        <Label x:Name="tbMmrValueText" Margin="115,336,77,0" Content=" " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="24" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top"/>
+        <Label x:Name="tbMmrText" Margin="8,315,205,0" Content="MMR: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="29" VerticalAlignment="Top"/>
 
 
-        <Label x:Name="tbTotalGames" BorderBrush="Black" Margin="-3,291,165,0" Content="Games: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" Foreground="White" Background="Transparent" Height="33" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="tbAvgRankSmallText" BorderBrush="Black" Margin="129,276,138,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Franklin Gothic Demi Cond" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top" FontStyle="Italic" Visibility="Hidden"/>
-        <Label x:Name="tbTotalGamesSmallText" BorderBrush="Black" Margin="170,276,97,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Franklin Gothic Demi Cond" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="39" VerticalAlignment="Top" FontStyle="Italic" Visibility="Hidden" />
-        <Label x:Name="tbMmrValueCangeText" BorderBrush="Black" Margin="170,317,64,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="Transparent" Height="39" VerticalAlignment="Top" Visibility="Hidden"/>
-        <Label x:Name="tbMmrValueNegativeCange" BorderBrush="Black" Margin="170,358,64,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Background="Transparent" Height="39" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Label x:Name="tbMmrValueText" Margin="66,316,150,0" Content=" " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="28" VerticalAlignment="Top"/>
 
 
+        <Label x:Name="tbTotalGames" BorderBrush="Black" Margin="-5,291,167,0" Content="Games: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" Foreground="White" Background="Transparent" Height="29" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="tbMmrValueCangeText" BorderBrush="Black" Margin="116,310,140,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="12" FontWeight="Bold" Background="Transparent" Height="21" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Label x:Name="tbMmrValueNegativeCange" BorderBrush="Black" Margin="116,325,140,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="12" FontWeight="Bold" Background="Transparent" Height="22" VerticalAlignment="Top" Visibility="Hidden"/>
+
+
+        <Label x:Name="tbLeaderboard" Margin="20,338,127,0" Content="?-Leaderboard: " HorizontalContentAlignment="left" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="28" VerticalAlignment="Top"/>
+        <Label x:Name="tbLeaderboardRank" Margin="181,341,23,0" Content="?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="25" VerticalAlignment="Top"/>
+        <Label x:Name="tbLeaderboardRating" Margin="18,362,104,0" Content="MMR to next rank: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="27" VerticalAlignment="Top"/>
+        <Label x:Name="tbLeaderboardRatingDifference" Margin="181,363,23,0" Content="?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="26" VerticalAlignment="Top"/>
+
+
+        
     </Grid>
+
 </UserControl>
+
