@@ -31,11 +31,6 @@ namespace BoonwinsBattlegroundTracker
     public partial class SettingsControl : UserControl
     {
 
-        BgMatchOverlay _overlay = new BgMatchOverlay();
-        TribesOverlay _tribes = new TribesOverlay();
-        ConsoleOverlay _console = new ConsoleOverlay();
-        SimpleOverlay _simpleOverlay = new SimpleOverlay();
-
         private Action _mount;
         private Action _unmount;
         private Config _config;
@@ -74,10 +69,10 @@ namespace BoonwinsBattlegroundTracker
             if (_config.ingameOverlayEnabled == true)
             {
                 cbIsInGameEnabled.IsChecked = true;
-                cbBannedTribeImagesSizes.IsEnabled = true;
+               // cbBannedTribeImagesSizes.IsEnabled = true;
             }
             else { cbIsInGameEnabled.IsChecked = false;
-                cbBannedTribeImagesSizes.IsEnabled = false;
+               // cbBannedTribeImagesSizes.IsEnabled = false;
             }
 
             if (_config.isSoundChecked == true)
@@ -286,14 +281,14 @@ namespace BoonwinsBattlegroundTracker
         private void cbEnableBannedTribeImages_Checked(object sender, RoutedEventArgs e)
         {
             _config.showTribeImages = true;
-            cbBannedTribeImagesSizes.IsEnabled = true;
+            //cbBannedTribeImagesSizes.IsEnabled = true;
             _config.save();
         }
 
         private void cbEnableBannedTribeImages_Unchecked(object sender, RoutedEventArgs e)
         {
             _config.showTribeImages = false;
-            cbBannedTribeImagesSizes.IsEnabled = false;
+            //cbBannedTribeImagesSizes.IsEnabled = false;
             _config.save();
         }
 
@@ -304,35 +299,35 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-        private void cbBannedTribeImagesSizes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //private void cbBannedTribeImagesSizes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
 
-            var comboBox = sender as ComboBox;
+        //    var comboBox = sender as ComboBox;
 
 
-            _tribes.SetTribeImageSize(comboBox.SelectedIndex);
-            switch(comboBox.SelectedIndex)
-            {
-                case 0:
-                    _config.tribeSize = 0;
-                    _config.save();
-                    break;
-                case 1:
-                    _config.tribeSize = 1;
-                    _config.save();
-                    break;
-                case 2:
-                    _config.tribeSize = 2;
-                    _config.save();
-                    break;
-                case 3:
-                    _config.tribeSize = 3;
-                    _config.save();
-                    break;
-            }
+        //    _tribes.SetTribeImageSize(comboBox.SelectedIndex);
+        //    switch(comboBox.SelectedIndex)
+        //    {
+        //        case 0:
+        //            _config.tribeSize = 0;
+        //            _config.save();
+        //            break;
+        //        case 1:
+        //            _config.tribeSize = 1;
+        //            _config.save();
+        //            break;
+        //        case 2:
+        //            _config.tribeSize = 2;
+        //            _config.save();
+        //            break;
+        //        case 3:
+        //            _config.tribeSize = 3;
+        //            _config.save();
+        //            break;
+        //    }
             
 
-        }
+        //}
 
         private void cbBannedTribeImagesSizes_Loaded(object sender, RoutedEventArgs e)
         {

@@ -2,7 +2,6 @@
 using System.IO;
 using System.Windows.Controls;
 using Hearthstone_Deck_Tracker.Plugins;
-using Hearthstone_Deck_Tracker.API;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Hearthstone_Deck_Tracker.Utility.Logging;
@@ -12,6 +11,8 @@ using Hearthstone_Deck_Tracker.HsReplay;
 using System.Threading;
 using AutoUpdaterDotNET;
 using System.Threading.Tasks;
+using Hearthstone_Deck_Tracker.API;
+using BoonwinsBattlegroundTracker.Overlays;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -19,12 +20,13 @@ namespace BoonwinsBattlegroundTracker
     {
         private Config _config;
         private BgMatchOverlay _overlay;
-        private TribesOverlay _tribes;
         private OverlayManager _overlayManager;
+        private TribesOverlay _tribes;
+      
         private TriverOverlayManager _tribeOverlayManager;
         private InGameDisconectorOverlay _inGameDisconectorOverlay;
 
-        private View _view;
+        private InBattleMmrScore _mmrView;
         private Flyout _settingsFlyout;
         private SettingsControl _settingsControl;
         private ConsoleOverlay _console;
@@ -38,7 +40,7 @@ namespace BoonwinsBattlegroundTracker
             CreateDateFileEnviroment();
 
             _overlay = new BgMatchOverlay();
-            _view = new View();
+            _mmrView = new InBattleMmrScore();
             _tribes = new TribesOverlay();
             _inGameDisconectorOverlay = new InGameDisconectorOverlay();
 
@@ -46,7 +48,7 @@ namespace BoonwinsBattlegroundTracker
             _simpleOverlay = new SimpleOverlay();
 
             BgMatchData._overlay = _overlay;
-            BgMatchData._view = _view;
+            BgMatchData._mmrView = _mmrView;
             BgMatchData._tribes = _tribes;
             BgMatchData._cheatButtonForNoobs = _inGameDisconectorOverlay;
 
@@ -151,14 +153,14 @@ namespace BoonwinsBattlegroundTracker
         public void MountOverlay()
         {
             StackPanel BgsTopBar = (StackPanel)Core.OverlayWindow.FindName("BgsTopBar");
-            BgsTopBar.Children.Insert(1, _view);
+            BgsTopBar.Children.Insert(1, _mmrView);
         }
 
 
         public void UnmountOverlay()
         {
             StackPanel BgsTopBar = (StackPanel)Core.OverlayWindow.FindName("BgsTopBar");
-            BgsTopBar.Children.Remove(_view);
+            BgsTopBar.Children.Remove(_mmrView);
         }
 
         public void OnUnload()
@@ -194,7 +196,7 @@ namespace BoonwinsBattlegroundTracker
 
         public string Author => "Boonwin";
 
-        public Version Version => new Version(0, 0, 1, 5);
+        public Version Version => new Version(0, 0, 1, 12);
 
         public MenuItem MenuItem => CreateMenu();
 

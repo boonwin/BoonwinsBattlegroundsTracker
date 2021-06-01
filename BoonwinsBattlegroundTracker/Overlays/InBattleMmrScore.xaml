@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="BoonwinsBattlegroundTracker.Overlays.InBattleMmrScore"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BoonwinsBattlegroundTracker.Overlays"
+             mc:Ignorable="d" Width="260" Height="55" BorderBrush="#141617" BorderThickness="1" Background="#23272a" VerticalAlignment="Top">
+    <StackPanel Orientation="Horizontal">
+        <StackPanel x:Name="panel2" HorizontalAlignment="Left" Width="119" >
+            <Label x:Name="lbPeak" Content="Peak: 00000" HorizontalAlignment="Left" Margin="0,0,0,-22" VerticalAlignment="Top" FontSize="18" FontFamily="Source Sans Pro" Foreground="White" />
+            <Label x:Name="lbrMMR" Content="MMR: 00000" VerticalAlignment="Top" FontSize="18" FontFamily="Source Sans Pro" Foreground="White" HorizontalAlignment="Left" Margin="0,10,0,0" />
+        </StackPanel>
+        <Separator BorderBrush="Azure"></Separator>
+
+        <ListView x:Name="lvBannedTribes" ItemsSource="{Binding CurrentBannedTribes}" Background="Transparent" BorderBrush="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                 Color="Transparent"/>
+                    </Style.Resources>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" Height="auto" Margin="5,2" Width="120"  ></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Label x:Name="lbbannedMinion" Content="{Binding}"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" FontFamily="Source Sans Pro" Foreground="White" Margin="5,0" Padding="-5" />
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackPanel>
+</UserControl>

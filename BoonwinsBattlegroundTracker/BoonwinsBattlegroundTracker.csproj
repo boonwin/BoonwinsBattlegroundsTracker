@@ -38,28 +38,20 @@
     <Reference Include="AutoUpdater.NET, Version=1.6.4.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Autoupdater.NET.Official.1.6.4\lib\net45\AutoUpdater.NET.dll</HintPath>
     </Reference>
-    <Reference Include="BobsBuddy, Version=1.2.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\BobsBuddy.dll</HintPath>
-    </Reference>
     <Reference Include="BoonConector">
       <HintPath>..\..\BoonConector\bin\Debug\BoonConector.dll</HintPath>
     </Reference>
-    <Reference Include="HearthDb, Version=19.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="HearthDb, Version=20.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HearthDb.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.15\HearthDb.dll</HintPath>
     </Reference>
-    <Reference Include="HearthMirror, Version=19.0.0.0, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="HearthMirror, Version=20.2.2.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HearthMirror.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.15\HearthMirror.dll</HintPath>
     </Reference>
-    <Reference Include="HearthstoneDeckTracker, Version=1.13.17.5275, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="HearthstoneDeckTracker, Version=1.14.13.5446, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HearthstoneDeckTracker.exe</HintPath>
-    </Reference>
-    <Reference Include="HSReplay, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.20\HSReplay.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.15\HearthstoneDeckTracker.exe</HintPath>
     </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
@@ -67,8 +59,9 @@
     <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro">
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.13.27\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.15\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
@@ -85,6 +78,11 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -130,6 +128,11 @@
     <Compile Include="Overlays\GameHistoryOverlay.xaml.cs">
       <DependentUpon>GameHistoryOverlay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Overlays\InBattleMmrScore.xaml.cs">
+      <DependentUpon>InBattleMmrScore.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Overlays\TribeAttributes.cs" />
+    <Compile Include="Overlays\TribeAttributesList.cs" />
     <Compile Include="Stats\BoonLeague.cs" />
     <Compile Include="Stats\GameRecord.cs" />
     <Compile Include="Overlays\HeroStats.xaml.cs">
@@ -158,14 +161,11 @@
     <Compile Include="Overlays\SimpleOverlay.xaml.cs">
       <DependentUpon>SimpleOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Overlays\Tribes.cs" />
+    <Compile Include="Overlays\BannedTribes.cs" />
     <Compile Include="Overlays\TribesOverlay.xaml.cs">
       <DependentUpon>TribesOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Overlays\TriverOverlayManager.cs" />
-    <Compile Include="Overlays\View.xaml.cs">
-      <DependentUpon>View.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Overlays\TribeOverlayManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -194,6 +194,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Overlays\InBattleMmrScore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Overlays\InGameDisconectorOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,10 +218,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Overlays\View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="background.png" />
@@ -225,6 +225,7 @@
     <Content Include="Img\background.png" />
     <Content Include="Img\besthero_forground.png" />
     <Content Include="Img\lichking.png" />
+    <Content Include="Overlays\beast.png" />
     <Content Include="Themes\baseTheme.png" />
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,8 @@ using System.Security.Principal;
 using Hearthstone_Deck_Tracker.Windows;
 using System.Reflection;
 using BoonConector.Service;
+using BoonwinsBattlegroundTracker.Overlays;
+using Newtonsoft.Json;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -31,6 +33,8 @@ namespace BoonwinsBattlegroundTracker
 
     public class BgMatchData
     {
+        
+
         private static int _rating;
         private static int _ratingStart;
         private static bool _isStart = true;
@@ -38,6 +42,7 @@ namespace BoonwinsBattlegroundTracker
         private static int _lastRoundNr = 0;
         private static GameRecord _record;
         private static List<GameRecord> _recordList;
+        private static TribeAttributesList _tribeAttributesList;
         private static BoonLeague _boon;
 
         private static int lastRank;
@@ -46,45 +51,50 @@ namespace BoonwinsBattlegroundTracker
         private static string _peak;
         private static string _avgRank;
         private static int _tribeImgSize;
-        public static bool IsMissingTribeRetrieved;
+        public static bool IsMissingTribeReceived;
         public static bool IsMissingHeroesRetrieved;
 
         public static BgMatchOverlay _overlay;
         public static SimpleOverlay _simpleOverlay;
-        public static View _view;
+        public static InBattleMmrScore _mmrView;
         public static TribesOverlay _tribes;
         //public static ConsoleOverlay _console;
         public static InGameDisconectorOverlay _cheatButtonForNoobs;
 
+
         public static OverlayManager _input;
-
-        
-
         public static TriverOverlayManager _tribeInput;
 
-        public static HashSet<Race> _avaiableTribes;
+
         public static string[] _avaiableHeroes;
         internal static int _lastknownTurn = 0;
         private static int _leaderboardRatingNextRank = 0;
         private static string _leaderBoardRank = "none";
+        private static HashSet<Race> _avaiableTribes;
+        private static string _unavailableTribes = null;
 
-        internal List<FrameworkElement> frameworkElements = new List<FrameworkElement>();
+
 
         public static void OnLoad(Config config)
         {
-            Log.Info($"onLoad - reading config, creating ranks and gamerecord object");            
+            Log.Info($"onLoad - reading config, creating ranks and gamerecord object");
             _config = config;
             _ranks = new Ranks();
             LoadGameRecordFromFile();
+            LoadTribeAttributesFromFile();
             lastRank = 0;
             IsAdmin();
             boonApiConnector.InitializeClient();
         }
 
+        private static void LoadTribeAttributesFromFile()
+        {
+            _tribeAttributesList = JsonConvert.DeserializeObject<TribeAttributesList>(File.ReadAllText(_config._tribeAttributesPath));
+        }
 
         internal static void IsAdmin()
         {
-           
+
             using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
             {
                 WindowsPrincipal principal = new WindowsPrincipal(identity);
@@ -95,64 +105,131 @@ namespace BoonwinsBattlegroundTracker
                 }
 
             }
-           
+
         }
 
         internal static void InMenu()
         {
         }
 
-        internal static async void GameStart()
+        internal static void GameStart()
         {
+            if (!InBgMode()) return;
             if (!Core.Game.Spectator)
             {
+
+                
                 //_console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " started.");
                 if (String.IsNullOrEmpty(_config.player))
                 {
                     _config.player = Core.Game.Player.Name;
                 }
-
-                IsMissingTribeRetrieved = false;
-                _tribeImgSize = _config.tribeSize;
-                
-
-                int waitTime = 6000;
-
-                while (!IsMissingTribeRetrieved && waitTime > 0)
-                {
-                    Thread.Sleep(3000);
-                    waitTime -= 3000;
-                    IsMissingTribeRetrieved = SetMissingRace();
-
-                }
-
               
-
-                //var avaiableHeroes = await SetPersonalHeroRating();
-
-                //_console.SetConsoleText("Getting Game Informations");
-
-
-
-                try { 
+                try
+                {
                     _peak = GameRecord.GetPeak(_recordList, Core.Game.CurrentRegion);
                     //GameRecord.GetHeroWinRating(_recordList, avaiableHeroes, _avaiableTribes, _console);
                 }
                 catch { }
 
-                _view.SetPeak(_peak);
+                _mmrView.SetPeak(_peak);
 
-                if (_rating > 0) _view.SetMMR(_rating);
-                else _view.SetMMR(_ratingStart);
-            
+                if (_rating > 0) _mmrView.SetMMR(_rating);
+                else _mmrView.SetMMR(_ratingStart);
+                bool letsGo = false;
+                int waitTime = 6000;
+               while (!letsGo && waitTime > 0) {
+                    Thread.Sleep(100);
+                    waitTime -= 100;
+                    GetUnavaiableTribes();
+                    if (_unavailableTribes != null) { 
+                    string[] bannedtribes = _unavailableTribes.Split(',');
+                    if (bannedtribes.Length == 3) {
+                            letsGo = true;
+                    _mmrView.ShowBannedTribes(bannedtribes);
+                    GetAndSetBannedTribes();
+                    }
+                       
+                    }
+                }
             }
         }
+        
+        private static void GetAndSetBannedTribes()
+        {
+            if (!InBgMode()) return;
+         
+         
+            if (!Core.Game.Spectator)
+            {
+                //if (!InBgMode()) return;
+                //if (!InGameplayMode()) return;
+                //var _db = new Lazy<BattlegroundsDb>();
+                //_avaiableTribes = BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats?.GameId) ?? _db.Value.Races;
+                //_unavailableRaces = string.Join(", ", _db.Value.Races.Where(x => !_avaiableTribes.Contains(x) && x != Race.INVALID && x != Race.ALL).Select(x => HearthDbConverter.RaceConverter(x)));
+
+                if (_avaiableTribes.Count > 0)
+                {
+
+
+                    //IsMissingTribeReceived = false;
+                    ////_tribeImgSize = _config.tribeSize;
+
+                    //int waitTime = 6000;
+
+                    try
+                    {
+                        //while (!IsMissingTribeReceived && waitTime > 0)
+                        //{
+                        //    Thread.Sleep(100);
+                        //    waitTime -= 100;
+                        //    IsMissingTribeReceived = SetMissingTribe();
+
+
+                            //_tribes = new TribesOverlay();
+                            var missingTribes = GetMissingTribeForInBattleUi();
+                            if (missingTribes.Count() == 3)
+                            {
+
+                                if (_config.showTribeImages == true)
+                                {
+                                    if (!Core.OverlayCanvas.Children.Contains(_tribes))
+                                    {
+                                        Core.OverlayCanvas.Children.Add(_tribes);
+                                        _tribes.ShowBannedTribes(missingTribes);
+                                    }
+                                }
+                                else
+                                {
+                                    if (Core.OverlayCanvas.Children.Contains(_tribes))
+                                    {
+                                        Core.OverlayCanvas.Children.Remove(_tribes);
+                                    }
+                                }
+                                //var avaiableHeroes = await SetPersonalHeroRating();
+                                //_console.SetConsoleText("Getting Game Informations");
+                            }
+                        //}
+                    }
+                    catch { }
+                }
+            }
+        }
+
+        private static bool GetUnavaiableTribes()
+        {
+            var _db = new Lazy<BattlegroundsDb>();
+            _avaiableTribes = BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats?.GameId) ?? _db.Value.Races;
+            _unavailableTribes = string.Join(", ", _db.Value.Races.Where(x => !_avaiableTribes.Contains(x) && x != Race.INVALID && x != Race.ALL).Select(x => HearthDbConverter.RaceConverter(x)));
+            if (_unavailableTribes != null) { return true; } else return false; ;
+        }
+
         internal static void TurnStart(ActivePlayer player)
         {
             if (!Core.Game.Spectator)
             {
                 if (!InBgMode()) return;
-                
+
                 try
                 {
                     Entity hero = Core.Game.Entities.Values
@@ -167,30 +244,29 @@ namespace BoonwinsBattlegroundTracker
                 }
                 catch { }
 
-                if (_config.SkipAll)
-                {
-                    Task.Delay(3000);
-                    ToggleDisconect();
-                    Task.Delay(3000);
-                    ToggleDisconect();
+                //if (_config.SkipAll)
+                //{
+                //    Task.Delay(3000);
+                //    ToggleDisconect();
+                //    Task.Delay(3000);
+                //    ToggleDisconect();
 
-                }
+                //}
             }
         }
 
         internal static void GameEnd()
         {
-            
+
             if (!Core.Game.Spectator)
             {
 
                 _lastRoundNr++;
-                _view.SetisBannedGameStart();
-
+                _mmrView.RemoveBannedTribes();
                 if (Core.OverlayCanvas.Children.Contains(_tribes))
                 {
                     Core.OverlayCanvas.Children.Remove(_tribes);
-
+                    _tribes.RemoveBannedTribes();
                 }
 
                 int playerId = Core.Game.Player.Id;
@@ -212,8 +288,6 @@ namespace BoonwinsBattlegroundTracker
                 {
                     OpenAddRankPrompt();
                 }
-                
-
 
                 //_console.SetConsoleText("Game with the ID " + Core.Game.CurrentGameStats.GameId + " ended.");
             }
@@ -241,32 +315,15 @@ namespace BoonwinsBattlegroundTracker
             SetOverlayRanksAndStuff();
         }
 
-        //internal static async Task<string[]> SetPersonalHeroRating()
-        //{
-        //    string[] avaiableHeroes = null;
-
-        //    for (var i = 0; i < 10; i++)
-        //    {
-        //        await Task.Delay(500);
-        //        var heroes = Core.Game.Player.PlayerEntities.Where(x => x.IsHero && x.HasTag(GameTag.BACON_HERO_CAN_BE_DRAFTED));
-        //        if (heroes.Count() < 2)
-        //            continue;
-        //        await Task.Delay(500);
-        //        avaiableHeroes = heroes.Select(x => x.Card.LocalizedName).ToArray();
-
-        //    }
-
-        //    return avaiableHeroes;
-        //}
 
         private static void LoadGameRecordFromFile()
         {
-            _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);            
+            _recordList = GameRecord.LoadGameRecordFromFile(_config._gameRecordPath);
         }
 
         private static void WriteGameRecordToFile(GameRecord record)
         {
-           GameRecord.WriteGameRecordToFile(_config._gameRecordPath, record);
+            GameRecord.WriteGameRecordToFile(_config._gameRecordPath, record);
         }
 
         private static void GetGameRecordData(Entity hero)
@@ -282,56 +339,47 @@ namespace BoonwinsBattlegroundTracker
             _record.Region = Core.Game.CurrentRegion;
         }
 
-    
+
 
         private static void GetMmrRecordData(GameRecord record)
         {
             record.Mmr = Core.Game.BattlegroundsRatingInfo.Rating;
-          
+
         }
+
+
+
 
 
         //Most of this should be in another class KEKL
-        internal static bool SetMissingRace()
+        internal static List<BannedTribes> GetMissingTribeForInBattleUi()
         {
-
-            var gameID = Core.Game.CurrentGameStats.GameId;
-
-            _avaiableTribes = Tribes.GetTribes(gameID, _view, _config, _tribes);
-
-
-            if (_avaiableTribes != null && _avaiableTribes.Count > 0)
-            {
-                if (!_avaiableTribes.Contains(Race.INVALID))
+            if (_config.showTribeColors == true || _config.showTribeImages == true) { 
+                if (BattlegroundsUtils.GetAvailableRaces(Core.Game.CurrentGameStats.GameId) != null)
                 {
-                    Tribes.SetBannedTribes(gameID, _view, _config, _tribes);
-
-                    if (_config.showTribeImages == true)
-                    {
-                        if (!Core.OverlayCanvas.Children.Contains(_tribes))
-                        {
-                            Core.OverlayCanvas.Children.Add(_tribes);
-                        }
-                    }
-                    else
-                    {
-                        if (Core.OverlayCanvas.Children.Contains(_tribes))
-                        {
-                            Core.OverlayCanvas.Children.Remove(_tribes);
-                        }
-                    }
-                    return true;
-                }
-                return false;
+                    BannedTribes bannedTribes = new BannedTribes();
+                    return bannedTribes.GetBannedTribesList(_unavailableTribes, _tribeAttributesList.tribeAttributes, _config);
+                } 
             }
-            return false;
+            return null;
         }
+
+        //internal static bool SetMissingTribe()
+        //{
+        //    if (_unavailableTribes != null)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+
         public static void RankEight()
         {
             if (_config.isSoundChecked)
             {
                 if (File.Exists(_config._soundLocation + "top8.wav"))
-                {               
+                {
                     SoundPlayer player = new SoundPlayer(_config._soundLocation + "top8.wav");
                     player.Play();
                 }
@@ -395,9 +443,10 @@ namespace BoonwinsBattlegroundTracker
 
         internal static void AddRemoveDisconectButton()
         {
-            if (_config.UseDisconect) {
-               
-                
+            if (_config.UseDisconect)
+            {
+
+
                 Window DisconectButtonWindow = new Window()
                 {
                     Title = "Boomer Button",
@@ -407,11 +456,12 @@ namespace BoonwinsBattlegroundTracker
 
                     ResizeMode = ResizeMode.NoResize
                 };
-                if (!_config.DisconectWindowOpen) {
+                if (!_config.DisconectWindowOpen)
+                {
                     _config.DisconectWindowOpen = true;
                     _config.save();
-                        InGameDisconectorOverlay.GetWindowName(DisconectButtonWindow);
-                        DisconectButtonWindow.Show();
+                    InGameDisconectorOverlay.GetWindowName(DisconectButtonWindow);
+                    DisconectButtonWindow.Show();
                 }
 
 
@@ -419,7 +469,7 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-        
+
         internal static void AddOrRemoveOverlay()
         {
             if (InBgMenu())
@@ -474,22 +524,20 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-      
+
         internal static void Update()
         {
             if (!Core.Game.Spectator)
             {
-               
+
                 // rating is only updated after we have passed the menu
                 AddOrRemoveOverlay();
-                SetTribeImgSize();
+                //SetTribeImgSize();
                 AddRemoveDisconectButton();
 
                 //AddRemoveConsole();
                 AddRemoveSimpleOverlay();
                 AddRemoveLeaderboard();
-               
-
 
                 if (!InBgMenu()) return;
                 if (_isStart) SetLatestRating();
@@ -499,25 +547,59 @@ namespace BoonwinsBattlegroundTracker
                     GetMmrRecordData(_record);
                     _recordList.Add(_record);
                     WriteGameRecordToFile(_record);
-                   
-
                 }
 
+
+               
             }
 
         }
         public static int ToggleDisconect()
         {
-           return  Disconnector.RuleSwitcher(_config);
+            return Disconnector.RuleSwitcher(_config);
         }
 
         internal static async void UpdateLeaderboardData()
         {
-            if (_config.isLeaderboardActivated) { 
-            if (InBgMenu())
+            if (_config.isLeaderboardActivated)
             {
+                if (InBgMenu())
+                {
 
-                if (!String.IsNullOrEmpty(_config.leaderboardName))
+                    if (!String.IsNullOrEmpty(_config.leaderboardName))
+                    {
+                        switch (Core.Game.CurrentRegion)
+                        {
+                            case Region.ASIA:
+                                {
+                                    _overlay.tbLeaderboard.Content = "AS-Leaderboard:";
+                                    (_leaderBoardRank, _leaderboardRatingNextRank) = await Leaderboard.GetLeaderboard("AP", _config.leaderboardName);
+                                    break;
+                                }
+                            case (Region.US):
+                                {
+                                    _overlay.tbLeaderboard.Content = "NA-Leaderboard:";
+                                    (_leaderBoardRank, _leaderboardRatingNextRank) = await Leaderboard.GetLeaderboard("US", _config.leaderboardName);
+                                    break;
+                                }
+                            case (Region.EU):
+                                {
+                                    _overlay.tbLeaderboard.Content = "EU-Leaderboard:";
+                                    (_leaderBoardRank, _leaderboardRatingNextRank) = await Leaderboard.GetLeaderboard("EU", _config.leaderboardName);
+                                    break;
+                                }
+                        }
+                        if (!String.IsNullOrEmpty(_rating.ToString()) && _rating == 0)
+                        {
+                            var neededMMRForLeaderboard = _leaderboardRatingNextRank - _ratingStart;
+                            _overlay.tbLeaderboardRatingDifference.Content = neededMMRForLeaderboard;
+
+                        }
+                        _overlay.tbLeaderboardRank.Content = _leaderBoardRank;
+
+                    }
+                }
+                if (InGameplayMode() && InBgMode())
                 {
                     switch (Core.Game.CurrentRegion)
                     {
@@ -540,48 +622,15 @@ namespace BoonwinsBattlegroundTracker
                                 break;
                             }
                     }
-                    if (!String.IsNullOrEmpty(_rating.ToString()) && _rating == 0)
+
+                    if (!String.IsNullOrEmpty(_rating.ToString()) && _rating > 0)
                     {
-                        var neededMMRForLeaderboard = _leaderboardRatingNextRank - _ratingStart;
+                        var neededMMRForLeaderboard = _leaderboardRatingNextRank - _rating;
                         _overlay.tbLeaderboardRatingDifference.Content = neededMMRForLeaderboard;
-
                     }
-                    _overlay.tbLeaderboardRank.Content = _leaderBoardRank;
-
                 }
+
             }
-            if (InGameplayMode() && InBgMode())
-            {
-                switch (Core.Game.CurrentRegion)
-                {
-                    case Region.ASIA:
-                        {
-                            _overlay.tbLeaderboard.Content = "AS-Leaderboard:";
-                            (_leaderBoardRank, _leaderboardRatingNextRank) = await Leaderboard.GetLeaderboard("AP", _config.leaderboardName);
-                            break;
-                        }
-                    case (Region.US):
-                        {
-                            _overlay.tbLeaderboard.Content = "NA-Leaderboard:";
-                            (_leaderBoardRank, _leaderboardRatingNextRank) = await Leaderboard.GetLeaderboard("US", _config.leaderboardName);
-                            break;
-                        }
-                    case (Region.EU):
-                        {
-                            _overlay.tbLeaderboard.Content = "EU-Leaderboard:";
-                            (_leaderBoardRank, _leaderboardRatingNextRank) = await Leaderboard.GetLeaderboard("EU", _config.leaderboardName);
-                            break;
-                        }
-                }
-
-                if (!String.IsNullOrEmpty(_rating.ToString()) && _rating > 0)
-                {
-                    var neededMMRForLeaderboard = _leaderboardRatingNextRank - _rating;
-                    _overlay.tbLeaderboardRatingDifference.Content = neededMMRForLeaderboard;
-                }
-            }
-
-        }
 
         }
 
@@ -659,14 +708,14 @@ namespace BoonwinsBattlegroundTracker
             }
         }
 
-        internal static void SetTribeImgSize()
-        {
-            if (_config.showTribeImages && _config.tribeSize != _tribeImgSize)
-            {
-                _tribes.SetTribeImageSize(_config.tribeSize);
-                _tribeImgSize = _config.tribeSize;
-            }
-        }
+        //internal static void SetTribeImgSize()
+        //{
+        //    if (_config.showTribeImages && _config.tribeSize != _tribeImgSize)
+        //    {
+        //        _tribes.SetTribeImageSize(_config.tribeSize);
+        //        _tribeImgSize = _config.tribeSize;
+        //    }
+        //}
 
         internal static void SetLatestRating()
         {
@@ -688,30 +737,28 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-       
-
         internal static void OpenAddRankPrompt()
         {
-           
-                if (_config.UseDisconect)
+
+            if (_config.UseDisconect)
+            {
+                if (_config.DisconectedThisGame)
                 {
-                    if (_config.DisconectedThisGame)
+                    //add new wpf for using disconect in game and handling the manual rank
+                    _config.DisconectedThisGame = false;
+                    Window AddRankWindow = new Window()
                     {
-                        //add new wpf for using disconect in game and handling the manual rank
-                        _config.DisconectedThisGame = false;
-                        Window AddRankWindow = new Window()
-                        {
-                            Title = "You used the disconect feature, chame on you! Now you have to enter your rank manually. Boomer",
-                            Content = new AddRankPrompt(),
-                            
-                            ResizeMode = ResizeMode.NoResize
-                        };
+                        Title = "You used the disconect feature, chame on you! Now you have to enter your rank manually. Boomer",
+                        Content = new AddRankPrompt(),
+
+                        ResizeMode = ResizeMode.NoResize
+                    };
                     AddRankWindow.Topmost = true;
                     AddRankWindow.Show();
                     AddRankPrompt.GetWindowName(AddRankWindow);
-                    }
                 }
-           
+            }
+
         }
 
     }

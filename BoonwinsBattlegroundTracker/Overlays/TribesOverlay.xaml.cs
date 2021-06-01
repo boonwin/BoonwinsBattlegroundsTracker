@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoonwinsBattlegroundTracker.Overlays;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,37 +20,63 @@ namespace BoonwinsBattlegroundTracker
     /// Interaktionslogik für TribesOverlay.xaml
     /// </summary>
     public partial class TribesOverlay : UserControl
-    {   
+    {
+
+        public List<BannedTribes> CurrentBannedTribes { get; set; }
+
         public TribesOverlay()
-        {
-            InitializeComponent();          
+        {        
+        InitializeComponent();
+        CurrentBannedTribes = new List<BannedTribes>();
+        DataContext = this;
         }
 
-        public void SetTribeImageSize(int index)
+        public void ShowBannedTribes(List<BannedTribes> bannedTribes)
         {
-            switch (index)
-            {
-                case 0:
-                  
-                    imgTribes.Width = 150;
-                    imgTribes.Height = 150;
-                    break;
-                case 1:
-                    
-                   imgTribes.Width = 200;
-                    imgTribes.Height = 200;
-                    break;
-                case 2:
-                    
-                    imgTribes.Width = 250;
-                    imgTribes.Height = 250;
-                    break;
-                case 3:
-                    
-                    imgTribes.Width = 300;
-                    imgTribes.Height = 300;
-                    break;
+            
+            foreach (var tribe in bannedTribes){ 
+            CurrentBannedTribes.Add(tribe);
             }
+            lvBannedTribes.ItemsSource = CurrentBannedTribes;
+
         }
+
+        public void RemoveBannedTribes()
+        {
+          
+           CurrentBannedTribes.Clear();
+            lvBannedTribes.ItemsSource = null;
+        
+        }
+
+        //public void SetTribeImageSize(int index)
+        //{
+        //    switch (index)
+        //    {
+        //        case 0:
+
+        //            imgTribes.Width = 150;
+        //            imgTribes.Height = 150;
+        //            break;
+        //        case 1:
+
+        //            imgTribes.Width = 200;
+        //            imgTribes.Height = 200;
+        //            break;
+        //        case 2:
+
+        //            imgTribes.Width = 250;
+        //            imgTribes.Height = 250;
+        //            break;
+        //        case 3:
+
+        //            imgTribes.Width = 300;
+        //            imgTribes.Height = 300;
+        //            break;
+        //    }
+        //}
+
+
     }
 }
+
