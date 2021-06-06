@@ -131,6 +131,9 @@
     <Compile Include="Overlays\InBattleMmrScore.xaml.cs">
       <DependentUpon>InBattleMmrScore.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Overlays\OverlayDesigner.xaml.cs">
+      <DependentUpon>OverlayDesigner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Overlays\TribeAttributes.cs" />
     <Compile Include="Overlays\TribeAttributesList.cs" />
     <Compile Include="Stats\BoonLeague.cs" />
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Overlays\InGameDisconectorOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Overlays\OverlayDesigner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

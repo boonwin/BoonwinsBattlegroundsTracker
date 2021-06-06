@@ -22,9 +22,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-
-
-
+using BoonwinsBattlegroundTracker.Overlays;
 
 namespace BoonwinsBattlegroundTracker
 {
@@ -40,7 +38,6 @@ namespace BoonwinsBattlegroundTracker
             InitializeComponent();
             cbLeaderboardName.TextChanged += cbLeaderboardName_TextChanged;
             _config = c;
-            UpdateConfig(c);
             _mount = mount;
             _unmount = unmount;
 
@@ -56,6 +53,15 @@ namespace BoonwinsBattlegroundTracker
                 cbIsBigEmanled.IsChecked = true;
             }
             else { cbIsBigEmanled.IsChecked = false; }
+            
+            if (_config.ingameOverlayEnabled == true)
+            {
+                cbIsInGameEnabled.IsChecked = true;
+               // cbBannedTribeImagesSizes.IsEnabled = true;
+            }
+            else { cbIsInGameEnabled.IsChecked = false;
+               // cbBannedTribeImagesSizes.IsEnabled = false;
+            }
             if (_config.showTribeColors == true)
             {
                 cbEnableBannedTribeColors.IsChecked = true;
@@ -66,14 +72,6 @@ namespace BoonwinsBattlegroundTracker
                 cbEnableBannedTribeImages.IsChecked = true;
             }
             else { cbEnableBannedTribeImages.IsChecked = false; }
-            if (_config.ingameOverlayEnabled == true)
-            {
-                cbIsInGameEnabled.IsChecked = true;
-               // cbBannedTribeImagesSizes.IsEnabled = true;
-            }
-            else { cbIsInGameEnabled.IsChecked = false;
-               // cbBannedTribeImagesSizes.IsEnabled = false;
-            }
 
             if (_config.isSoundChecked == true)
             {
@@ -126,11 +124,7 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-        public void UpdateConfig(Config c)
-        {
 
-
-        }
 
         private void Mount(object sender, RoutedEventArgs e)
         {
@@ -147,56 +141,9 @@ namespace BoonwinsBattlegroundTracker
 
         }
 
-        private void cpPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
+    
 
-            BgMatchData._overlay.tbAvgRankText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
-            BgMatchData._overlay.tbMmrText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
-            BgMatchData._overlay.tbTotalGames.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
-            BgMatchData._overlay.tbMmrValueText.Foreground = new SolidColorBrush(cpPickerTextColor.SelectedColor.Value);
 
-            _config.TrackerFontColor = cpPickerTextColor.SelectedColor.Value.ToString();
-            _config.save();
-
-        }
-
-        private void cpPickerPlusMMR_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
-            BgMatchData._overlay.tbMmrValueCangeText.Foreground = new SolidColorBrush(cpPickerPlusMMR.SelectedColor.Value);
-
-            _config.MmrPlus = cpPickerPlusMMR.SelectedColor.Value.ToString();
-            _config.save();
-
-        }
-
-        private void cpPickerMinusMMR_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
-            BgMatchData._overlay.tbMmrValueNegativeCange.Foreground = new SolidColorBrush(cpPickerMinusMMR.SelectedColor.Value);
-
-            _config.MmrMinus = cpPickerMinusMMR.SelectedColor.Value.ToString();
-            _config.save();
-
-        }
-
-        private void mmrPlus_Checked(object sender, RoutedEventArgs e)
-        {
-            BgMatchData._overlay.tbMmrValueCangeText.Visibility = Visibility.Visible;
-        }
-
-        private void mmrPlus_Unchecked(object sender, RoutedEventArgs e)
-        {
-            BgMatchData._overlay.tbMmrValueCangeText.Visibility = Visibility.Hidden;
-        }
-
-        private void mmrMinus_Checked(object sender, RoutedEventArgs e)
-        {
-            BgMatchData._overlay.tbMmrValueNegativeCange.Visibility = Visibility.Visible;
-        }
-
-        private void mmrMinus_Unchecked(object sender, RoutedEventArgs e)
-        {
-            BgMatchData._overlay.tbMmrValueNegativeCange.Visibility = Visibility.Hidden;
-        }
 
 
         private void cbIsMenuOverlay_Checked(object sender, RoutedEventArgs e)
@@ -266,31 +213,7 @@ namespace BoonwinsBattlegroundTracker
             btnUnlock.Content = BgMatchData._input.Toggle() ? "Lock Ranks" : "Unlock Ranks";
         }
 
-        private void cbEnableBannedTribeColors_Checked(object sender, RoutedEventArgs e)
-        {
-            _config.showTribeColors = true;
-            _config.save();
-        }
-
-        private void cbEnableBannedTribeColors_Unchecked(object sender, RoutedEventArgs e)
-        {
-            _config.showTribeColors = false;
-            _config.save();
-        }
-
-        private void cbEnableBannedTribeImages_Checked(object sender, RoutedEventArgs e)
-        {
-            _config.showTribeImages = true;
-            //cbBannedTribeImagesSizes.IsEnabled = true;
-            _config.save();
-        }
-
-        private void cbEnableBannedTribeImages_Unchecked(object sender, RoutedEventArgs e)
-        {
-            _config.showTribeImages = false;
-            //cbBannedTribeImagesSizes.IsEnabled = false;
-            _config.save();
-        }
+ 
 
         private void btntribesUnlock_Click(object sender, RoutedEventArgs e)
         {
@@ -329,27 +252,7 @@ namespace BoonwinsBattlegroundTracker
 
         //}
 
-        private void cbBannedTribeImagesSizes_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<string> data = new List<string>();
-            data.Add("150x150");
-            data.Add("200x200");
-            data.Add("250x250");
-            data.Add("300x300");
-
-            // ... Get the ComboBox reference.
-            var comboBox = sender as ComboBox;
-
-
-            // ... Assign the ItemsSource to the List.
-            comboBox.ItemsSource = data;
-
-            // ... Make the first item selected.
-            if(_config.tribeSize != 0)
-            {
-                comboBox.SelectedIndex = _config.tribeSize;
-            }else comboBox.SelectedIndex = 0;
-        }
+        
 
         //private void btnHideConsole_Click(object sender, RoutedEventArgs e)
         //{
@@ -467,7 +370,7 @@ namespace BoonwinsBattlegroundTracker
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            OpenUri(@"https://ko-fi.com/boonwin");
+            OpenUri(@"https://streamlabs.com/boonwin/tip");
         }
 
         private void cbMeanBob_Checked(object sender, RoutedEventArgs e)
@@ -543,13 +446,56 @@ namespace BoonwinsBattlegroundTracker
             _config.UseDisconect = false;
             _config.save();
         }
+        private void cbBannedTribeImagesSizes_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("150x150");
+            data.Add("200x200");
+            data.Add("250x250");
+            data.Add("300x300");
 
+            // ... Get the ComboBox reference.
+            var comboBox = sender as ComboBox;
+
+
+            // ... Assign the ItemsSource to the List.
+            comboBox.ItemsSource = data;
+
+            // ... Make the first item selected.
+            if (_config.tribeSize != 0)
+            {
+                comboBox.SelectedIndex = _config.tribeSize;
+            }
+            else comboBox.SelectedIndex = 0;
+        }
+        private void cbEnableBannedTribeImages_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.showTribeImages = false;
+            //cbBannedTribeImagesSizes.IsEnabled = false;
+            _config.save();
+        }
+        private void cbEnableBannedTribeColors_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.showTribeColors = true;
+            _config.save();
+        }
+
+        private void cbEnableBannedTribeColors_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.showTribeColors = false;
+            _config.save();
+        }
+
+        private void cbEnableBannedTribeImages_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.showTribeImages = true;
+            //cbBannedTribeImagesSizes.IsEnabled = true;
+            _config.save();
+        }
         private void btnOpenDisconectDialog_Click(object sender, RoutedEventArgs e)
         {
             if (_config.UseDisconect)
             {
-
-
                 Window DisconectButtonWindow = new Window()
                 {
                     Title = "Boomer Button",
@@ -570,6 +516,21 @@ namespace BoonwinsBattlegroundTracker
 
             }
 
+        }
+
+        private void btnOpdenDesigner_Click(object sender, RoutedEventArgs e)
+        {
+            Window OverlayDesignerButton = new Window()
+            {
+                Title = "Overlay Designer",
+                Content = new OverlayDesigner(_config),
+                Height = 550,
+                Width = 850,
+                ResizeMode = ResizeMode.CanResize
+            };
+            OverlayDesigner.GetWindowName(OverlayDesignerButton);
+            OverlayDesignerButton.Show();
+            
         }
     }
 }

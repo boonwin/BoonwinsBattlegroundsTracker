@@ -180,11 +180,11 @@ namespace BoonwinsBattlegroundTracker
         {
             BgMatchData.Update();
 
-            if (_settingsFlyout.IsOpen == false)
-            {
-                _settingsControl.mmrPlus.IsChecked = false;
-                _settingsControl.mmrMinus.IsChecked = false;
-            }
+            //if (_settingsFlyout.IsOpen == false)
+            //{
+            //    _settingsControl.mmrPlus.IsChecked = false;
+            //    _settingsControl.mmrMinus.IsChecked = false;
+            //}
  
         }
 
@@ -196,7 +196,7 @@ namespace BoonwinsBattlegroundTracker
 
         public string Author => "Boonwin";
 
-        public Version Version => new Version(0, 0, 1, 12);
+        public Version Version => new Version(0, 0, 1, 13);
 
         public MenuItem MenuItem => CreateMenu();
 

@@ -13,34 +13,7 @@
             <TabItem Header="Overlay">
                 <StackPanel x:Name="panel" HorizontalAlignment="Left" Margin="20" >
 
-                    <Label Content="Set colors" FontSize="16" Foreground="White" Width="350"></Label>
-                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Pick a Text-Color:" Foreground="White" FontSize="16" Width="150" HorizontalContentAlignment="Left"/>
-                        <xctk:ColorPicker x:Name="cpPickerTextColor" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPicker_SelectedColorChanged" HorizontalContentAlignment="Left"/>
-                    </DockPanel>
-                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Pick +MMR Color:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-                        <xctk:ColorPicker  x:Name="cpPickerPlusMMR" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPickerPlusMMR_SelectedColorChanged" HorizontalContentAlignment="Left"/>
-                        <CheckBox x:Name="mmrPlus" Width="54" Content="Show" Foreground="White" Checked="mmrPlus_Checked" Unchecked="mmrPlus_Unchecked" ></CheckBox>
-                    </DockPanel>
-                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Pick -MMR Color:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-                        <xctk:ColorPicker  x:Name="cpPickerMinusMMR" BorderThickness="1" Height="25" Width="50" Foreground="Black" SelectedColorChanged="cpPickerMinusMMR_SelectedColorChanged" HorizontalContentAlignment="Left"/>
-                        <CheckBox x:Name="mmrMinus" Width="54" Content="Show" Foreground="White" Checked="mmrMinus_Checked" Unchecked="mmrMinus_Unchecked" ></CheckBox>
-                    </DockPanel>
-                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Banned Tribes Colors:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-                        <CheckBox x:Name="cbEnableBannedTribeColors" Width="66" Content="Enabled" Foreground="White" Checked="cbEnableBannedTribeColors_Checked" Unchecked="cbEnableBannedTribeColors_Unchecked"  ></CheckBox>
-                    </DockPanel>
-                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Banned Tribes Images:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-                        <CheckBox x:Name="cbEnableBannedTribeImages" Width="66" Content="Enabled" Foreground="White" Checked="cbEnableBannedTribeImages_Checked" Unchecked="cbEnableBannedTribeImages_Unchecked"  ></CheckBox>
-                    </DockPanel>
-                    <!--<DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
-                        <Label Content="Banned Tribes Images Size:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
-                        <ComboBox x:Name="cbBannedTribeImagesSizes" Width="100" IsEnabled="False" IsEditable="False"  Loaded="cbBannedTribeImagesSizes_Loaded" SelectionChanged="cbBannedTribeImagesSizes_SelectionChanged"/>
-
-                    </DockPanel>-->
+                   
 
                     <Label Content="Set location" FontSize="16" Foreground="White" Width="350"></Label>
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
@@ -51,8 +24,20 @@
                         <Label Content="Tribes Location:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
                         <Button x:Name="btntribesUnlock" Width="124" Content="Unlock Tribes"  Click="btntribesUnlock_Click" ></Button>
                     </DockPanel>
-
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Banned Tribes Colors:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                        <CheckBox x:Name="cbEnableBannedTribeColors" Width="66" Content="Enabled" Foreground="White" Checked="cbEnableBannedTribeColors_Checked" Unchecked="cbEnableBannedTribeColors_Unchecked"  ></CheckBox>
+                    </DockPanel>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Banned Tribes Images:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                        <CheckBox x:Name="cbEnableBannedTribeImages" Width="66" Content="Enabled" Foreground="White" Checked="cbEnableBannedTribeImages_Checked" Unchecked="cbEnableBannedTribeImages_Unchecked"  ></CheckBox>
+                    </DockPanel>
+                    
                     <Label Content="Overlay" FontSize="16" Foreground="White" Width="350"></Label>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Overlay designer:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                        <Button x:Name="btnOpdenDesigner" Width="124" Content="Open"  Click="btnOpdenDesigner_Click" ></Button>
+                    </DockPanel>
                     <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
                         <Label Content="Menu overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
                         <CheckBox x:Name="cbIsBigEmanled" Width="69" Content="Enabled" Foreground="White" Checked="cbIsMenuOverlay_Checked" Unchecked="cbIsMenuOverlay_Unchecked" Height="18"></CheckBox>

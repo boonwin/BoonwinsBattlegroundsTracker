@@ -25,7 +25,7 @@
         <Label x:Name="lbRank6" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,203,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
         <Label x:Name="lbRank7" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,233,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
         <Label x:Name="lbRank8" Foreground="Black" Content="0x" HorizontalAlignment="Left" Margin="105,265,0,0" VerticalAlignment="Top" Height="25" Width="59" HorizontalContentAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic" FontWeight="Bold" BorderThickness="0"/>
-        <Image x:Name="imgTheme" HorizontalAlignment="Left" VerticalAlignment="Top"  Source="Themes/baseTheme.png" Margin="0,0,0,-1" />
+        <Image x:Name="imgTheme" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,-1" />
 
 
         <Label x:Name="tbAvgRankText" Margin="108,291,40,0" Content="Ø-Rank: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="29" VerticalAlignment="Top"/>
@@ -33,12 +33,12 @@
         <Label x:Name="tbMmrText" Margin="8,315,205,0" Content="MMR: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="29" VerticalAlignment="Top"/>
 
 
-        <Label x:Name="tbMmrValueText" Margin="66,316,150,0" Content=" " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="28" VerticalAlignment="Top"/>
+        <Label x:Name="tbMmrValueText" Margin="66,316,150,0" Content="00000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="28" VerticalAlignment="Top"/>
 
 
         <Label x:Name="tbTotalGames" BorderBrush="Black" Margin="-5,291,167,0" Content="Games: " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" Foreground="White" Background="Transparent" Height="29" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="tbMmrValueCangeText" BorderBrush="Black" Margin="116,310,140,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="12" FontWeight="Bold" Background="Transparent" Height="21" VerticalAlignment="Top" Visibility="Hidden"/>
-        <Label x:Name="tbMmrValueNegativeCange" BorderBrush="Black" Margin="116,325,140,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="12" FontWeight="Bold" Background="Transparent" Height="22" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Label x:Name="tbMmrValueCangeText" BorderBrush="Black" Margin="116,310,140,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="12" FontWeight="Bold" Background="Transparent" Height="21" VerticalAlignment="Top" Visibility="Visible"  Foreground="GreenYellow"/>
+        <Label x:Name="tbMmrValueNegativeCange" BorderBrush="Black" Margin="116,325,140,0" Content="0 " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="12" FontWeight="Bold" Background="Transparent" Height="22" VerticalAlignment="Top" Visibility="Visible" Foreground="Red"/>
 
 
         <Label x:Name="tbLeaderboard" Margin="20,338,127,0" Content="?-Leaderboard: " HorizontalContentAlignment="left" VerticalContentAlignment="Center" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" Foreground="White" Background="Transparent" Height="28" VerticalAlignment="Top"/>

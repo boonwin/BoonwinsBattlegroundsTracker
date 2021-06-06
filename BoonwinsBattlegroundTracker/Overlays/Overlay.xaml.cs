@@ -92,6 +92,7 @@ namespace BoonwinsBattlegroundTracker
                 SetBackground(uriTheme);
             }
 
+
             
         }
 

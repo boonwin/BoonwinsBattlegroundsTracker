@@ -20,14 +20,10 @@ namespace BoonwinsBattlegroundTracker
         {
             _tribes = tribesOverlay;
             _config = c;
-            UpdateConfig(c);        
+                
         }
 
-        public void UpdateConfig(Config c)
-        {
-
-
-        }
+     
 
         public bool Toggle()
         {
