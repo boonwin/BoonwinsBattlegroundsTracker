@@ -111,7 +111,7 @@ namespace BoonwinsBattlegroundTracker
         {
             AutoUpdater.InstalledVersion = Version;
             AutoUpdater.AppTitle = "Boonwins Battlegrounds Tracker";
-            AutoUpdater.Start("https://boonwin.de/Downloads/version.xml");
+            AutoUpdater.Start("https://boonwinlegends.000webhostapp.com/downloads/version.xml");
             AutoUpdater.DownloadPath = Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\";
             var currentDirectory = new DirectoryInfo(Hearthstone_Deck_Tracker.Config.AppDataPath + @"\Plugins\BoonwinsBattlegroundTracker\");
             if (currentDirectory.Parent != null)
