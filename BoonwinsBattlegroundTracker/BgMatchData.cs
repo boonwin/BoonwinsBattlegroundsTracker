@@ -43,6 +43,8 @@ namespace BoonwinsBattlegroundTracker
         private static GameRecord _record;
         private static List<GameRecord> _recordList;
         private static TribeAttributesList _tribeAttributesList;
+
+
         private static BoonLeague _boon;
 
         private static int lastRank;
@@ -144,7 +146,7 @@ namespace BoonwinsBattlegroundTracker
                     GetUnavaiableTribes();
                     if (_unavailableTribes != null) { 
                     string[] bannedtribes = _unavailableTribes.Split(',');
-                    if (bannedtribes.Length == 3) {
+                    if (bannedtribes.Length == 4) {
                             letsGo = true;
                     _mmrView.ShowBannedTribes(bannedtribes);
                     GetAndSetBannedTribes();
@@ -188,7 +190,7 @@ namespace BoonwinsBattlegroundTracker
 
                             //_tribes = new TribesOverlay();
                             var missingTribes = GetMissingTribeForInBattleUi();
-                            if (missingTribes.Count() == 3)
+                            if (missingTribes.Count() == 4)
                             {
 
                                 if (_config.showTribeImages == true)
@@ -315,6 +317,14 @@ namespace BoonwinsBattlegroundTracker
             SetOverlayRanksAndStuff();
         }
 
+
+        internal static void RemoveRankManualy(int rank)
+        {
+            Ranks.RemoveRank(rank, _ranks);
+            CalcAvgRank(_ranks);
+            _overlay.SetRanksForOverlay(_ranks, _avgRank);
+            _simpleOverlay.RemoveLastRank(lastRank);
+        }
 
         private static void LoadGameRecordFromFile()
         {
@@ -664,6 +674,10 @@ namespace BoonwinsBattlegroundTracker
                     if (!Core.OverlayCanvas.Children.Contains(_simpleOverlay))
                     {
                         Core.OverlayCanvas.Children.Add(_simpleOverlay);
+                        if (_config.showSimpleOverlayBg) { 
+                        _simpleOverlay.tbRanks.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#242424");
+                        } else _simpleOverlay.tbRanks.Background = Brushes.Transparent;
+
                     }
                 }
                 else

@@ -38,20 +38,32 @@
     <Reference Include="AutoUpdater.NET, Version=1.6.4.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Autoupdater.NET.Official.1.6.4\lib\net45\AutoUpdater.NET.dll</HintPath>
     </Reference>
+    <Reference Include="BobsBuddy, Version=1.2.32.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.24\BobsBuddy.dll</HintPath>
+    </Reference>
     <Reference Include="BoonConector">
       <HintPath>..\..\BoonConector\bin\Debug\BoonConector.dll</HintPath>
     </Reference>
-    <Reference Include="HearthDb, Version=20.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="HearthDb, Version=20.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.15\HearthDb.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.24\HearthDb.dll</HintPath>
     </Reference>
-    <Reference Include="HearthMirror, Version=20.2.2.0, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="HearthMirror, Version=20.4.2.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.15\HearthMirror.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.24\HearthMirror.dll</HintPath>
     </Reference>
-    <Reference Include="HearthstoneDeckTracker, Version=1.14.13.5446, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="HearthstoneDeckTracker, Version=1.14.21.5500, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.15\HearthstoneDeckTracker.exe</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.24\HearthstoneDeckTracker.exe</HintPath>
+    </Reference>
+    <Reference Include="HearthWatcher, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.24\HearthWatcher.dll</HintPath>
+    </Reference>
+    <Reference Include="HSReplay, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.24\HSReplay.dll</HintPath>
     </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
@@ -61,7 +73,7 @@
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.15\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\HearthstoneDeckTracker\app-1.14.24\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>

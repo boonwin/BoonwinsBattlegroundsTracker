@@ -4,10 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BoonwinsBattlegroundTracker"
-             mc:Ignorable="d" Height="145.823" Width="411.519">
-    <Grid>
-        <TextBlock Text="Enter Rank:" Margin="10,16,0,99" />
-        <TextBox x:Name="ResponseTextBox" Margin="10,47,213,66"  />
-        <Button x:Name="btnAddRank" Content="OK" Click="btnAddRank_Click" Width="100" Margin="265,45,47,45" />
+             mc:Ignorable="d" Height="265.219" Width="170.503">
+    <Grid RenderTransformOrigin="0.617,0.348">
+        <TextBlock Text="Enter Rank:" Margin="0,0,0,243"  />
+        <!--<TextBox x:Name="ResponseTextBox" Margin="10,47,213,287"  />-->
+        <!--<Button x:Name="btnAddRank" Content="OK" Click="btnAddRank_Click" Width="100" Margin="265,45,47,277" />-->
+        <Button x:Name="plus1" Content="+1" HorizontalAlignment="Left" Margin="43,38,0,0" VerticalAlignment="Top" Width="36" Click="plus1_Click"/>
+        <Button x:Name="minus1" Content="-1" HorizontalAlignment="Left" Margin="84,38,0,0" VerticalAlignment="Top" Width="36" Click="minus1_Click" IsEnabled="False"/>
+        <Button x:Name="plus2" Content="+2" HorizontalAlignment="Left" Margin="43,63,0,0" VerticalAlignment="Top" Width="36" Click="plus2_Click"/>
+        <Button x:Name="minus2" Content="-2" HorizontalAlignment="Left" Margin="84,63,0,0" VerticalAlignment="Top" Width="36" Click="minus2_Click" IsEnabled="False"/>
+        <Button x:Name="plus3" Content="+3" HorizontalAlignment="Left" Margin="43,88,0,0" VerticalAlignment="Top" Width="36" Click="plus3_Click"/>
+        <Button x:Name="minus3" Content="-3" HorizontalAlignment="Left" Margin="84,88,0,0" VerticalAlignment="Top" Width="36" Click="minus3_Click" IsEnabled="False"/>
+        <Button x:Name="plus4" Content="+4" HorizontalAlignment="Left" Margin="43,113,0,0" VerticalAlignment="Top" Width="36" Click="plus4_Click"/>
+        <Button x:Name="minus4" Content="-4" HorizontalAlignment="Left" Margin="84,113,0,0" VerticalAlignment="Top" Width="36" Click="minus4_Click" IsEnabled="False"/>
+        <Button x:Name="plus5" Content="+5" HorizontalAlignment="Left" Margin="43,138,0,0" VerticalAlignment="Top" Width="36" Click="plus5_Click"/>
+        <Button x:Name="minus5" Content="-5" HorizontalAlignment="Left" Margin="84,138,0,0" VerticalAlignment="Top" Width="36" Click="minus5_Click" IsEnabled="False"/>
+        <Button x:Name="plus6" Content="+6" HorizontalAlignment="Left" Margin="43,163,0,0" VerticalAlignment="Top" Width="36" Click="plus6_Click"/>
+        <Button x:Name="minus6" Content="-6" HorizontalAlignment="Left" Margin="84,163,0,0" VerticalAlignment="Top" Width="36" Click="minus6_Click" IsEnabled="False"/>
+        <Button x:Name="plus7" Content="+7" HorizontalAlignment="Left" Margin="43,188,0,0" VerticalAlignment="Top" Width="36" Click="plus7_Click"/>
+        <Button x:Name="minus7" Content="-7" HorizontalAlignment="Left" Margin="84,188,0,0" VerticalAlignment="Top" Width="36" Click="minus7_Click" IsEnabled="False"/>
+        <Button x:Name="plus8" Content="+8" HorizontalAlignment="Left" Margin="43,213,0,0" VerticalAlignment="Top" Width="36" Click="plus8_Click"/>
+        <Button x:Name="minus8" Content="-8" HorizontalAlignment="Left" Margin="84,213,0,0" VerticalAlignment="Top" Width="36" Click="minus8_Click" IsEnabled="False"/>
+
     </Grid>
 </UserControl>

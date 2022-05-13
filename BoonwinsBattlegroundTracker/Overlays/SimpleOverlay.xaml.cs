@@ -20,20 +20,25 @@ namespace BoonwinsBattlegroundTracker
     /// </summary>
     public partial class SimpleOverlay : UserControl
     {
-        Config _config = new Config();
+       
         public SimpleOverlay()
         {
             InitializeComponent();
         }
 
-        public void SetLastRank(int rank )
+        public void SetLastRank(int rank)
         {    
             
           tbRanks.Text = tbRanks.Text + rank.ToString() + ", ";
                 
         }
 
+        public void RemoveLastRank(int rank)
+        {
+            var myString = tbRanks.Text.Remove(tbRanks.Text.Length - 3);
+            tbRanks.Text = myString;
 
+        }
 
 
     }

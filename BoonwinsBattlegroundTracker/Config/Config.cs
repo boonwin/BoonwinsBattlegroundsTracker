@@ -29,6 +29,7 @@ namespace BoonwinsBattlegroundTracker
         public bool isSoundChecked = false;
         public bool isLeaderboardActivated = false;
         public bool showSimpleOverlay = true;
+        public bool showSimpleOverlayBg = false;
         public string leaderboardName;
 
 

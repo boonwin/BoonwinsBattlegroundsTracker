@@ -532,5 +532,31 @@ namespace BoonwinsBattlegroundTracker
             OverlayDesignerButton.Show();
             
         }
+
+        private void btnOpenEnterDialog_Click(object sender, RoutedEventArgs e)
+        {
+            Window AddRankPromptButton = new Window()
+            {
+                Title = "Add Ranks",
+                Content = new AddRankPrompt(),
+                Height = 550,
+                Width = 850,
+                ResizeMode = ResizeMode.CanResize
+            };
+            OverlayDesigner.GetWindowName(AddRankPromptButton);
+            AddRankPromptButton.Show();
+        }
+
+        private void cbSimpleOverlayBg_Checked(object sender, RoutedEventArgs e)
+        {
+            _config.showSimpleOverlayBg = true;
+            _config.save();
+        }
+
+        private void cbSimpleOverlayBg_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _config.showSimpleOverlayBg = true;
+            _config.save();
+        }
     }
 }

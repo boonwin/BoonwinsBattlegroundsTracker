@@ -54,6 +54,10 @@
                         <Label Content="Simple overlay:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
                         <CheckBox x:Name="cbSimpleOverlay" Width="69" Content="Enabled" Foreground="White" Checked="cbSimpleOverlay_Checked" Unchecked="cbSimpleOverlay_Unchecked" Height="18"></CheckBox>
                     </DockPanel>
+                    <DockPanel Margin="10,10,10,0" Width="350" HorizontalAlignment="Left">
+                        <Label Content="Simple overlay background:" Foreground="White" FontSize="16" Width="225" HorizontalContentAlignment="Left"/>
+                        <CheckBox x:Name="cbSimpleOverlayBg" Width="69" Content="Enabled" Foreground="White" Checked="cbSimpleOverlayBg_Checked" Unchecked="cbSimpleOverlayBg_Unchecked" Height="18"></CheckBox>
+                    </DockPanel>
                     <DockPanel x:Name="LeaderboardNamePanel" Margin="10,10,10,0" Width="350" HorizontalAlignment="Left" IsEnabled="False">
                         <Label Content="Name (without Number):" Foreground="White" FontSize="16" Width="219" HorizontalContentAlignment="Left"/>
                         <TextBox x:Name="cbLeaderboardName" Width="126" Text="Enter Ingame Name"   Height="18"></TextBox>
@@ -109,7 +113,10 @@
                         <TextBlock Text="TO USE DISCONECTOR YOU NEED TO START DECK TRACKER AS ADMIN! AND HEARTHSTONE NEEDS TO RUN!" Foreground="Red" TextWrapping="Wrap" Height="43"/>
                     </DockPanel>
                     <DockPanel>
-                        <Button x:Name="btnOpenDisconectDialog" Content="Open Disconect Window" Click="btnOpenDisconectDialog_Click" IsEnabled="True"></Button>
+                        <Button x:Name="btnOpenDisconectDialog" Content="Open Disconect-Window" Click="btnOpenDisconectDialog_Click" IsEnabled="True"></Button>
+                    </DockPanel>
+                    <DockPanel>
+                        <Button x:Name="btnOpenEnterDialog" Content="Open Stats-Window" Click="btnOpenEnterDialog_Click" IsEnabled="True"></Button>
                     </DockPanel>
                 </StackPanel>
             </TabItem>

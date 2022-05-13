@@ -196,7 +196,7 @@ namespace BoonwinsBattlegroundTracker
 
         public string Author => "Boonwin";
 
-        public Version Version => new Version(0, 0, 1, 13);
+        public Version Version => new Version(0, 0, 1, 15);
 
         public MenuItem MenuItem => CreateMenu();
 
